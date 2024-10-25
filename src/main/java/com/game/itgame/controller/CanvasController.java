@@ -16,6 +16,8 @@ public class CanvasController {
     private Sword sword;
     private MapRender map;
     private KeyHandle key;
+
+//    Khai báo canvas.
     @FXML
     private Canvas canvas;
 
@@ -27,20 +29,27 @@ public class CanvasController {
         sword = new Sword();
         key = new KeyHandle(scene);
 
+//        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
         AnimationTimer animation = new AnimationTimer() {
             private long lastTime = 0;
             @Override
             public void handle(long now) {
+//                Tính thời gian giữa 2 frame.
                 double deltaTime = (now - lastTime);
                 lastTime = now;
+
+//                Set màu nền cho canvas.
                 ctx.setFill(javafx.scene.paint.Color.BLACK);
                 ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+//                Vẽ và cập nhật trạng thái của player map và sword.
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 sword.draw(ctx, player, deltaTime);
             }
         };
 
+//        Bắt đầu vòng lặp.
         animation.start();
     }
 }

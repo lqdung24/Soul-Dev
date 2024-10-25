@@ -13,6 +13,7 @@ public class runGame {
 
     public static void run(Scene scene) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(runGame.class.getResource("/com/game/itgame/canvas.fxml"));
+
         Image cursor = new Image(Objects.requireNonNull(runGame.class.getResourceAsStream("/images/cursorImage/cursor.png")));
         scene.setRoot(fxmlLoader.load());
         scene.setCursor(new ImageCursor(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2));

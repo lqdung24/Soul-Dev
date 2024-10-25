@@ -5,6 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class EntityRender extends EntityMove implements Entity {
+    protected double x;
+    protected double y;
     protected double width;
     protected double height;
     protected double imageWidth;
@@ -14,7 +16,8 @@ public class EntityRender extends EntityMove implements Entity {
     private double time = 0;
 
     public EntityRender(double x, double y, GraphicsContext ctx) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
         this.ctx = ctx;
     }
 
@@ -28,6 +31,7 @@ public class EntityRender extends EntityMove implements Entity {
     public void draw(double deltaTime) {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
 
+//        Chỉnh thơi gian chuyển frame
         if (time > 300) {
             if (frameIndex >= frameLength) {
                 frameIndex = 0;

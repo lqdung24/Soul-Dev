@@ -18,8 +18,10 @@ public abstract class WeaponRender implements Weapon {
             mouseY = e.getY();
         });
 
+//        Check attack.
         attack(ctx, deltaTime);
 
+//        Draw weapon.
         ctx.save();
         ctx.translate(player.getX() + 15, player.getY() + 20);
         ctx.rotate(Math.toDegrees(Math.atan2(player.getX() + 15  - mouseX, mouseY - 20 - player.getY()) + Math.PI / 2));

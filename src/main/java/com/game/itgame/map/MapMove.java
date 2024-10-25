@@ -24,6 +24,7 @@ public abstract class MapMove extends MapMatrix implements Map{
             velocityX = 5;
         }
 
+//        Tính toán vị trí mới của player rồi thay đổi vị trí của map.
         double sqrt = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (sqrt == 0) {
             return;
