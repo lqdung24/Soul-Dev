@@ -4,11 +4,14 @@ package com.game.itgame.map;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
+import java.util.Objects;
 
 public class MapRender extends MapMove implements Map {
-    private double mapFrameSize = 16.05;
-    private int startX = 6;
-    private int startY = 6;
+    private double mapFrameSize = 30;
+    private int startX = 20;
+    private int startY = 16;
 
     public void mapRender(GraphicsContext ctx, Player player, KeyHandle key) {
         mapMove(player, key);
@@ -17,11 +20,13 @@ public class MapRender extends MapMove implements Map {
 
         ctx.save();
         ctx.translate(mapX, mapY);
-        for (int i = 0; i < mapImageIndex.length; i++) {
-            for (int j = 0; j < mapImageIndex[i].length; j++) {
-                ctx.drawImage(mapImage, mapImageIndex[i][j][0] * mapFrameSize, mapImageIndex[i][j][1] * mapFrameSize, mapFrameSize, mapFrameSize, j * 30, i * 30, 30, 30);
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                ctx.drawImage(mapImageIndex[map[i][j]], 0, 0, 512, 512, j * 30, i * 30, 30, 30);
             }
         }
         ctx.restore();
     }
+
+
 }
