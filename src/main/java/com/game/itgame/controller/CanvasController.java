@@ -33,7 +33,8 @@ public class CanvasController {
             public void handle(long now) {
                 double deltaTime = (now - lastTime);
                 lastTime = now;
-                ctx.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                ctx.setFill(javafx.scene.paint.Color.BLACK);
+                ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 sword.draw(ctx, player, deltaTime);
