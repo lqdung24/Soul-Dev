@@ -1,9 +1,6 @@
 package com.game.itgame.weapon.sword;
 
-import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.WeaponAttack;
-import com.game.itgame.weapon.WeaponRender;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.Objects;
