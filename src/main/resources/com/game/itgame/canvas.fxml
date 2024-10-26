@@ -8,6 +8,6 @@
             fx:controller="com.game.itgame.controller.CanvasController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <Canvas fx:id="canvas" width="1200" height="800"/>
+    <Canvas fx:id="canvas" width="1200" height="600"/>
 
 </AnchorPane>

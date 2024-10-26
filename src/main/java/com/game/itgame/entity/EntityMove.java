@@ -20,4 +20,7 @@ public abstract class EntityMove implements Entity {
             this.frameLength = 6;
         }
     }
+    public double getVerticalSpeed(){
+        return verticalSpeed;
+    }
 }
