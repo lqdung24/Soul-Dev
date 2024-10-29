@@ -1,12 +1,13 @@
-package com.game.itgame.entity;
+package com.game.itgame.entity.Enemy;
 
-import com.game.itgame.eventHandle.KeyHandle;
+import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class EntityRender extends EntityMove implements EntityInterface {
-    protected double x;
-    protected double y;
+public class EnemyRender extends EnemyMove implements Enemy {
+    public double x;
+    public double y;
     protected double width;
     protected double height;
     protected double imageWidth;
@@ -15,16 +16,21 @@ public class EntityRender extends EntityMove implements EntityInterface {
     protected Image image;
     private double time = 0;
     protected double damage;
-    protected double Hp;
+    protected double collisionDamage = 1;
 
-    public EntityRender(double x, double y, GraphicsContext ctx) {
+    public EnemyRender(double x, double y, GraphicsContext ctx) {
         this.x = x;
         this.y = y;
         this.ctx = ctx;
     }
 
     @Override
-    public void update(double deltaTime, KeyHandle key) {
+    public void update(double deltaTime, EnemyHandle key, MapMove map) {
+        key.moveEnemy(this);
+        //update vi tri tuong doi do nhan vat di chuyen
+        this.x -= map.getOffsetX();
+        this.y -= map.getOffsetY();
+
         move(key);
         draw(deltaTime);
     }
@@ -53,15 +59,8 @@ public class EntityRender extends EntityMove implements EntityInterface {
     public double getWidth() {
         return width;
     }
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getVerticalSpeed() {
+    public double getSpeed() {
         return verticalSpeed;
     }
+
 }

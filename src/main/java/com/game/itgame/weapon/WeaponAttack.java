@@ -8,6 +8,7 @@ public abstract class WeaponAttack extends WeaponRender implements Weapon {
 
     @Override
     public void attack(GraphicsContext ctx, double deltaTime) {
+
        if (!onAttack) {
            ctx.getCanvas().setOnMouseClicked(e -> {
                onAttack = true;
