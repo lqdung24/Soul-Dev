@@ -1,5 +1,6 @@
 package com.game.itgame.entity;
 
+import com.game.itgame.entity.player.HealthBar;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,7 +16,7 @@ public class EntityRender extends EntityMove implements EntityInterface {
     protected Image image;
     private double time = 0;
     protected double damage;
-    protected double Hp;
+    public double Hp;
 
     public EntityRender(double x, double y, GraphicsContext ctx) {
         this.x = x;

@@ -2,7 +2,6 @@ package com.game.itgame.entity.Enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import java.util.Objects;
 
 public class Ghost extends EnemyRender {

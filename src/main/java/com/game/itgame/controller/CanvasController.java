@@ -44,7 +44,6 @@ public class CanvasController {
 //                Tính thời gian giữa 2 frame.
                 double deltaTime = (now - lastTime);
                 lastTime = now;
-
 //                Set màu nền cho canvas.
                 ctx.setFill(javafx.scene.paint.Color.BLACK);
                 ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -54,6 +53,13 @@ public class CanvasController {
                 player.update(deltaTime, key);
                 ghost.update(deltaTime, move, map);
                 sword.draw(ctx, player, deltaTime);
+
+                if(player.Hp <= 0){
+                    player.update(deltaTime, key);
+                    System.out.println("You Die");
+                    ctx.fillText("You die!!!", 500, 500, 500);
+                    this.stop();
+                }
             }
         };
 

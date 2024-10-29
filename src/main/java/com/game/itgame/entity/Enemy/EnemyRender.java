@@ -17,6 +17,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
     private double time = 0;
     protected double damage;
     protected double collisionDamage = 1;
+    public double collisionTimer = 0;
 
     public EnemyRender(double x, double y, GraphicsContext ctx) {
         this.x = x;
@@ -30,8 +31,8 @@ public class EnemyRender extends EnemyMove implements Enemy {
         //update vi tri tuong doi do nhan vat di chuyen
         this.x -= map.getOffsetX();
         this.y -= map.getOffsetY();
-
         move(key);
+        key.collisionPlayer(this, deltaTime/1_000_000);
         draw(deltaTime);
     }
 
@@ -62,5 +63,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
     public double getSpeed() {
         return verticalSpeed;
     }
-
+    public double getCollisionDamage() {
+        return collisionDamage;
+    }
 }
