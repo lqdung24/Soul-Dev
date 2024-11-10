@@ -23,7 +23,7 @@ public abstract class WeaponRender implements Weapon {
 
         double angle = Math.toDegrees(Math.atan2(player.getX() + 15  - mouseX, mouseY - 20 - player.getY()) + Math.PI / 2);
 //        Check attack.
-        attack(ctx, deltaTime,player, enemies, angle);
+        attack(ctx, deltaTime, player, enemies, angle);
 
 //        Draw weapon.
         ctx.save();

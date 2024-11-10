@@ -1,8 +1,12 @@
 package com.game.itgame.weapon.sword;
 
+import com.game.itgame.entity.Enemy.EnemyRender;
+import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.WeaponAttack;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Sword extends WeaponAttack {
@@ -12,6 +16,11 @@ public class Sword extends WeaponAttack {
     public Sword() {
         weaponImageLength = swordImageLength;
         weaponImage = swordImage;
+    }
+
+    @Override
+    public void draw(GraphicsContext ctx, Player player, double deltaTime, List<EnemyRender> enemies) {
+
     }
 
     @Override
