@@ -18,7 +18,7 @@ public class Player extends EntityRender {
         this.imageHeight = 523;
         this.frameLength = 6;
         this.frameStateIndex = 0;
-        this.verticalSpeed = 10;
+        this.verticalSpeed = 5;
 
         this.damage = 2;
         this.Hp = 2;

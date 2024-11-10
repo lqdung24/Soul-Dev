@@ -66,4 +66,12 @@ public class EnemyRender extends EnemyMove implements Enemy {
     public double getCollisionDamage() {
         return collisionDamage;
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }
