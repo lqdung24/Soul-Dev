@@ -23,8 +23,7 @@ public class CanvasController {
     private MapRender map;
     private KeyHandle key;
     private EnemyHandle move;
-    private Ghost ghost;
-    private List<EnemyRender> enemies = new ArrayList<>();
+    private final List<EnemyRender> enemies = new ArrayList<>();
 
 //    Khai báo canvas.
     @FXML
@@ -37,7 +36,7 @@ public class CanvasController {
         map = new MapRender();
         sword = new Sword();
         key = new KeyHandle(scene);
-        ghost = new Ghost(canvas.getWidth() / 2 + 200, canvas.getHeight() / 2 + 200, ctx);
+        Ghost ghost = new Ghost(canvas.getWidth() / 2 + 200, canvas.getHeight() / 2 + 200, ctx);
         enemies.add(ghost);
         move = new EnemyHandle(player);
         map.setGhost(ghost);
@@ -59,7 +58,7 @@ public class CanvasController {
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                sword.draw(ctx, player,enemies, deltaTime);
+                sword.draw(ctx, player, enemies, deltaTime);
 
                 if(player.Hp <= 0){
                     player.update(deltaTime, key);
