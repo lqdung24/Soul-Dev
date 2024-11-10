@@ -2,7 +2,7 @@ package com.game.itgame.entity;
 
 import com.game.itgame.eventHandle.KeyHandle;
 
-public abstract class EntityMove implements Entity {
+public abstract class EntityMove  implements EntityInterface {
     protected double verticalSpeed;
     protected int frameStateIndex;
     protected int frameLength;
@@ -19,5 +19,8 @@ public abstract class EntityMove implements Entity {
             this.frameStateIndex = 0;
             this.frameLength = 6;
         }
+    }
+    public double getVerticalSpeed(){
+        return verticalSpeed;
     }
 }

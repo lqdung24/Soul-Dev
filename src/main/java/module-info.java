@@ -20,4 +20,5 @@ module com.game.itgame {
     exports com.game.itgame.gameStart;
     exports com.game.itgame.entity;
     exports com.game.itgame.eventHandle;
+    exports com.game.itgame.test;
 }

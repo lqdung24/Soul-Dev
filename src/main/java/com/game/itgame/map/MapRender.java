@@ -1,6 +1,7 @@
 package com.game.itgame.map;
 
 
+import com.game.itgame.entity.Enemy.Ghost;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,12 +14,14 @@ public class MapRender extends MapMove implements Map {
     private int startX = 2;
     private int startY = 2;
 
+
+
     public void mapRender(GraphicsContext ctx, Player player, KeyHandle key) {
         mapMove(player, key);
         double mapX = ctx.getCanvas().getWidth() / 2 - (startX * mapFrameSize + mapFrameSize / 2) -x ;
         double mapY = ctx.getCanvas().getHeight() / 2 - (startY * mapFrameSize + mapFrameSize / 2) -y ;
 
-//        Lưu trạng thaái ban đầu của canvas.
+//        Lưu trạng thái ban đầu của canvas.
         ctx.save();
 //        Di chuyển tới vị trí đầu tiên của map.
         ctx.translate(mapX, mapY);
