@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Weapon {
     void draw(GraphicsContext ctx, Player player, double deltaTime, List<EnemyRender> enemies);
-    void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle);
+    void attack(GraphicsContext ctx, Player player, List<EnemyRender> enemies, double deltaTime);
     void reload();
     void changeWeapon();
     void useWeapon();

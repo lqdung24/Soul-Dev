@@ -59,7 +59,7 @@ public class CanvasController {
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                sword.draw(ctx, player, deltaTime, enemies);
+                sword.draw(ctx, player,enemies, deltaTime);
 
                 if(player.Hp <= 0){
                     player.update(deltaTime, key);

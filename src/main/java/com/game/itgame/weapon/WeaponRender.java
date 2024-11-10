@@ -15,7 +15,7 @@ public abstract class WeaponRender implements Weapon {
     private double mouseY;
 
     @Override
-    public void draw(GraphicsContext ctx, Player player, double deltaTime, List<EnemyRender> enemies) {
+    public void draw(GraphicsContext ctx, Player player, List<EnemyRender> enemies, double deltaTime) {
         ctx.getCanvas().setOnMouseMoved(e -> {
             mouseX = e.getX();
             mouseY = e.getY();
