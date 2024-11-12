@@ -1,4 +1,4 @@
-package com.game.itgame.entity.Enemy;
+package com.game.itgame.entity.enemy;
 
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.map.MapMove;
@@ -18,6 +18,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
     protected double damage;
     protected double collisionDamage = 1;
     public double collisionTimer = 0;
+    public double Hp;
 
     public EnemyRender(double x, double y, GraphicsContext ctx) {
         this.x = x;
@@ -32,7 +33,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
         this.x -= map.getOffsetX();
         this.y -= map.getOffsetY();
         move(key);
-        key.collisionPlayer(this, deltaTime/1_000_000);
+        key.collisionPlayer(this, deltaTime);
         draw(deltaTime);
     }
 
@@ -65,5 +66,13 @@ public class EnemyRender extends EnemyMove implements Enemy {
     }
     public double getCollisionDamage() {
         return collisionDamage;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

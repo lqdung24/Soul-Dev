@@ -1,7 +1,8 @@
 package com.game.itgame.controller;
 
-import com.game.itgame.entity.Enemy.EnemyRender;
-import com.game.itgame.entity.Enemy.Ghost;
+import com.game.itgame.entity.enemy.EnemyRender;
+import com.game.itgame.entity.enemy.Ghost;
+import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.weapon.sword.Sword;
@@ -36,8 +37,11 @@ public class CanvasController {
         map = new MapRender();
         sword = new Sword();
         key = new KeyHandle(scene);
-        for (int i = 0; i < 1000; i++) {
-            enemies.add(new Ghost(canvas.getWidth() / 2 + Math.random() * map.getMap()[0].length * map.getMapFrameSize() - 100, canvas.getHeight() + Math.random() * map.getMap().length * map.getMapFrameSize() / 2 - 300, ctx));
+        for (int i = 0; i < 5; i++) {
+            double randomX = canvas.getWidth() / 2 + Math.random() * map.getMap()[0].length * map.getMapFrameSize() - 100;
+            double randomY = canvas.getHeight() + Math.random() * map.getMap().length * map.getMapFrameSize() / 2 - 300;
+            //enemies.add(new Ghost( randomX, randomY, ctx));
+            enemies.add(new Mob2(randomX, randomY, ctx));
         }
         move = new EnemyHandle(player);
 //        map.setGhost(ghost);
