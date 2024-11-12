@@ -56,4 +56,8 @@ public abstract class MapMatrix extends MapImage {
     public int getValue(int i, int j){
         return map[i][j];
     }
+
+    public int[][] getMap() {
+        return map;
+    }
 }

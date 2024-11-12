@@ -1,15 +1,13 @@
 package com.game.itgame.map;
 
-
-import com.game.itgame.entity.Enemy.Ghost;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.Objects;
 
 public class MapRender extends MapMove implements Map {
+    private double mapFrameSize = 30;
+    private int startX = 2;
+    private int startY = 2;
 
 
 
@@ -29,7 +27,8 @@ public class MapRender extends MapMove implements Map {
             }
         }
 //        Trả về trạng thái ban đầu của canvas.
-
         ctx.restore();
     }
+
+
 }
