@@ -21,7 +21,7 @@ public class Player extends EntityRender {
         this.verticalSpeed = 5;
 
         this.damage = 2;
-        this.Hp = 2;
+        this.Hp = 10;
         this.bar = new HealthBar(ctx, this);
     }
     @Override

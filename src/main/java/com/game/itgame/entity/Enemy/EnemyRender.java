@@ -32,7 +32,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
         this.x -= map.getOffsetX();
         this.y -= map.getOffsetY();
         move(key);
-        key.collisionPlayer(this, deltaTime/1_000_000);
+        key.collisionPlayer(this, deltaTime);
         draw(deltaTime);
     }
 

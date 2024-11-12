@@ -1,13 +1,8 @@
 package com.game.itgame.map;
 
-
-import com.game.itgame.entity.Enemy.Ghost;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.Objects;
 
 public class MapRender extends MapMove implements Map {
     private double mapFrameSize = 30;

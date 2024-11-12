@@ -20,7 +20,7 @@ public abstract class MapMove extends MapMatrix implements Map{
         double velocityX = 0;
         double velocityY = 0;
         double newX = x + startX * mapFrameSize;
-        double newY = y + startX * mapFrameSize;
+        double newY = y + startY * mapFrameSize;
         offsetY = offsetX = 0;
 
         if (key.up && !CollisionHandle.isCollision(player, this, 1, newX, newY)) {

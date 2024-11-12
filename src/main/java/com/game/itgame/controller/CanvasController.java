@@ -36,10 +36,11 @@ public class CanvasController {
         map = new MapRender();
         sword = new Sword();
         key = new KeyHandle(scene);
-        Ghost ghost = new Ghost(canvas.getWidth() / 2 + 200, canvas.getHeight() / 2 + 200, ctx);
-        enemies.add(ghost);
+        for (int i = 0; i < 1000; i++) {
+            enemies.add(new Ghost(canvas.getWidth() / 2 + Math.random() * map.getMap()[0].length * map.getMapFrameSize() - 100, canvas.getHeight() + Math.random() * map.getMap().length * map.getMapFrameSize() / 2 - 300, ctx));
+        }
         move = new EnemyHandle(player);
-        map.setGhost(ghost);
+//        map.setGhost(ghost);
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
         AnimationTimer animation = new AnimationTimer() {
@@ -47,7 +48,7 @@ public class CanvasController {
             @Override
             public void handle(long now) {
 //                Tính thời gian giữa 2 frame.
-                double deltaTime = (now - lastTime);
+                double deltaTime = (now - lastTime) / 1000000.0;
                 lastTime = now;
 
 //                Set màu nền cho canvas.
