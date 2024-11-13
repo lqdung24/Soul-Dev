@@ -4,13 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.util.Objects;
 
-public class Mob2 extends EnemyRender {
-
-    public Mob2(int x, int y, GraphicsContext ctx) {
+public class Mob1 extends EnemyRender {
+    public boolean attacking = false;
+    public Mob1(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 60;
-        this.height = 60;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2walk.png")));
+        this.width = 30;
+        this.height = 30;
+        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 3;

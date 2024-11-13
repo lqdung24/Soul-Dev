@@ -2,6 +2,7 @@ package com.game.itgame.controller;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Ghost;
+import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
@@ -37,13 +38,20 @@ public class CanvasController {
         map = new MapRender();
         sword = new Sword();
         key = new KeyHandle(scene);
-        for (int i = 0; i < 5; i++) {
-            double randomX = canvas.getWidth() / 2 + Math.random() * map.getMap()[0].length * map.getMapFrameSize() - 100;
-            double randomY = canvas.getHeight() + Math.random() * map.getMap().length * map.getMapFrameSize() / 2 - 300;
+        for (int i = 0; i < 8; i++) {
+            int randomX = (int) (Math.random()*30) - 5;
+            int randomY = (int) (Math.random()*30) - 5;
             //enemies.add(new Ghost( randomX, randomY, ctx));
-            enemies.add(new Mob2(randomX, randomY, ctx));
+
+            if(i % 2 == 0){
+                enemies.add(new Mob2(randomX, randomY, ctx));
+            }else{
+                enemies.add(new Mob1(randomX, randomY, ctx)); // toa d
+            }
         }
-        move = new EnemyHandle(player);
+        //enemies.add(new Mob1(canvas.getWidth()/2-15-2*30 + 16*30, canvas.getHeight()/2-15-2*30 + 16*30, ctx)); // toa do: (16,16)
+
+        move = new EnemyHandle(player, map);
 //        map.setGhost(ghost);
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.

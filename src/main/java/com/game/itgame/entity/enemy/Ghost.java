@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Ghost extends EnemyRender {
 
-    public Ghost(double x, double y, GraphicsContext ctx) {
+    public Ghost(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 30;
         this.height = 30;
