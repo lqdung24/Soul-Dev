@@ -21,5 +21,5 @@ module com.game.itgame {
     exports com.game.itgame.entity;
     exports com.game.itgame.eventHandle;
     exports com.game.itgame.test;
-    exports com.game.itgame.entity.Enemy;
+    exports com.game.itgame.entity.enemy;
 }

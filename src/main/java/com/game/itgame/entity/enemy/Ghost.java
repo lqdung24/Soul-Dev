@@ -1,4 +1,4 @@
-package com.game.itgame.entity.Enemy;
+package com.game.itgame.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
