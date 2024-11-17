@@ -1,6 +1,6 @@
 package com.game.itgame.map;
 
-import com.game.itgame.entity.enemy.Ghost;
+import com.game.itgame.entity.Enemy.Ghost;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.CollisionHandle;
 import com.game.itgame.eventHandle.KeyHandle;

@@ -1,9 +1,8 @@
 package com.game.itgame.controller;
 
-import com.game.itgame.entity.enemy.EnemyRender;
-import com.game.itgame.entity.enemy.Ghost;
-import com.game.itgame.entity.enemy.Mob1;
-import com.game.itgame.entity.enemy.Mob2;
+import com.game.itgame.entity.Enemy.EnemyRender;
+import com.game.itgame.entity.Enemy.Mob1;
+import com.game.itgame.entity.Enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.weapon.sword.Sword;

@@ -1,6 +1,6 @@
 package com.game.itgame.weapon;
 
-import com.game.itgame.entity.enemy.EnemyRender;
+import com.game.itgame.entity.Enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

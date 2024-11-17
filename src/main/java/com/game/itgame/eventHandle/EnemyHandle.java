@@ -1,7 +1,7 @@
 package com.game.itgame.eventHandle;
 
-import com.game.itgame.entity.enemy.EnemyRender;
-import com.game.itgame.entity.enemy.Mob1;
+import com.game.itgame.entity.Enemy.EnemyRender;
+import com.game.itgame.entity.Enemy.Mob1;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 
