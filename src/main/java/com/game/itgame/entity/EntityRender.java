@@ -1,6 +1,5 @@
 package com.game.itgame.entity;
 
-import com.game.itgame.entity.player.HealthBar;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

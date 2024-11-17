@@ -1,4 +1,4 @@
-package com.game.itgame.entity.Enemy;
+package com.game.itgame.entity.enemy;
 
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.map.MapMove;
