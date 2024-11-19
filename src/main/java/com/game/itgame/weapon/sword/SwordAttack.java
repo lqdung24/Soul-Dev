@@ -1,17 +1,19 @@
-package com.game.itgame.weapon;
+package com.game.itgame.weapon.sword;
 
-import com.game.itgame.entity.Enemy.EnemyRender;
+import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class WeaponAttack extends WeaponRender implements Weapon {
+public abstract class SwordAttack extends SwordRender implements Weapon {
     private boolean onAttack = false;
     private boolean isCoolDown = false;
     private double timer = 0;
     Iterator<EnemyRender> iterator;
     private final double coolDown = 400;
+
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
        if (!onAttack) {
@@ -34,12 +36,12 @@ public abstract class WeaponAttack extends WeaponRender implements Weapon {
                }
            }
            if (timer > 30) {
-               if (weaponIndex >= weaponImageLength) {
-                   weaponIndex = 0;
+               if (swordIndex >= swordImageLength) {
+                   swordIndex = 0;
                    onAttack = false;
                    isCoolDown = true;
                } else {
-                   weaponIndex++;
+                   swordIndex++;
                }
            }
        }

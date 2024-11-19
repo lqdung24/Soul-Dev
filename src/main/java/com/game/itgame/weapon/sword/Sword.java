@@ -1,21 +1,19 @@
 package com.game.itgame.weapon.sword;
 
-import com.game.itgame.entity.Enemy.EnemyRender;
+import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
-import com.game.itgame.weapon.WeaponAttack;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Sword extends WeaponAttack {
-    private Image swordImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/sword.png")));
-    private int swordImageLength = 3;
+public class Sword extends SwordAttack {
 
     public Sword() {
-        weaponImageLength = swordImageLength;
-        weaponImage = swordImage;
+        this.swordImageLength = swordImageLength;
+        swordImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/sword.png")));
+        swordImageLength = 3;
     }
 
     @Override
