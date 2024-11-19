@@ -5,6 +5,7 @@ import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.weapon.bow.Bow;
 import com.game.itgame.weapon.sword.Sword;
 import com.game.itgame.eventHandle.KeyHandle;
 import com.game.itgame.map.MapRender;
@@ -21,6 +22,7 @@ public class CanvasController {
     private GraphicsContext ctx;
     private Player player;
     private Sword sword;
+    private Bow bow;
     private MapRender map;
     private KeyHandle key;
     private EnemyHandle move;
@@ -36,8 +38,9 @@ public class CanvasController {
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
         map = new MapRender();
         sword = new Sword();
+        bow = new Bow();
         key = new KeyHandle(scene);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 1; i++) {
             int randomX = (int) (Math.random()*30) - 5;
             int randomY = (int) (Math.random()*30) - 5;
             //enemies.add(new Ghost( randomX, randomY, ctx));
@@ -70,7 +73,7 @@ public class CanvasController {
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                sword.draw(ctx, player, enemies, deltaTime);
+                bow.draw(ctx, player, enemies, deltaTime);
 
                 if(player.Hp <= 0){
                     player.update(deltaTime, key);
