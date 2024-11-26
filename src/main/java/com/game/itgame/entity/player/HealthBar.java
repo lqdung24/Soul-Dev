@@ -31,7 +31,7 @@ public class HealthBar{
      }
 
     public void draw(double deltaTime) {
-         ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 100);
+         ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 120);
          ctx.drawImage(image, entityRender.Hp * imageWidth, 0,
                     imageWidth, imageHeight, x, y, width, height);
 
