@@ -1,5 +1,6 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.eventHandle.Skill;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.util.Objects;
