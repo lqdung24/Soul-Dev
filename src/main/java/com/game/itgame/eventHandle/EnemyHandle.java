@@ -75,4 +75,10 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
                 map.getValue(rowBottomRight, colBottomRight) != 0;
     }
+    public boolean checkDamage(EnemyRender enemy){
+        dx = player.getX() - enemy.x;
+        dy = player.getY() - enemy.y;
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < 50;
+    }
 }

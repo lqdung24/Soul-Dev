@@ -48,13 +48,11 @@ public class CanvasController {
             if(i % 2 == 0){
                 enemies.add(new Mob2(randomX, randomY, ctx));
             }else{
-                enemies.add(new Mob1(randomX, randomY, ctx)); // toa d
+                enemies.add(new Mob1(randomX, randomY, ctx, player)); // toa d
             }
         }
-        //enemies.add(new Mob1(canvas.getWidth()/2-15-2*30 + 16*30, canvas.getHeight()/2-15-2*30 + 16*30, ctx)); // toa do: (16,16)
-
+        enemies.add(new Mob1(16, 16, ctx, player));
         move = new EnemyHandle(player, map);
-//        map.setGhost(ghost);
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
         AnimationTimer animation = new AnimationTimer() {
