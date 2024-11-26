@@ -2,6 +2,7 @@ package com.game.itgame.weapon.bow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

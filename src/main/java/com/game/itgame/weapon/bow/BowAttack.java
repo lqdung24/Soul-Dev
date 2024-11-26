@@ -2,6 +2,7 @@ package com.game.itgame.weapon.bow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Weapon;
 import com.game.itgame.weapon.arrow.Arrow;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,7 +18,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
     Iterator<EnemyRender> iterator;
     private final double coolDown = 400;
     private List<Arrow> arrows = new ArrayList<>();
-
+    protected MapMove map;
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
         ctx.getCanvas().setOnMouseDragged(e -> {
@@ -73,13 +74,14 @@ public abstract class BowAttack extends BowRender implements Weapon {
         if (arrows != null) {
             for (Arrow arrow : arrows) {
                 if (arrow.getIsAttacked()) {
-                    arrow.render(ctx, enemies);
+                    arrow.render(ctx, enemies, map);
                     arrows.remove(arrow);
                     return;
                 }
 
-                arrow.render(ctx, enemies);
+                arrow.render(ctx, enemies, map);
             }
         }
     }
+
 }

@@ -2,6 +2,7 @@ package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -17,8 +18,8 @@ public abstract class ArrowRender {
     private Iterator<EnemyRender> iterator;
     private boolean isAttacked = false;
 
-    public void render(GraphicsContext ctx, List<EnemyRender> enemies) {
-        move();
+    public void render(GraphicsContext ctx, List<EnemyRender> enemies, MapMove map) {
+        move(map);
 
         ctx.save();
         ctx.translate(arrowX + 15, arrowY + 20);
@@ -29,9 +30,9 @@ public abstract class ArrowRender {
         attack(enemies);
     }
 
-    public void move() {
-        arrowX += speed * Math.cos(Math.toRadians(arrowAngle));
-        arrowY += speed * Math.sin(Math.toRadians(arrowAngle));
+    public void move(MapMove map) {
+        arrowX += speed * Math.cos(Math.toRadians(arrowAngle)) - map.getOffsetX();
+        arrowY += speed * Math.sin(Math.toRadians(arrowAngle)) - map.getOffsetY();
     }
 
     public void attack(List<EnemyRender> enemies) {

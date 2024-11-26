@@ -38,7 +38,7 @@ public class CanvasController {
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
         map = new MapRender();
         sword = new Sword();
-        bow = new Bow();
+        bow = new Bow(map);
         key = new KeyHandle(scene);
         for (int i = 0; i < 1; i++) {
             int randomX = (int) (Math.random()*30) - 5;
