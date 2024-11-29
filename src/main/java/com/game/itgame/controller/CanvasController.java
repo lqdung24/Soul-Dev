@@ -71,9 +71,11 @@ public class CanvasController {
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                //sword.draw(ctx, player, enemies, deltaTime);
-                bow.draw(ctx, player, enemies, deltaTime);
-
+                if(key.firstWeapon){
+                    sword.draw(ctx, player, enemies, deltaTime);
+                }else{
+                    bow.draw(ctx, player, enemies, deltaTime);
+                }
                 if(player.Hp <= 0){
                     player.update(deltaTime, key);
                     System.out.println("You Die");
