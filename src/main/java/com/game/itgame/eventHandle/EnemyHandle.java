@@ -2,6 +2,7 @@ package com.game.itgame.eventHandle;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
+import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 
@@ -28,7 +29,6 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
             if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){// nếu va chạm thì thôi
                 enemy.moveRight = false;
                 enemy.moveLeft = false;
-                System.out.println("o no");
                 return;
             }
         }
@@ -52,6 +52,7 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
                 || player.getY() + player.getHeight() < enemy.y || enemy.y + enemy.getHeight() < player.getY()) {
             return;
         }
+
         enemy.collisionTimer += deltatime;
 
         if(enemy.collisionTimer >= 1000){
@@ -80,5 +81,25 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         dy = player.getY() - enemy.y;
         double distance = Math.sqrt(dx * dx + dy * dy);
         return distance < 50;
+    }
+    public void moveRandom(EnemyRender enemy){
+        double angle = enemy.attack1.angle;
+        double dx = enemy.getVerticalSpeed() * Math.cos(angle);
+        double dy = enemy.getVerticalSpeed() * Math.sin(angle);
+        if (enemy instanceof Mob1) {
+            if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){// nếu va chạm thì thôi
+                enemy.moveRight = false;
+                enemy.moveLeft = false;
+                return;
+            }
+        }
+
+        enemy.x += dx;
+        enemy.y += dy;
+        enemy.mapX += dx;
+        enemy.mapY += dy;
+    }
+    public void reduceHp(int hp){
+        player.Hp -= hp;
     }
 }

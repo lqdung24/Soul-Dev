@@ -14,7 +14,4 @@ public abstract class EnemyMove implements Enemy{
             frameStateIndex = 0;
         }
     }
-    public double getVerticalSpeed(){
-        return verticalSpeed;
-    }
 }
