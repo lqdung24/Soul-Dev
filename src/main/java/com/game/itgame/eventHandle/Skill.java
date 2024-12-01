@@ -4,34 +4,41 @@ import com.game.itgame.entity.enemy.EnemyRender;
 
 public class Skill {
     EnemyRender enemy;
-    public double cooldownTime, activeTime;
-    public boolean isActive;
+    public double cooldownTime, activeTime, randomTime;
+    public int state; // 0 -> normal, 1 -> skill active, maybe 2 -> moverandom mode
     public double timer;
     public double interval = 0;
     public int makeDamage = 0;
-
-    public Skill(EnemyRender enemy, double cooldownTime, double activeTime){
+    public double angle;
+    public Skill(EnemyRender enemy, double cooldownTime, double activeTime, double randomTime){
         this.enemy = enemy;
         this.cooldownTime = cooldownTime;
         this.activeTime = activeTime;
+        this.randomTime = randomTime;
         timer = 0;
     }
     public void update(double deltaTime){
         timer += deltaTime;
         interval += deltaTime;
-        if(isActive && interval >= 900){
+        if(state == 1 && interval >= 900){
             makeDamage++;
             interval = 0;
         }
-        if(isActive && timer >= activeTime){
-            isActive = false;
+
+        // chuyển trạng thái: cooldown -> active -> random
+        if(state == 1 && timer >= activeTime){
+            state = 2;
             timer = 0;
-            System.out.println("check");
         }
-        if(!isActive && timer >= cooldownTime){
-            isActive = true;
+        if(state == 0 && timer >= cooldownTime){
+            state = 1;
             timer = 0;
             makeDamage = 0;
+        }
+        if(state == 2 && timer >= randomTime){
+            state = 0;
+            timer = 0;
+            angle = Math.random() * Math.PI * 2;
         }
     }
 }

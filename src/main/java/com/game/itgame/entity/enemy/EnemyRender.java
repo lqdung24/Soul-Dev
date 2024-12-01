@@ -1,6 +1,7 @@
 package com.game.itgame.entity.enemy;
 
 import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.Skill;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -21,6 +22,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
     public double collisionTimer = 0;
     public double Hp;
     public double mapX, mapY;
+    public Skill attack1;
 
     public EnemyRender(int x, int y, GraphicsContext ctx) {
         this.x = ctx.getCanvas().getWidth()/2-15-2*30 + x*30;
@@ -63,7 +65,6 @@ public class EnemyRender extends EnemyMove implements Enemy {
     public double getHeight() {
         return height;
     }
-
     public double getWidth() {
         return width;
     }
@@ -73,12 +74,13 @@ public class EnemyRender extends EnemyMove implements Enemy {
     public double getCollisionDamage() {
         return collisionDamage;
     }
-
     public double getX() {
         return x;
     }
-
     public double getY() {
         return y;
+    }
+    public double getVerticalSpeed(){
+        return verticalSpeed;
     }
 }

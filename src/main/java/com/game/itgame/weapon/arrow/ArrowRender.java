@@ -2,6 +2,7 @@ package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -16,22 +17,22 @@ public abstract class ArrowRender {
     private double speed = 5.0;
     private Iterator<EnemyRender> iterator;
     private boolean isAttacked = false;
-
-    public void render(GraphicsContext ctx, List<EnemyRender> enemies) {
-        move();
+    private double offsetAngle = -45;
+    public void render(GraphicsContext ctx, List<EnemyRender> enemies, MapMove map) {
+        move(map);
 
         ctx.save();
         ctx.translate(arrowX + 15, arrowY + 20);
-        ctx.rotate(-45.0 + arrowAngle);
+        ctx.rotate(offsetAngle + arrowAngle);
         ctx.drawImage(arrowImage, 0, 0, 720, 720, 0, 0, 30, 30);
         ctx.restore();
 
         attack(enemies);
     }
 
-    public void move() {
-        arrowX += speed * Math.cos(Math.toRadians(arrowAngle));
-        arrowY += speed * Math.sin(Math.toRadians(arrowAngle));
+    public void move(MapMove map) {
+        arrowX += speed * Math.cos(Math.toRadians(arrowAngle)) - map.getOffsetX();
+        arrowY += speed * Math.sin(Math.toRadians(arrowAngle)) - map.getOffsetY();
     }
 
     public void attack(List<EnemyRender> enemies) {
@@ -51,14 +52,6 @@ public abstract class ArrowRender {
                 }
             }
         }
-    }
-
-    public double getArrowX() {
-        return arrowX;
-    }
-
-    public double getArrowY() {
-        return arrowY;
     }
 
     public boolean getIsAttacked() {
