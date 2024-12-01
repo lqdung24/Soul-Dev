@@ -3,7 +3,7 @@ package com.game.itgame.eventHandle;
 import javafx.scene.Scene;
 
 public class KeyHandle {
-    public boolean up, down, left, right, space, enter;
+    public boolean up, down, left, right, space, enter, firstWeapon = true;
 
     public KeyHandle(Scene scene) {
         scene.setOnKeyPressed(e -> {
@@ -25,6 +25,9 @@ public class KeyHandle {
                     break;
                 case ENTER:
                     enter = true;
+                    break;
+                case R:
+                    firstWeapon = !firstWeapon;
                     break;
             }
         });

@@ -24,15 +24,15 @@ public class HealthBar{
          y = 10;
          width = 48*2;
          height = 48*2;
-         imageWidth = 48;
-         imageHeight = 48;
-         image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar.png")));
+         imageWidth = 720;
+         imageHeight = 720;
+         image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar1.png")));
          this.entityRender = entityRender;
      }
 
     public void draw(double deltaTime) {
-         ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 120);
-         ctx.drawImage(image, entityRender.Hp * imageWidth, 0,
+         ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 100);
+         ctx.drawImage(image, (10-entityRender.Hp) * imageWidth, 0,
                     imageWidth, imageHeight, x, y, width, height);
 
     }

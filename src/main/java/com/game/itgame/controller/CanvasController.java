@@ -38,7 +38,7 @@ public class CanvasController {
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
         map = new MapRender();
         sword = new Sword();
-        bow = new Bow();
+        bow = new Bow(map);
         key = new KeyHandle(scene);
         for (int i = 0; i < 1; i++) {
             int randomX = (int) (Math.random()*30) - 5;
@@ -48,10 +48,10 @@ public class CanvasController {
             if(i % 2 == 0){
                 enemies.add(new Mob2(randomX, randomY, ctx));
             }else{
-                enemies.add(new Mob1(randomX, randomY, ctx, player)); // toa d
+                enemies.add(new Mob1(randomX, randomY, ctx)); // toa d
             }
         }
-        enemies.add(new Mob1(16, 16, ctx, player));
+        enemies.add(new Mob1(16, 16, ctx));
         move = new EnemyHandle(player, map);
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
@@ -71,8 +71,11 @@ public class CanvasController {
                 map.mapRender(ctx, player, key);
                 player.update(deltaTime, key);
                 enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                bow.draw(ctx, player, enemies, deltaTime);
-
+                if(key.firstWeapon){
+                    sword.draw(ctx, player, enemies, deltaTime);
+                }else{
+                    bow.draw(ctx, player, enemies, deltaTime);
+                }
                 if(player.Hp <= 0){
                     player.update(deltaTime, key);
                     System.out.println("You Die");

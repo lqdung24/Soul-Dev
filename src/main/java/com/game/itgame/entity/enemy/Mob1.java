@@ -9,10 +9,8 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 
 public class Mob1 extends EnemyRender {
-    Skill attack1;
-    Player player;
-    private double swordDamage = 2;
-    public Mob1(int x, int y, GraphicsContext ctx, Player player) {
+    public int swordDamage = 2;
+    public Mob1(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 50;
         this.height = 50;
@@ -23,8 +21,7 @@ public class Mob1 extends EnemyRender {
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
         Hp = 8;
-        attack1 = new Skill(this, 4000, 1500);
-        this.player = player;
+        attack1 = new Skill(this, 4000, 1500, 1000);
     }
 
     @Override
@@ -33,23 +30,32 @@ public class Mob1 extends EnemyRender {
         this.x -= map.getOffsetX();
         this.y -= map.getOffsetY();
         attack1.update(deltaTime);
-        if(attack1.isActive){
-            this.verticalSpeed = 8;
-            this.moveLeft = this.moveRight = false;
-            this.frameStateIndex = 1;
+        if(attack1.state == 1){
+            critMode();
+            key.moveEnemy(this);
             if(key.checkDamage(this) && attack1.makeDamage > 0){
-                player.Hp -= swordDamage;
+                key.reduceHp(swordDamage);
                 attack1.makeDamage--;
             }
-            System.out.println("Check");
-        }else{
-            this.verticalSpeed = 2;
-            this.frameStateIndex = 0;
+            //System.out.println("Check");
         }
-        key.moveEnemy(this);
+        else if(attack1.state == 0){
+            normMode();
+            key.moveEnemy(this);
+        } else {
+            normMode();
+            key.moveRandom(this);
+        }
+
         move(key);
         key.collisionPlayer(this, deltaTime);
 
         draw(deltaTime);
+    }
+    protected void critMode(){
+        this.verticalSpeed = 8;
+    }
+    protected void normMode(){
+        this.verticalSpeed = 2;
     }
 }
