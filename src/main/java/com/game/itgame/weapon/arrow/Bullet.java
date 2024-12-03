@@ -11,7 +11,7 @@ public class Bullet extends FlyThings{
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
-        this.offsetAngle = -45;
+        this.offsetAngle = 0;
         this.height = 60;
         this.width = 60;
         speed = 10;
@@ -22,7 +22,7 @@ public class Bullet extends FlyThings{
     public void attack() {
         // tâm của đạn
         double distance = Math.sqrt(Math.pow(arrowX - player.getX(), 2) + Math.pow(arrowY - player.getY(), 2));
-        if(distance <= 25){
+        if(distance <= 15){
             player.Hp -= 2;
             isAttacked = true;
         }

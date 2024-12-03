@@ -5,7 +5,6 @@ import com.game.itgame.eventHandle.Skill;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
 
 public class EnemyRender extends EnemyMove implements Enemy {
     public double x;

@@ -1,13 +1,8 @@
 package com.game.itgame.weapon.arrow;
 
-import com.game.itgame.entity.EntityRender;
-import com.game.itgame.entity.enemy.EnemyRender;
-import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.sword.Sword;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Arrow extends ArrowRender {

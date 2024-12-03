@@ -6,7 +6,6 @@ import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.weapon.Aim;
-import com.game.itgame.weapon.arrow.ArrowRender;
 import com.game.itgame.weapon.arrow.Bullet;
 import com.game.itgame.weapon.bow.Bow;
 import com.game.itgame.weapon.sword.Sword;

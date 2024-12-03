@@ -1,13 +1,10 @@
 package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
-import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import java.util.Iterator;
-import java.util.List;
 
 public abstract class FlyThings {
     protected double arrowX;

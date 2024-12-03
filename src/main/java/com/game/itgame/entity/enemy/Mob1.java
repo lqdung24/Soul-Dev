@@ -1,6 +1,5 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.eventHandle.Skill;
 import com.game.itgame.map.MapMove;
