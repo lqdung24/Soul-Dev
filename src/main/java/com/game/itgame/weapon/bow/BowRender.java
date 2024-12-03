@@ -24,10 +24,10 @@ public abstract class BowRender implements Weapon {
         });
 
         double angle = Math.toDegrees(Math.atan2(player.getX() + 15  - mouseX, mouseY - 20 - player.getY()) + Math.PI / 4);
-//        Check attack.
+//      Check attack.
         attack(ctx, deltaTime, player, enemies, angle);
 
-//        Draw weapon.
+//      Draw weapon.
         ctx.save();
         ctx.translate(player.getX() + 15, player.getY() + 20);
         ctx.rotate(angle);

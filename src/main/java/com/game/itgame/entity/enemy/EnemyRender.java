@@ -16,7 +16,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
     protected double imageHeight;
     protected GraphicsContext ctx;
     protected Image image;
-    private double time = 0;
+    protected double time = 0;
     protected double damage;
     protected double collisionDamage = 1;
     public double collisionTimer = 0;

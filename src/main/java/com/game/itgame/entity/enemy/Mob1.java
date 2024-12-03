@@ -14,7 +14,7 @@ public class Mob1 extends EnemyRender {
         super(x, y, ctx);
         this.width = 50;
         this.height = 50;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1.png")));
+        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1Ver2.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 3;
@@ -53,9 +53,11 @@ public class Mob1 extends EnemyRender {
         draw(deltaTime);
     }
     protected void critMode(){
-        this.verticalSpeed = 8;
+        this.verticalSpeed = 6;
+        this.frameStateIndex = 1;
     }
     protected void normMode(){
         this.verticalSpeed = 2;
+        this.frameStateIndex = 0;
     }
 }

@@ -18,15 +18,18 @@ public class HealthBar{
     protected Image image;
     EntityRender entityRender;
 
-     public HealthBar(GraphicsContext c, EntityRender entityRender){
-         ctx = c;
+     public HealthBar(GraphicsContext ctx, EntityRender entityRender){
+         this.ctx = ctx;
          x = 30;
          y = 10;
          width = 48*2;
          height = 48*2;
          imageWidth = 720;
          imageHeight = 720;
+//         imageWidth = 16896/11;
+//         imageHeight = 512;
          image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar1.png")));
+         ctx.drawImage(image, x, y);
          this.entityRender = entityRender;
      }
 
@@ -34,6 +37,7 @@ public class HealthBar{
          ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 100);
          ctx.drawImage(image, (10-entityRender.Hp) * imageWidth, 0,
                     imageWidth, imageHeight, x, y, width, height);
+        //ctx.drawImage(image, x, y);
 
     }
 }

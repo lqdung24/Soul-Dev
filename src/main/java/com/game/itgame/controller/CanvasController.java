@@ -5,6 +5,8 @@ import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.weapon.Aim;
+import com.game.itgame.weapon.arrow.ArrowRender;
 import com.game.itgame.weapon.bow.Bow;
 import com.game.itgame.weapon.sword.Sword;
 import com.game.itgame.eventHandle.KeyHandle;
@@ -52,7 +54,7 @@ public class CanvasController {
             }
         }
         enemies.add(new Mob1(16, 16, ctx));
-        move = new EnemyHandle(player, map);
+        move = new EnemyHandle(player, map, new Aim(ctx));
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
         AnimationTimer animation = new AnimationTimer() {
@@ -62,26 +64,28 @@ public class CanvasController {
 //                Tính thời gian giữa 2 frame.
                 double deltaTime = (now - lastTime) / 1000000.0;
                 lastTime = now;
-
-//                Set màu nền cho canvas.
-                ctx.setFill(javafx.scene.paint.Color.BLACK);
-                ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                if(deltaTime >= 1000/90){
+                    //                Set màu nền cho canvas.
+                    ctx.setFill(javafx.scene.paint.Color.BLACK);
+                    ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 //                Vẽ và cập nhật trạng thái của player map và sword.
-                map.mapRender(ctx, player, key);
-                player.update(deltaTime, key);
-                enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
-                if(key.firstWeapon){
-                    sword.draw(ctx, player, enemies, deltaTime);
-                }else{
-                    bow.draw(ctx, player, enemies, deltaTime);
-                }
-                if(player.Hp <= 0){
+                    map.mapRender(ctx, player, key);
                     player.update(deltaTime, key);
-                    System.out.println("You Die");
-                    ctx.fillText("You die!!!", 500, 500, 500);
-                    this.stop();
+                    enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
+                    if(key.firstWeapon){
+                        sword.draw(ctx, player, enemies, deltaTime);
+                    }else{
+                        bow.draw(ctx, player, enemies, deltaTime);
+                    }
+                    if(player.Hp <= 0){
+                        player.update(deltaTime, key);
+                        System.out.println("You Die");
+                        ctx.fillText("You die!!!", 500, 500, 500);
+                        this.stop();
+                    }
                 }
+
             }
         };
 

@@ -10,13 +10,27 @@ public class Skill {
     public double interval = 0;
     public int makeDamage = 0;
     public double angle;
+    public boolean isOneTime = false;
+    public boolean isAttack;
+
     public Skill(EnemyRender enemy, double cooldownTime, double activeTime, double randomTime){
         this.enemy = enemy;
         this.cooldownTime = cooldownTime;
         this.activeTime = activeTime;
         this.randomTime = randomTime;
         timer = 0;
+        this.isOneTime = false;
     }
+
+    public Skill(EnemyRender enemy, double cooldownTime, boolean isOneTime, double randomTime){
+        this.enemy = enemy;
+        this.cooldownTime = cooldownTime;
+        this.activeTime = 0;
+        this.randomTime = randomTime;
+        timer = 0;
+        this.isOneTime = true;
+    }
+
     public void update(double deltaTime){
         timer += deltaTime;
         interval += deltaTime;
@@ -26,14 +40,15 @@ public class Skill {
         }
 
         // chuyển trạng thái: cooldown -> active -> random
-        if(state == 1 && timer >= activeTime){
-            state = 2;
-            timer = 0;
-        }
         if(state == 0 && timer >= cooldownTime){
             state = 1;
             timer = 0;
             makeDamage = 0;
+        }
+        if(state == 1 && (timer >= activeTime || isOneTime)){
+            isAttack = true;
+            state = 2;
+            timer = 0;
         }
         if(state == 2 && timer >= randomTime){
             state = 0;

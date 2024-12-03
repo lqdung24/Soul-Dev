@@ -5,16 +5,22 @@ import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
+import com.game.itgame.weapon.Aim;
+import com.game.itgame.weapon.arrow.Arrow;
+
+import java.util.List;
 
 public class EnemyHandle { // điều khiển enemy tiến lại gần player
     Player player;
     private int moveRadius = 32*10;
     private MapMove map;
     private double dx, dy;
+    Aim aim;
 
-    public EnemyHandle(Player p, MapMove map){
+    public EnemyHandle(Player p, MapMove map, Aim aim){
         player = p;
         this.map = map;
+        this.aim = aim;
     }
     public void moveEnemy(EnemyRender enemy){
         dx = player.getX() - enemy.x;
@@ -47,7 +53,6 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         }
     }
     public void collisionPlayer(EnemyRender enemy, double deltatime){
-
         if (player.getX() + player.getWidth() < enemy.x || enemy.x + enemy.getWidth() < player.getX()
                 || player.getY() + player.getHeight() < enemy.y || enemy.y + enemy.getHeight() < player.getY()) {
             return;
@@ -58,9 +63,10 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         if(enemy.collisionTimer >= 1000){
             player.Hp -= enemy.getCollisionDamage();
             //System.out.println("ops");
-            enemy.collisionTimer -= 1000;
+            enemy.collisionTimer = 0;
         }
     }
+
     public boolean collisionMap(EnemyRender enemy, double newX, double newY){
         int colTopLeft = (int) (newX / map.getMapFrameSize());
         int rowTopLeft = (int) (newY / map.getMapFrameSize());
@@ -76,6 +82,7 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
                 map.getValue(rowBottomRight, colBottomRight) != 0;
     }
+
     public boolean checkDamage(EnemyRender enemy){
         dx = player.getX() - enemy.x;
         dy = player.getY() - enemy.y;
@@ -87,7 +94,7 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         double dx = enemy.getVerticalSpeed() * Math.cos(angle);
         double dy = enemy.getVerticalSpeed() * Math.sin(angle);
         if (enemy instanceof Mob1) {
-            if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){// nếu va chạm thì thôi
+            if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){  // nếu va chạm thì thôi
                 enemy.moveRight = false;
                 enemy.moveLeft = false;
                 return;
@@ -98,6 +105,11 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         enemy.y += dy;
         enemy.mapX += dx;
         enemy.mapY += dy;
+    }
+    public void bulletAttack(EnemyRender enemy, List<Arrow> arrowList){
+        double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
+        Arrow arrow = new Arrow(enemy.x, enemy.y, angle);
+        arrowList.add(arrow);
     }
     public void reduceHp(int hp){
         player.Hp -= hp;
