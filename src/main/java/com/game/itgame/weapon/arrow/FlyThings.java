@@ -14,21 +14,31 @@ public abstract class FlyThings {
     protected double arrowY;
     protected Image arrowImage;
     protected double arrowAngle;
-    private double speed = 15;
+    protected double speed = 15;
     protected Iterator<EnemyRender> iterator;
-    protected boolean isAttacked = false;
     protected double offsetAngle = 0;
+    protected double height, width;
+    protected boolean isAttacked = false;
 
     public void move(MapMove map) {
         arrowX += speed * Math.cos(Math.toRadians(arrowAngle)) - map.getOffsetX();
         arrowY += speed * Math.sin(Math.toRadians(arrowAngle)) - map.getOffsetY();
     }
 
-    public abstract void render(GraphicsContext ctx, List<EnemyRender> enemies, MapMove map);
+    public void render(GraphicsContext ctx, MapMove map) {
+        move(map);
+        ctx.save();
+        ctx.translate(arrowX + 15, arrowY + 20);
+        ctx.rotate(offsetAngle + arrowAngle);
+        ctx.drawImage(arrowImage, 0, 0, 720, 720, 0, 0, height, width);
+        ctx.restore();
 
-    public abstract void attack(List<EnemyRender> enemies);
+        attack();
+    }
+
+    public abstract void attack();
 
     public boolean getIsAttacked() {
-        return isAttacked;
+        return Math.sqrt(Math.pow(arrowX, 2) + Math.pow(arrowY, 2)) >= 30*100 || isAttacked;
     }
 }

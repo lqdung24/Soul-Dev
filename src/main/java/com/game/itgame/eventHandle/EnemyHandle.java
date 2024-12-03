@@ -7,13 +7,15 @@ import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Arrow;
+import com.game.itgame.weapon.arrow.Bullet;
+import com.game.itgame.weapon.arrow.FlyThings;
 
 import java.util.List;
 
 public class EnemyHandle { // điều khiển enemy tiến lại gần player
     Player player;
-    private int moveRadius = 32*10;
-    private MapMove map;
+    private final int moveRadius = 32*10;
+    private final MapMove map;
     private double dx, dy;
     Aim aim;
 
@@ -106,10 +108,9 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         enemy.mapX += dx;
         enemy.mapY += dy;
     }
-    public void bulletAttack(EnemyRender enemy, List<Arrow> arrowList){
+    public void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
         double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
-        Arrow arrow = new Arrow(enemy.x, enemy.y, angle);
-        arrowList.add(arrow);
+        bullet.add(new Bullet(enemy.x, enemy.y, angle));
     }
     public void reduceHp(int hp){
         player.Hp -= hp;

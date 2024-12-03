@@ -1,7 +1,7 @@
 package com.game.itgame.test;
 
 class MultipleCatch1 {
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         try {
             String num = "12";

@@ -7,6 +7,7 @@ import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.ArrowRender;
+import com.game.itgame.weapon.arrow.Bullet;
 import com.game.itgame.weapon.bow.Bow;
 import com.game.itgame.weapon.sword.Sword;
 import com.game.itgame.eventHandle.KeyHandle;
@@ -40,7 +41,7 @@ public class CanvasController {
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
         map = new MapRender();
         sword = new Sword();
-        bow = new Bow(map);
+        bow = new Bow(map, enemies);
         key = new KeyHandle(scene);
         for (int i = 0; i < 1; i++) {
             int randomX = (int) (Math.random()*30) - 5;
@@ -55,7 +56,7 @@ public class CanvasController {
         }
         enemies.add(new Mob1(16, 16, ctx));
         move = new EnemyHandle(player, map, new Aim(ctx));
-
+        Bullet.player = player;
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
         AnimationTimer animation = new AnimationTimer() {
             private long lastTime = 0;
@@ -72,7 +73,10 @@ public class CanvasController {
 //                Vẽ và cập nhật trạng thái của player map và sword.
                     map.mapRender(ctx, player, key);
                     player.update(deltaTime, key);
-                    enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
+                    if(!enemies.isEmpty()) {
+                        enemies.forEach(enemy -> enemy.update(deltaTime, move, map));
+                    }
+
                     if(key.firstWeapon){
                         sword.draw(ctx, player, enemies, deltaTime);
                     }else{

@@ -7,6 +7,7 @@ import com.game.itgame.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BowRender implements Weapon {
@@ -15,6 +16,7 @@ public abstract class BowRender implements Weapon {
     protected int bowImageLength;
     protected double mouseX;
     protected double mouseY;
+    List<EnemyRender> enemies;
 
     @Override
     public void draw(GraphicsContext ctx, Player player, List<EnemyRender> enemies, double deltaTime) {

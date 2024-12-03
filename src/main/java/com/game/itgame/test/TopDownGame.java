@@ -30,8 +30,8 @@ public class TopDownGame extends Application {
     private double playerMapX = 25 * TILE_SIZE;
     private double playerMapY = 25 * TILE_SIZE;
 
-    private int[][] map = new int[MAP_HEIGHT][MAP_WIDTH];
-    private List<Monster> monsters = new ArrayList<>();
+    private final int[][] map = new int[MAP_HEIGHT][MAP_WIDTH];
+    private final List<Monster> monsters = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {

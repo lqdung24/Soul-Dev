@@ -17,7 +17,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
     private double timer = 0;
     Iterator<EnemyRender> iterator;
     private final double coolDown = 1000;
-    private List<Arrow> arrows = new ArrayList<>();
+    private final List<Arrow> arrows = new ArrayList<>();
     protected MapMove map;
 
     @Override
@@ -75,11 +75,11 @@ public abstract class BowAttack extends BowRender implements Weapon {
         if (arrows != null) {
             for (Arrow arrow : arrows) {
                 if (arrow.getIsAttacked()) {
-                    arrow.render(ctx, enemies, map);
+                    arrow.render(ctx, map);
                     arrows.remove(arrow);
                     return;
                 }
-                arrow.render(ctx, enemies, map);
+                arrow.render(ctx, map);
             }
         }
     }

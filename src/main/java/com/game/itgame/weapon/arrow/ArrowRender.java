@@ -7,21 +7,11 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.List;
 
 public abstract class ArrowRender extends FlyThings {
-    @Override
-    public void render(GraphicsContext ctx, List<EnemyRender> enemies, MapMove map) {
-        move(map);
-        ctx.save();
-        ctx.translate(arrowX + 15, arrowY + 20);
-        ctx.rotate(offsetAngle + arrowAngle);
-        ctx.drawImage(arrowImage, 0, 0, 720, 720, 0, 0, 30, 30);
-        ctx.restore();
-
-        attack(enemies);
-    }
+    protected static List<EnemyRender> enemyList;
 
     @Override
-    public void attack(List<EnemyRender> enemies) {
-        iterator = enemies.iterator();
+    public void attack() {
+        iterator = enemyList.iterator();
 
         while (iterator.hasNext()) {
             EnemyRender enemy = iterator.next();
@@ -39,7 +29,7 @@ public abstract class ArrowRender extends FlyThings {
         }
     }
 
-    public boolean getIsAttacked() {
-        return isAttacked;
+    public static void setEnemyList(List<EnemyRender> enemyList) {
+        ArrowRender.enemyList= enemyList;
     }
 }

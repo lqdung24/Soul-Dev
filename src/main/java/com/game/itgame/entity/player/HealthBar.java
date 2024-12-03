@@ -26,7 +26,7 @@ public class HealthBar{
          height = 48*2;
          imageWidth = 720;
          imageHeight = 720;
-//         imageWidth = 16896/11;
+//        imageWidth = 16896/11;
 //         imageHeight = 512;
          image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar1.png")));
          ctx.drawImage(image, x, y);

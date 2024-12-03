@@ -31,13 +31,9 @@ public class CollisionHandle {
             return true;
         }
 
-        if (map.getValue(rowTopLeft, colTopLeft) != 0 ||
+        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
                 map.getValue(rowTopLeft, colBottomRight) != 0 ||
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
-                map.getValue(rowBottomRight, colBottomRight) != 0) {
-            return true;
-        }
-
-        return false;
+                map.getValue(rowBottomRight, colBottomRight) != 0;
     }
 }
