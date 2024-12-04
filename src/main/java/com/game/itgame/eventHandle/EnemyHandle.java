@@ -13,15 +13,15 @@ import com.game.itgame.weapon.arrow.FlyThings;
 import java.util.List;
 
 public class EnemyHandle { // điều khiển enemy tiến lại gần player
-    Player player;
+    private static Player player;
     private final int moveRadius = 32*10;
-    private final MapMove map;
+    private static MapMove map;
     private double dx, dy;
     Aim aim;
 
-    public EnemyHandle(Player p, MapMove map, Aim aim){
+    public EnemyHandle(Player p, MapMove maps, Aim aim){
         player = p;
-        this.map = map;
+        map = maps;
         this.aim = aim;
     }
     public void moveEnemy(EnemyRender enemy){
@@ -69,12 +69,27 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         }
     }
 
-    public boolean collisionMap(EnemyRender enemy, double newX, double newY){
+    public static boolean collisionMap(EnemyRender enemy, double newX, double newY){
         int colTopLeft = (int) (newX / map.getMapFrameSize());
         int rowTopLeft = (int) (newY / map.getMapFrameSize());
 
         int colBottomRight = (int) ((newX + enemy.getWidth()) / map.getMapFrameSize());
         int rowBottomRight = (int) ((newY + enemy.getHeight()) / map.getMapFrameSize());
+
+        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
+            return true;
+        }
+        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
+                map.getValue(rowTopLeft, colBottomRight) != 0 ||
+                map.getValue(rowBottomRight, colTopLeft) != 0 ||
+                map.getValue(rowBottomRight, colBottomRight) != 0;
+    }
+    public static boolean collisionMap(double newX, double newY, double width, double height){
+        int colTopLeft = (int) (newX / map.getMapFrameSize());
+        int rowTopLeft = (int) (newY / map.getMapFrameSize());
+
+        int colBottomRight = (int) ((newX + width) / map.getMapFrameSize());
+        int rowBottomRight = (int) ((newY + height) / map.getMapFrameSize());
 
         if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
             return true;
@@ -111,6 +126,8 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
     public void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
         double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
         bullet.add(new Bullet(enemy.x, enemy.y, angle));
+        bullet.add(new Bullet(enemy.x + 20*Math.cos(Math.toRadians(angle)), enemy.y + 20*Math.sin(Math.toRadians(angle)), angle));
+
     }
     public void reduceHp(int hp){
         player.Hp -= hp;

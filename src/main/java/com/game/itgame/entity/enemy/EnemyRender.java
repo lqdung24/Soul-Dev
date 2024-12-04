@@ -40,7 +40,6 @@ public class EnemyRender extends EnemyMove implements Enemy {
         key.moveEnemy(this);
         move(key);
         key.collisionPlayer(this, deltaTime);
-        //System.out.println((int)mapX/30 + " " + (int)mapY/30);
         draw(deltaTime);
     }
 

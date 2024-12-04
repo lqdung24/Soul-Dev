@@ -50,9 +50,6 @@ public abstract class MapMove extends MapMatrix implements Map{
     public double getMapFrameSize() {
         return mapFrameSize;
     }
-    public void setGhost(Ghost ghost){
-        this.ghost = ghost;
-    }
 
     public double getOffsetX() {
         return offsetX;
