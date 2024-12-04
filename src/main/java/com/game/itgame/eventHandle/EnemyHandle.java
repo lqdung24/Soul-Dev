@@ -3,6 +3,7 @@ package com.game.itgame.eventHandle;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
+import com.game.itgame.entity.enemy.Mob3;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Aim;
@@ -64,7 +65,6 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
 
         if(enemy.collisionTimer >= 1000){
             player.Hp -= enemy.getCollisionDamage();
-            //System.out.println("ops");
             enemy.collisionTimer = 0;
         }
     }
@@ -125,8 +125,9 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
     }
     public void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
         double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
-        bullet.add(new Bullet(enemy.x, enemy.y, angle));
-        bullet.add(new Bullet(enemy.x + 20*Math.cos(Math.toRadians(angle)), enemy.y + 20*Math.sin(Math.toRadians(angle)), angle));
+        bullet.add(new Bullet(enemy.x + enemy.getWidth()/2, enemy.y + enemy.getHeight()/2, angle));
+        bullet.add(new Bullet(enemy.x + enemy.getWidth()/2 + 20*Math.cos(Math.toRadians(angle)),
+                              enemy.y + enemy.getHeight()/2 + 20*Math.sin(Math.toRadians(angle)), angle));
     }
     public void reduceHp(int hp){
         player.Hp -= hp;

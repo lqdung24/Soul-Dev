@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Bow extends BowAttack {
 
     public Bow(MapMove map, List<EnemyRender> enemies) {
-        bowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/bow.png")));
+        bowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/bow22.png")));
         bowImageLength = 3;
         this.map = map;
         this.enemies = enemies;

@@ -12,10 +12,11 @@ public abstract class ArrowRender extends FlyThings {
 
         while (iterator.hasNext()) {
             EnemyRender enemy = iterator.next();
-            double distance = Math.sqrt(Math.pow(arrowX - enemy.getX(), 2)
-                                        + Math.pow(arrowY - enemy.getY(), 2));
-
-            if (distance <= 25) {
+            double distance = Math.sqrt(Math.pow(arrowX - enemy.getX() - enemy.getWidth()/2, 2)
+                                        + Math.pow(arrowY - enemy.getY() - enemy.getHeight()/2, 2));
+//            double distance = Math.sqrt(Math.pow(arrowX - enemy.getX(), 2)
+//                                      + Math.pow(arrowY - enemy.getY(), 2));
+            if (distance <= 50) {
                 enemy.Hp -= 2;
                 isAttacked = true;
                 System.out.println(enemy.Hp);

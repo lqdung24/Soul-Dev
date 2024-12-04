@@ -10,8 +10,8 @@ public class Arrow extends ArrowRender {
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
-        this.offsetAngle = -45;
+        this.offsetAngle = 0;
         height = width = 30;
-        arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/arrow.png")));
+        arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/arrow22.png")));
     }
 }

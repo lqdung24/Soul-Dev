@@ -10,12 +10,14 @@ import java.util.List;
 public abstract class SwordAttack extends SwordRender implements Weapon {
     private boolean onAttack = false;
     private boolean isCoolDown = false;
-    private double timer = 0;
+    private double timer = 0, coolDownTimer = 0;
     Iterator<EnemyRender> iterator;
-    private final double coolDown = 400;
+    private final double coolDownTime = 400;
 
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
+        timer += deltaTime;
+        coolDownTimer += deltaTime;
        if (!onAttack) {
            ctx.getCanvas().setOnMouseClicked(e -> {
                onAttack = true;
@@ -35,6 +37,7 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                    }
                }
            }
+
            if (timer > 30) {
                if (swordIndex >= swordImageLength) {
                    swordIndex = 0;
@@ -43,14 +46,13 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                } else {
                    swordIndex++;
                }
+               timer = 0;
            }
        }
 
-        timer += deltaTime;
-
-        if (timer >= coolDown) {
-          timer = 0;
-          isCoolDown = false;
+        if (coolDownTimer >= coolDownTime) {
+            coolDownTimer = 0;
+            isCoolDown = false;
         }
     }
 }

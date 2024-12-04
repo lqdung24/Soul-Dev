@@ -11,12 +11,12 @@ public class Player extends EntityRender {
     protected HealthBar bar;
     public Player(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 30;
-        this.height = 30;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/player.png")));
-        this.imageWidth = 575;
-        this.imageHeight = 523;
-        this.frameLength = 6;
+        this.width = 50;
+        this.height = 50;
+        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/character3-left.png")));
+        this.imageWidth = 720;
+        this.imageHeight = 720;
+        this.frameLength = 5;
         this.frameStateIndex = 0;
         this.verticalSpeed = 5;
         this.damage = 2;

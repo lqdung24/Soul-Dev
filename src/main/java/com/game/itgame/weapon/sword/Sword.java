@@ -12,8 +12,8 @@ public class Sword extends SwordAttack {
 
     public Sword() {
         this.swordImageLength = swordImageLength;
-        swordImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/sword.png")));
-        swordImageLength = 3;
+        swordImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/weapon/sword2.png")));
+        swordImageLength = 2;
     }
 
     @Override

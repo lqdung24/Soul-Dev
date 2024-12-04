@@ -12,16 +12,17 @@ public class Bullet extends FlyThings{
         arrowY = y;
         arrowAngle = angle;
         this.offsetAngle = 0;
-        this.height = 60;
-        this.width = 60;
-        speed = 10;
+        this.height = 20;
+        this.width = 20;
+        speed = 6;
         arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/mob/mob2/mob2bullet.png")));
     }
 
     @Override
     public void attack() {
         // tâm của đạn
-        double distance = Math.sqrt(Math.pow(arrowX - player.getX(), 2) + Math.pow(arrowY - player.getY(), 2));
+        double distance = Math.sqrt(Math.pow(arrowX - player.getX() - player.getWidth()/2, 2)
+                                    + Math.pow(arrowY - player.getY() - player.getHeight()/2, 2));
         if(distance <= 15){
             player.Hp -= 2;
             isAttacked = true;

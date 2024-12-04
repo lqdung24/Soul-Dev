@@ -3,6 +3,7 @@ package com.game.itgame.controller;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
+import com.game.itgame.entity.enemy.Mob3;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.weapon.Aim;
@@ -54,6 +55,7 @@ public class CanvasController {
             }
         }
         enemies.add(new Mob1(16, 16, ctx));
+        enemies.add(new Mob3(18, 18, ctx));
         move = new EnemyHandle(player, map, new Aim(ctx));
         Bullet.player = player;
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.

@@ -22,15 +22,15 @@ public abstract class BowRender implements Weapon {
             mouseY = e.getY();
         });
 
-        double angle = Math.toDegrees(Math.atan2(player.getX() + 15  - mouseX, mouseY - 20 - player.getY()) + Math.PI / 4);
+        double angle = Math.toDegrees(Math.atan2(player.getX() + 25  - mouseX, mouseY - 40 - player.getY()) + Math.PI / 2);
 //      Check attack.
         attack(ctx, deltaTime, player, enemies, angle);
 
 //      Draw weapon.
         ctx.save();
-        ctx.translate(player.getX() + 15, player.getY() + 20);
+        ctx.translate(player.getX() + 25, player.getY() + 40);
         ctx.rotate(angle);
-        ctx.drawImage(bowImage, bowIndex * 720, 0, 720, 720, -15, -15, 35, 35);
+        ctx.drawImage(bowImage, bowIndex * 720, 0, 720, 720, -15, -25, 50, 50);
         ctx.restore();
     }
 }

@@ -34,7 +34,7 @@ public class EntityRender extends EntityMove implements EntityInterface {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
 
 //        Chỉnh thơi gian chuyển frame
-        if (time > 30) {
+        if (time > 90) {
             if (frameIndex >= frameLength) {
                 frameIndex = 0;
             } else {

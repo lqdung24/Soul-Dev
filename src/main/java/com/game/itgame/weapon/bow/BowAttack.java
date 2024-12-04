@@ -54,7 +54,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
 
         ctx.getCanvas().setOnMouseClicked(e -> {
             if (onAttack && !isCoolDown) {
-                Arrow arrow = new Arrow(player.getX(), player.getY(), angle + 45);
+                Arrow arrow = new Arrow(player.getX() + 15,player.getY() + 10, angle);
 
                 arrows.add(arrow);
 
