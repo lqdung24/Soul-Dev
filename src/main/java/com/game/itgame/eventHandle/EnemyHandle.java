@@ -127,7 +127,6 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
         bullet.add(new Bullet(enemy.x, enemy.y, angle));
         bullet.add(new Bullet(enemy.x + 20*Math.cos(Math.toRadians(angle)), enemy.y + 20*Math.sin(Math.toRadians(angle)), angle));
-
     }
     public void reduceHp(int hp){
         player.Hp -= hp;
