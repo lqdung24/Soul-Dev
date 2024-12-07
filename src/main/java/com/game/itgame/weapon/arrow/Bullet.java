@@ -4,6 +4,8 @@ import com.game.itgame.entity.Hitbox;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.sword.Sword;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Shape;
+
 import java.util.Objects;
 
 public class Bullet extends FlyThings{
@@ -15,7 +17,7 @@ public class Bullet extends FlyThings{
         this.offsetAngle = 0;
         this.height = 20;
         this.width = 20;
-        speed = 0;
+        speed = 6;
         arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/mob/mob2/mob2bullet.png")));
         offsetY = 5;
         hitbox = new Hitbox(arrowX, arrowY, width-10, height-10);
@@ -24,9 +26,7 @@ public class Bullet extends FlyThings{
     @Override
     public void attack() {
         // tâm của đạn
-        double distance = Math.sqrt(Math.pow(arrowX - player.getX() - player.getWidth()/2, 2)
-                                    + Math.pow(arrowY - player.getY() - player.getHeight()/2, 2));
-        if(distance <= 15){
+        if(Shape.intersect(hitbox, player.hitbox).getBoundsInLocal().getWidth() > 0){
             player.Hp -= 2;
             isAttacked = true;
         }

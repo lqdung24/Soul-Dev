@@ -24,8 +24,8 @@ public class CollisionHandle {
         int colTopLeft = (int) (newX / map.getMapFrameSize());
         int rowTopLeft = (int) (newY / map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + entity.getWidth()) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY + entity.getHeight()) / map.getMapFrameSize());
+        int colBottomRight = (int) ((newX + entity.hitbox.getWidth()) / map.getMapFrameSize());
+        int rowBottomRight = (int) ((newY + entity.hitbox.getHeight()) / map.getMapFrameSize());
 
         if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
             return true;
