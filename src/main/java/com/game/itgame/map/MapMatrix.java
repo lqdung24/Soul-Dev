@@ -54,6 +54,9 @@ public abstract class MapMatrix extends MapImage {
             {4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 10, 2, 2, 2, 2, 2, 2, 5}
     };
     public int getValue(int i, int j){
+        if(i < 0 || i >= 50 || j < 0 || j >= 50){
+            return 0;
+        }
         return map[i][j];
     }
 
