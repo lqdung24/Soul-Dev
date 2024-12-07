@@ -1,14 +1,12 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.entity.Hitbox;
 import com.game.itgame.eventHandle.EnemyHandle;
-import com.game.itgame.eventHandle.Skill;
+import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
-import com.game.itgame.weapon.arrow.Arrow;
 import com.game.itgame.weapon.arrow.Bullet;
-import com.game.itgame.weapon.arrow.FlyThings;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -16,16 +14,17 @@ public class Mob2 extends EnemyRender {
     public List<Bullet> bulletList = new ArrayList<>();
     public Mob2(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 60;
-        this.height = 60;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2walk.png")));
+        this.width = 70;
+        this.height = 70;
+        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
-        this.frameLength = 3;
+        this.frameLength = 7;
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
         Hp = 8;
-        attack1 = new Skill(this, 2000, true, 2000);
+        attack1 = new SkillTimer(2000, true, 2000);
+        hitbox = new Hitbox(x, y, width - 20, height - 20);
     }
     @Override
     public void update(double deltaTime, EnemyHandle key, MapMove map) {
@@ -36,9 +35,9 @@ public class Mob2 extends EnemyRender {
 //        if(attack1.state == 0){ // di chuyển bình thường
 //            // stay
 //        }
-        if(attack1.isAttack){
+        if(attack1.isAvailabel){
             key.bulletAttack(this, bulletList);
-            attack1.isAttack = false;
+            attack1.isAvailabel = false;
         }
         else if(attack1.state == 2){
             key.moveRandom(this);
@@ -53,8 +52,9 @@ public class Mob2 extends EnemyRender {
 
         }
         move(key);
+        hitbox.update(x + 10, y + 10);
         key.collisionPlayer(this, deltaTime);
-
+        hitbox.draw(ctx);
         draw(deltaTime);
     }
 }

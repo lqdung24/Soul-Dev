@@ -1,7 +1,8 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.entity.Hitbox;
 import com.game.itgame.eventHandle.EnemyHandle;
-import com.game.itgame.eventHandle.Skill;
+import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,13 +17,12 @@ public class EnemyRender extends EnemyMove implements Enemy {
     protected GraphicsContext ctx;
     protected Image image;
     protected double time = 0;
-    protected double damage;
     protected double collisionDamage = 1;
     public double collisionTimer = 0;
     public double Hp;
     public double mapX, mapY;
-    public Skill attack1;
-
+    public SkillTimer attack1;
+    public Hitbox hitbox;
     public EnemyRender(int x, int y, GraphicsContext ctx) {
         this.x = ctx.getCanvas().getWidth()/2-15-2*30 + x*30;
         this.y = ctx.getCanvas().getHeight()/2-15-2*30 + y*30;
@@ -48,7 +48,7 @@ public class EnemyRender extends EnemyMove implements Enemy {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
 
 //        Chỉnh thơi gian chuyển frame
-        if (time > 300) {
+        if (time > 150) {
             if (frameIndex >= frameLength) {
                 frameIndex = 0;
             } else {

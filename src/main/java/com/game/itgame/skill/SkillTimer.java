@@ -1,20 +1,17 @@
-package com.game.itgame.eventHandle;
+package com.game.itgame.skill;
 
-import com.game.itgame.entity.enemy.EnemyRender;
 
-public class Skill {
-    EnemyRender enemy;
-    public double cooldownTime, activeTime, randomTime;
+public class SkillTimer {
+    public double cooldownTime, activeTime = 0, randomTime = 0;
     public int state; // 0 -> normal, 1 -> skill active, maybe 2 -> moverandom mode
     public double timer;
     public double interval = 0;
     public int makeDamage = 0;
     public double angle;
-    public boolean isOneTime = false;
-    public boolean isAttack;
+    public boolean isOneTime;
+    public boolean isAvailabel;
 
-    public Skill(EnemyRender enemy, double cooldownTime, double activeTime, double randomTime){
-        this.enemy = enemy;
+    public SkillTimer(double cooldownTime, double activeTime, double randomTime){
         this.cooldownTime = cooldownTime;
         this.activeTime = activeTime;
         this.randomTime = randomTime;
@@ -22,8 +19,7 @@ public class Skill {
         this.isOneTime = false;
     }
 
-    public Skill(EnemyRender enemy, double cooldownTime, boolean isOneTime, double randomTime){
-        this.enemy = enemy;
+    public SkillTimer(double cooldownTime, boolean isOneTime, double randomTime){
         this.cooldownTime = cooldownTime;
         this.activeTime = 0;
         this.randomTime = randomTime;
@@ -34,8 +30,8 @@ public class Skill {
     public void update(double deltaTime){
         timer += deltaTime;
         interval += deltaTime;
-        if(state == 1 && interval >= 900){
-            makeDamage++;
+        if(state == 1 && interval >= 1200){
+            makeDamage = 1;
             interval = 0;
         }
 
@@ -43,12 +39,12 @@ public class Skill {
         if(state == 0 && timer >= cooldownTime){
             state = 1;
             timer = 0;
-            makeDamage = 0;
         }
-        if(state == 1 && (timer >= activeTime || isOneTime)){
-            isAttack = true;
+        if(state == 1 && timer >= activeTime){
+            isAvailabel = true;
             state = 2;
             timer = 0;
+            makeDamage = 1;
         }
         if(state == 2 && timer >= randomTime){
             state = 0;

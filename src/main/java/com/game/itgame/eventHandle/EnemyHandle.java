@@ -10,13 +10,14 @@ import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Arrow;
 import com.game.itgame.weapon.arrow.Bullet;
 import com.game.itgame.weapon.arrow.FlyThings;
+import javafx.scene.shape.Shape;
 
 import java.util.List;
 
 public class EnemyHandle { // điều khiển enemy tiến lại gần player
     private static Player player;
     private final int moveRadius = 32*10;
-    private static MapMove map;
+    public static MapMove map;
     private double dx, dy;
     Aim aim;
 
@@ -56,17 +57,16 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         }
     }
     public void collisionPlayer(EnemyRender enemy, double deltatime){
-        if (player.getX() + player.getWidth() < enemy.x || enemy.x + enemy.getWidth() < player.getX()
-                || player.getY() + player.getHeight() < enemy.y || enemy.y + enemy.getHeight() < player.getY()) {
-            return;
+
+        if(Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
+            enemy.collisionTimer += deltatime;
+
+            if(enemy.collisionTimer >= 1000){
+                player.Hp -= enemy.getCollisionDamage();
+                enemy.collisionTimer = 0;
+            }
         }
 
-        enemy.collisionTimer += deltatime;
-
-        if(enemy.collisionTimer >= 1000){
-            player.Hp -= enemy.getCollisionDamage();
-            enemy.collisionTimer = 0;
-        }
     }
 
     public static boolean collisionMap(EnemyRender enemy, double newX, double newY){
@@ -101,8 +101,9 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
     }
 
     public boolean checkDamage(EnemyRender enemy){
-        dx = player.getX() - enemy.x;
-        dy = player.getY() - enemy.y;
+        dx = player.hitbox.getCenterX() - enemy.hitbox.getCenterX();
+        dy = player.hitbox.getCenterY() - enemy.hitbox.getCenterY();
+
         double distance = Math.sqrt(dx * dx + dy * dy);
         return distance < 50;
     }
@@ -124,10 +125,11 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
         enemy.mapY += dy;
     }
     public void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
-        double angle = Math.toDegrees(Math.atan2(player.getY() - enemy.y, player.getX() - enemy.x));
-        bullet.add(new Bullet(enemy.x + enemy.getWidth()/2, enemy.y + enemy.getHeight()/2, angle));
-        bullet.add(new Bullet(enemy.x + enemy.getWidth()/2 + 20*Math.cos(Math.toRadians(angle)),
-                              enemy.y + enemy.getHeight()/2 + 20*Math.sin(Math.toRadians(angle)), angle));
+        double angle = Math.toDegrees(Math.atan2(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(),
+                player.hitbox.getCenterX() - enemy.hitbox.getCenterX()));
+        bullet.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
+        bullet.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
+                enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(angle)), angle));
     }
     public void reduceHp(int hp){
         player.Hp -= hp;

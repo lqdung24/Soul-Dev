@@ -10,15 +10,8 @@ public abstract class EntityMove  implements EntityInterface {
 
 
     @Override
-    public void move(KeyHandle key) {
+    public void move() {
 ////        Thay đổi frameStateIndex và frameLength tùy thuộc vào trạng thái của player.
-//        if(key.up || key.down || key.left || key.right) {
-//            this.frameStateIndex = 3;
-//            this.frameLength = 8;
-//        } else {
-//            this.frameStateIndex = 0;
-//            this.frameLength = 6;
-//        }
     }
     public double getVerticalSpeed(){
         return verticalSpeed;

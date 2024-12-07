@@ -1,7 +1,7 @@
 package com.game.itgame.entity.enemy;
 
 import com.game.itgame.eventHandle.EnemyHandle;
-import com.game.itgame.eventHandle.Skill;
+import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -20,7 +20,7 @@ public class Mob3 extends EnemyRender {
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
         Hp = 8;
-        attack1 = new Skill(this, 4000, 1500, 1000);
+        attack1 = new SkillTimer(4000, 1500, 1000);
     }
 
     @Override

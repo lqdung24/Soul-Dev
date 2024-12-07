@@ -10,8 +10,6 @@ public abstract class EnemyMove implements Enemy{
     public boolean moveLeft = false, moveRight = false;
     @Override
     public void move(EnemyHandle key) {
-        if(moveLeft || moveRight) {
-            frameStateIndex = 0;
-        }
+
     }
 }

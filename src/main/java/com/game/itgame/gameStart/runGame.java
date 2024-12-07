@@ -19,7 +19,7 @@ public class runGame {
         scene.setCursor(new ImageCursor(cursor, cursor.getWidth() / 2, cursor.getHeight() / 2));
 
         CanvasController controller = fxmlLoader.getController();
-
+        //controller.canvas.set
         controller.update(scene);
     }
 }

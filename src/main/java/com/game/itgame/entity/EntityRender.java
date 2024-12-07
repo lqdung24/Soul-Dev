@@ -1,6 +1,5 @@
 package com.game.itgame.entity;
 
-import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -13,9 +12,10 @@ public class EntityRender extends EntityMove implements EntityInterface {
     protected double imageHeight;
     protected GraphicsContext ctx;
     protected Image image;
-    private double time = 0;
+    protected double time = 0;
     protected double damage;
     public double Hp;
+    public Hitbox hitbox;
 
     public EntityRender(double x, double y, GraphicsContext ctx) {
         this.x = x;
@@ -24,15 +24,14 @@ public class EntityRender extends EntityMove implements EntityInterface {
     }
 
     @Override
-    public void update(double deltaTime, KeyHandle key) {
-        move(key);
+    public void update(double deltaTime) {
+        move();
         draw(deltaTime);
     }
 
     @Override
     public void draw(double deltaTime) {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
-
 //        Chỉnh thơi gian chuyển frame
         if (time > 90) {
             if (frameIndex >= frameLength) {
