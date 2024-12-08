@@ -7,7 +7,7 @@ import com.game.itgame.eventHandle.KeyHandle;
 public abstract class MapMove extends MapMatrix implements Map{
     protected double x = 0;
     protected double y = 0;
-    public static double mapFrameSize = 45;
+    public static double mapFrameSize = 60;
     protected int startX = 2;
     protected int startY = 2;
     public static double offsetX, offsetY;

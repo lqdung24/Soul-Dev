@@ -22,8 +22,8 @@ public class Player extends EntityRender {
     private double offsetX = 10, offsetY = 10;
     public Player(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 50;
-        this.height = 50;
+        this.width = 70;
+        this.height = 70;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/maincharacter3.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;

@@ -19,7 +19,8 @@ public class Bullet extends FlyThings{
         this.width = 20;
         speed = 6;
         arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/mob/mob2/mob2bullet.png")));
-        offsetY = 5;
+        offsetY = 15;
+        offsetX = 15;
         hitbox = new Hitbox(arrowX, arrowY, width-10, height-10);
     }
 

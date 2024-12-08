@@ -16,13 +16,14 @@ public class Arrow extends FlyThings {
         arrowY = y;
         arrowAngle = angle;
         offsetAngle = 0;
-        height = width = 30;
+        width = 30;
+        height = 30;
         arrowImage = new Image(Objects.requireNonNull(
                 Sword.class.getResourceAsStream("/images/weapon/arrow22.png")));
         speed = 15;
         offsetX = 10;
         offsetY = 5;
-        hitbox = new Hitbox(arrowX, arrowY, width, height - 20);
+        hitbox = new Hitbox(arrowX, arrowY, width, height-20);
     }
     @Override
     public void attack() {
