@@ -1,6 +1,5 @@
 package com.game.itgame.map;
 
-import com.game.itgame.entity.enemy.Ghost;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.CollisionHandle;
 import com.game.itgame.eventHandle.KeyHandle;
@@ -8,13 +7,10 @@ import com.game.itgame.eventHandle.KeyHandle;
 public abstract class MapMove extends MapMatrix implements Map{
     protected double x = 0;
     protected double y = 0;
-    protected double mapFrameSize = 30;
+    public static double mapFrameSize = 45;
     protected int startX = 2;
     protected int startY = 2;
-    private double offsetX;
-    private double offsetY; // xử lí draw cho thực thể
-
-    Ghost ghost;
+    public static double offsetX, offsetY;
 
     public void mapMove(Player player, KeyHandle key) {
         double velocityX = 0;
@@ -23,16 +19,16 @@ public abstract class MapMove extends MapMatrix implements Map{
         double newY = y + startY * mapFrameSize;
         offsetY = offsetX = 0;
 
-        if (key.up && !CollisionHandle.isCollision(player, this, 1, newX, newY)) {
+        if (KeyHandle.up && !CollisionHandle.isCollision(player, this, 1, newX, newY)) {
             velocityY -= 5;
         }
-        if (key.down && !CollisionHandle.isCollision(player, this, 2, newX, newY)) {
+        if (KeyHandle.down && !CollisionHandle.isCollision(player, this, 2, newX, newY)) {
             velocityY += 5;
         }
-        if (key.left && !CollisionHandle.isCollision(player, this, 3, newX, newY)) {
+        if (KeyHandle.left && !CollisionHandle.isCollision(player, this, 3, newX, newY)) {
             velocityX -= 5;
         }
-        if (key.right && !CollisionHandle.isCollision(player, this, 4, newX, newY)) {
+        if (KeyHandle.right && !CollisionHandle.isCollision(player, this, 4, newX, newY)) {
             velocityX += 5;
         }
 
@@ -49,16 +45,5 @@ public abstract class MapMove extends MapMatrix implements Map{
 
     public double getMapFrameSize() {
         return mapFrameSize;
-    }
-    public void setGhost(Ghost ghost){
-        this.ghost = ghost;
-    }
-
-    public double getOffsetX() {
-        return offsetX;
-    }
-
-    public double getOffsetY() {
-        return offsetY;
     }
 }

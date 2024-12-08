@@ -1,6 +1,5 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
@@ -8,21 +7,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.util.Objects;
 
-public class Mob1 extends EnemyRender {
-    public int swordDamage = 2;
-    public Mob1(int x, int y, GraphicsContext ctx) {
+public class Mob3 extends EnemyRender {
+
+    public Mob3(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 50;
         this.height = 50;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1V2.png")));
+        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob3.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
-        this.frameLength = 5;
+        this.frameLength = 3;
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
         Hp = 8;
         attack1 = new SkillTimer(4000, 1500, 1000);
-        hitbox = new Hitbox(x, y, width, height);
     }
 
     @Override
@@ -30,28 +28,20 @@ public class Mob1 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+
+
         attack1.update(deltaTime);
-        if(attack1.state == 1){
-            critMode();
+
+        if(attack1.state == 0){
+            // stay
+        } else if(attack1.state == 1){
             EntityHandle.moveEnemy(this);
-            if(EntityHandle.checkDamage(this) && attack1.makeDamage > 0){
-                EntityHandle.reduceHp(swordDamage);
-                attack1.makeDamage = 0;
-            }
-        }
-        else if(attack1.state == 0){
-            normMode();
-            EntityHandle.moveEnemy(this);
-        } else {
-            normMode();
-            EntityHandle.moveRandom(this);
+        } else if(attack1.state == 2){
+
         }
 
-        hitbox.update(x, y);
         EntityHandle.collisionPlayer(this, deltaTime);
-
         draw(deltaTime);
-        hitbox.draw(ctx);
     }
     protected void critMode(){
         this.verticalSpeed = 6;

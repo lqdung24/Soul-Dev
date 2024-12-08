@@ -17,7 +17,7 @@ public class MapRender extends MapMove implements Map {
 //        Vẽ map.
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                ctx.drawImage(mapImageIndex[map[i][j]], 0, 0, 512, 512, j * 30, i * 30, 30, 30);
+                ctx.drawImage(mapImageIndex[map[i][j]], 0, 0, 512, 512, j * mapFrameSize, i * mapFrameSize, mapFrameSize, mapFrameSize);
             }
         }
 //        Trả về trạng thái ban đầu của canvas.

@@ -1,21 +1,26 @@
 package com.game.itgame.weapon.sword;
 
+import com.game.itgame.controller.CanvasController;
 import com.game.itgame.entity.enemy.EnemyRender;
+import com.game.itgame.entity.item.Chest;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.Arc;
+
 import java.util.Iterator;
 import java.util.List;
 
 public abstract class SwordAttack extends SwordRender implements Weapon {
-    private boolean onAttack = false;
+    public boolean onAttack = false;
     private boolean isCoolDown = false;
-    private double timer = 0;
+    private double timer = 0, coolDownTimer = 0;
     Iterator<EnemyRender> iterator;
-    private final double coolDown = 400;
-
+    private final double coolDownTime = 500;
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
+        timer += deltaTime;
+        coolDownTimer += deltaTime;
        if (!onAttack) {
            ctx.getCanvas().setOnMouseClicked(e -> {
                onAttack = true;
@@ -24,8 +29,8 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
            iterator = enemies.iterator();
            while (iterator.hasNext()) {
                EnemyRender enemy = iterator.next();
-               double angleToEnemy = Math.toDegrees(Math.atan2(player.getX() + 15  - enemy.getX(), enemy.getY() - 20 - player.getY()) + Math.PI / 2);
-               double distance = Math.sqrt(Math.pow(player.getX() - enemy.getX(), 2) + Math.pow(player.getY() - enemy.getY(), 2));
+               double angleToEnemy = Math.toDegrees(Math.atan2(player.hitbox.getCenterX() + 15 - enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY() - 20 - player.hitbox.getCenterY()) + Math.PI / 2);
+               double distance = Math.sqrt(Math.pow(player.hitbox.getCenterX() - enemy.hitbox.getCenterX(), 2) + Math.pow(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(), 2));
 
                if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 50) || distance <= 20 ) {
                    enemy.Hp -= 1;
@@ -35,7 +40,17 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                    }
                }
            }
-           if (timer > 30) {
+           for(Chest chest : CanvasController.chestList){
+               double angleToEnemy = Math.toDegrees(Math.atan2(player.hitbox.getCenterX() + 15 - chest.hitbox.getCenterX(), chest.hitbox.getCenterY() - 20 - player.hitbox.getCenterY()) + Math.PI / 2);
+               double distance = Math.sqrt(Math.pow(player.hitbox.getCenterX() - chest.hitbox.getCenterX(), 2) + Math.pow(player.hitbox.getCenterY() - chest.hitbox.getCenterY(), 2));
+
+               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 50) || distance <= 20 ) {
+                   chest.Hp = 0;
+                   System.out.println(chest.Hp);
+               }
+           }
+
+           if (timer > 40) {
                if (swordIndex >= swordImageLength) {
                    swordIndex = 0;
                    onAttack = false;
@@ -43,14 +58,13 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                } else {
                    swordIndex++;
                }
+               timer = 0;
            }
        }
 
-        timer += deltaTime;
-
-        if (timer >= coolDown) {
-          timer = 0;
-          isCoolDown = false;
+        if (coolDownTimer >= coolDownTime) {
+            coolDownTimer = 0;
+            isCoolDown = false;
         }
     }
 }

@@ -21,23 +21,19 @@ public class CollisionHandle {
                 newX += entity.getVerticalSpeed();
                 break;
         }
-        int colTopLeft = (int) (newX / map.getMapFrameSize());
-        int rowTopLeft = (int) (newY / map.getMapFrameSize());
+        int colTopLeft = (int) ((newX + 15)/ map.getMapFrameSize());
+        int rowTopLeft = (int) ((newY + 15)/ map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + entity.getWidth()) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY + entity.getHeight()) / map.getMapFrameSize());
+        int colBottomRight = (int) ((newX + entity.hitbox.getWidth() + 15) / map.getMapFrameSize());
+        int rowBottomRight = (int) ((newY +  entity.hitbox.getHeight() + 15) / map.getMapFrameSize());
 
         if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
             return true;
         }
 
-        if (map.getValue(rowTopLeft, colTopLeft) != 0 ||
+        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
                 map.getValue(rowTopLeft, colBottomRight) != 0 ||
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
-                map.getValue(rowBottomRight, colBottomRight) != 0) {
-            return true;
-        }
-
-        return false;
+                map.getValue(rowBottomRight, colBottomRight) != 0;
     }
 }

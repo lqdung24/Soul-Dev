@@ -2,7 +2,6 @@ package com.game.itgame.weapon.bow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
-import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Weapon;
 import com.game.itgame.weapon.arrow.Arrow;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,13 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class BowAttack extends BowRender implements Weapon {
-    private boolean onAttack = false;
+    public boolean onAttack = false;
     private boolean isCoolDown = false;
     private double timer = 0;
     Iterator<EnemyRender> iterator;
     private final double coolDown = 1000;
-    private List<Arrow> arrows = new ArrayList<>();
-    protected MapMove map;
+    private final List<Arrow> arrows = new ArrayList<>();
 
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
@@ -54,7 +52,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
 
         ctx.getCanvas().setOnMouseClicked(e -> {
             if (onAttack && !isCoolDown) {
-                Arrow arrow = new Arrow(player.getX(), player.getY(), angle + 45);
+                Arrow arrow = new Arrow(player.hitbox.getCenterX(),player.hitbox.getCenterY(), angle);
 
                 arrows.add(arrow);
 
@@ -71,15 +69,17 @@ public abstract class BowAttack extends BowRender implements Weapon {
         } else {
             timer += deltaTime;
         }
-
-        if (arrows != null) {
+        arrows(ctx);
+    }
+    public void arrows(GraphicsContext ctx){
+        if (!arrows.isEmpty()) {
             for (Arrow arrow : arrows) {
                 if (arrow.getIsAttacked()) {
-                    arrow.render(ctx, enemies, map);
+                    arrow.render(ctx);
                     arrows.remove(arrow);
                     return;
                 }
-                arrow.render(ctx, enemies, map);
+                arrow.render(ctx);
             }
         }
     }
