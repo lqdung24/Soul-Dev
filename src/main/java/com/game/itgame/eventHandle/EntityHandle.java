@@ -2,26 +2,23 @@ package com.game.itgame.eventHandle;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
-import com.game.itgame.entity.enemy.Mob2;
-import com.game.itgame.entity.enemy.Mob3;
+import com.game.itgame.entity.item.Item;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.Aim;
-import com.game.itgame.weapon.arrow.Arrow;
 import com.game.itgame.weapon.arrow.Bullet;
-import com.game.itgame.weapon.arrow.FlyThings;
 import javafx.scene.shape.Shape;
 
 import java.util.List;
 
-public class EnemyHandle { // điều khiển enemy tiến lại gần player
+public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static Player player;
     private static final int moveRadius = 32*10;
     public static MapMove map;
     private static double dx, dy;
     Aim aim;
 
-    public EnemyHandle(Player p, MapMove maps, Aim aim){
+    public EntityHandle(Player p, MapMove maps, Aim aim){
         player = p;
         map = maps;
         this.aim = aim;
@@ -133,5 +130,21 @@ public class EnemyHandle { // điều khiển enemy tiến lại gần player
     }
     public static void reduceHp(int hp){
         player.Hp -= hp;
+        if(player.Hp <= 0){
+            player.Hp = 0;
+            return;
+        }
+        if (player.Hp >= 10){
+            player.Hp = 10;
+        }
+    }
+
+    public static boolean itemUse(Item item){
+      double dx = item.hitbox.distance(player.hitbox);
+      if(dx < 50 && KeyHandle.rightMouse){
+          reduceHp(-4);
+          return true;
+      }
+      return false;
     }
 }

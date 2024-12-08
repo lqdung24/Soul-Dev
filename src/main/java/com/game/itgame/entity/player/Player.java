@@ -65,6 +65,7 @@ public class Player extends EntityRender {
                     this.frameStateIndex = 0;
                 }
             }
+            bow.arrows(ctx);
         }else{
             bow.draw(ctx, this, enemies, deltaTime);
             if(bow.onAttack){

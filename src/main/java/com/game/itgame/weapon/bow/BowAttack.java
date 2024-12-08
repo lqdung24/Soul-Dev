@@ -69,7 +69,9 @@ public abstract class BowAttack extends BowRender implements Weapon {
         } else {
             timer += deltaTime;
         }
-
+        arrows(ctx);
+    }
+    public void arrows(GraphicsContext ctx){
         if (!arrows.isEmpty()) {
             for (Arrow arrow : arrows) {
                 if (arrow.getIsAttacked()) {

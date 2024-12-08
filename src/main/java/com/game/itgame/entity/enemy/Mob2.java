@@ -1,7 +1,7 @@
 package com.game.itgame.entity.enemy;
 
 import com.game.itgame.util.Hitbox;
-import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import com.game.itgame.weapon.arrow.Bullet;
@@ -21,7 +21,7 @@ public class Mob2 extends EnemyRender {
         this.imageHeight = 720;
         this.frameLength = 7;
         this.frameStateIndex = 0;
-        this.verticalSpeed = 2;
+        this.verticalSpeed = 1.5;
         Hp = 8;
         attack1 = new SkillTimer(2000, true, 2000);
         hitbox = new Hitbox(x, y, width - 20, height - 20);
@@ -32,19 +32,18 @@ public class Mob2 extends EnemyRender {
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
 
-        EnemyHandle.moveEnemy(this);
-        EnemyHandle.collisionPlayer(this, deltaTime);
-        draw(deltaTime);
+        EntityHandle.moveEnemy(this);
+        hitbox.update(x + 10, y + 10);
         attack1.update(deltaTime);
 //        if(attack1.state == 0){ // di chuyển bình thường
 //            // stay
 //        }
         if(attack1.isAvailabel){
-            EnemyHandle.bulletAttack(this, bulletList);
+            EntityHandle.bulletAttack(this, bulletList);
             attack1.isAvailabel = false;
         }
         else if(attack1.state == 2){
-            EnemyHandle.moveRandom(this);
+            EntityHandle.moveRandom(this);
         }
 
         for (int i=0; i<bulletList.size(); i++) {
@@ -55,8 +54,7 @@ public class Mob2 extends EnemyRender {
             }
 
         }
-        hitbox.update(x + 10, y + 10);
-        EnemyHandle.collisionPlayer(this, deltaTime);
+        EntityHandle.collisionPlayer(this, deltaTime);
         hitbox.draw(ctx);
         draw(deltaTime);
     }

@@ -2,7 +2,7 @@ package com.game.itgame.entity.enemy;
 
 import com.game.itgame.entity.EntityInterface;
 import com.game.itgame.entity.EntityRender;
-import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.map.MapRender;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
@@ -29,8 +29,8 @@ public class EnemyRender extends EntityRender implements EntityInterface {
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
 
-        EnemyHandle.moveEnemy(this);
-        EnemyHandle.collisionPlayer(this, deltaTime);
+        EntityHandle.moveEnemy(this);
+        EntityHandle.collisionPlayer(this, deltaTime);
         draw(deltaTime);
     }
 

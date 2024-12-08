@@ -17,6 +17,7 @@ public class SkillTimer {
         this.randomTime = randomTime;
         timer = 0;
         this.isOneTime = false;
+        isAvailabel = false;
     }
 
     public SkillTimer(double cooldownTime, boolean isOneTime, double randomTime){
@@ -25,6 +26,7 @@ public class SkillTimer {
         this.randomTime = randomTime;
         timer = 0;
         this.isOneTime = true;
+        isAvailabel = false;
     }
 
     public void update(double deltaTime){

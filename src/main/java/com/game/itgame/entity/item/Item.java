@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Item extends EntityRender{
     protected double mapX, mapY;
+    protected boolean expired;
     public Item(int x, int y, GraphicsContext ctx) {
         this.x = ctx.getCanvas().getWidth()/2-15-2* MapRender.mapFrameSize + x*MapRender.mapFrameSize;
         this.y = ctx.getCanvas().getHeight()/2-15-2*MapRender.mapFrameSize + y*MapRender.mapFrameSize;
@@ -44,5 +45,8 @@ public class Item extends EntityRender{
         } else {
             time += deltaTime;
         }
+    }
+    public boolean expired(){
+        return expired;
     }
 }

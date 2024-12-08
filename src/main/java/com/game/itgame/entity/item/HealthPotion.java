@@ -1,5 +1,6 @@
 package com.game.itgame.entity.item;
 
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.map.MapMove;
 import com.game.itgame.util.Hitbox;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,15 +27,13 @@ public class HealthPotion extends Item {
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
         draw(deltaTime);
-        hitbox.update(0, 0);
+        hitbox.update(x, y);
         hitbox.draw(ctx);
+        expired = EntityHandle.itemUse(this);
     }
     @Override
     public void draw(double deltaTime) {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
-        if(Hp == 0){
-        }
-//        Chỉnh thơi gian chuyển frame
-
     }
+
 }

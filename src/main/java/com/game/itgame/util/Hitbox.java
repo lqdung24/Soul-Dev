@@ -25,4 +25,7 @@ public class Hitbox extends Rectangle {
     public double getCenterY() {
         return centerY;
     }
+    public double distance(Hitbox hitbox){
+        return Math.sqrt(Math.pow(this.getX() - hitbox.getX(), 2) + Math.pow(this.getY() - hitbox.getY(), 2));
+    }
 }

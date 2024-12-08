@@ -3,11 +3,10 @@ package com.game.itgame.controller;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
-import com.game.itgame.entity.enemy.Mob3;
 import com.game.itgame.entity.item.Chest;
 import com.game.itgame.entity.item.HealthPotion;
 import com.game.itgame.entity.player.Player;
-import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.Skill;
 import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Bullet;
@@ -28,11 +27,12 @@ public class CanvasController {
     private Player player;
     private MapRender map;
     private KeyHandle key;
-    private EnemyHandle enemyHandle;
+    private EntityHandle entityHandle;
     public static List<EnemyRender> enemies = new ArrayList<>();
     public static List<Chest> chestList = new ArrayList<>();
     public static List<HealthPotion> healthPotionList = new ArrayList<>();
     private Iterator<Chest> iterator;
+    private Iterator<HealthPotion> healthPotionIterator;
 //    Khai báo canvas.
     @FXML
     public Canvas canvas;
@@ -57,7 +57,7 @@ public class CanvasController {
         }
         enemies.add(new Mob1(16, 16, ctx));
 
-        enemyHandle = new EnemyHandle(player, map, new Aim(ctx));
+        entityHandle = new EntityHandle(player, map, new Aim(ctx));
         chestList.add(new Chest(18, 18, ctx));
 
         // set thuộc tính cho các trường static
@@ -90,12 +90,14 @@ public class CanvasController {
                             iterator.remove();
                         }
                     }
-
-                    for(HealthPotion healthPotion : healthPotionList){
+                    healthPotionIterator = healthPotionList.iterator();
+                    while(healthPotionIterator.hasNext()) {
+                        HealthPotion healthPotion = healthPotionIterator.next();
                         healthPotion.update(deltaTime);
+                        if (healthPotion.expired()) {
+                            healthPotionIterator.remove();
+                        }
                     }
-
-
 
                     if(player.Hp <= 0){
                         player.update(deltaTime);

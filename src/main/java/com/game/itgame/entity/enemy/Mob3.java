@@ -1,6 +1,6 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
@@ -35,12 +35,12 @@ public class Mob3 extends EnemyRender {
         if(attack1.state == 0){
             // stay
         } else if(attack1.state == 1){
-            EnemyHandle.moveEnemy(this);
+            EntityHandle.moveEnemy(this);
         } else if(attack1.state == 2){
 
         }
 
-        EnemyHandle.collisionPlayer(this, deltaTime);
+        EntityHandle.collisionPlayer(this, deltaTime);
         draw(deltaTime);
     }
     protected void critMode(){

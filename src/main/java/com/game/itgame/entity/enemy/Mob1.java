@@ -1,7 +1,7 @@
 package com.game.itgame.entity.enemy;
 
 import com.game.itgame.util.Hitbox;
-import com.game.itgame.eventHandle.EnemyHandle;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,23 +33,22 @@ public class Mob1 extends EnemyRender {
         attack1.update(deltaTime);
         if(attack1.state == 1){
             critMode();
-            EnemyHandle.moveEnemy(this);
-            if(EnemyHandle.checkDamage(this) && attack1.makeDamage > 0){
-                EnemyHandle.reduceHp(swordDamage);
+            EntityHandle.moveEnemy(this);
+            if(EntityHandle.checkDamage(this) && attack1.makeDamage > 0){
+                EntityHandle.reduceHp(swordDamage);
                 attack1.makeDamage = 0;
             }
-            //System.out.println("Check");
         }
         else if(attack1.state == 0){
             normMode();
-            EnemyHandle.moveEnemy(this);
+            EntityHandle.moveEnemy(this);
         } else {
             normMode();
-            EnemyHandle.moveRandom(this);
+            EntityHandle.moveRandom(this);
         }
 
         hitbox.update(x, y);
-        EnemyHandle.collisionPlayer(this, deltaTime);
+        EntityHandle.collisionPlayer(this, deltaTime);
 
         draw(deltaTime);
         hitbox.draw(ctx);
