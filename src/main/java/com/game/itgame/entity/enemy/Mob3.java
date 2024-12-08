@@ -24,22 +24,23 @@ public class Mob3 extends EnemyRender {
     }
 
     @Override
-    public void update(double deltaTime, EnemyHandle key, MapMove map) {
+    public void update(double deltaTime) {
         //update vi tri tuong doi khi nhan vat di chuyen
-        this.x -= map.getOffsetX();
-        this.y -= map.getOffsetY();
+        this.x -= MapMove.offsetX;
+        this.y -= MapMove.offsetY;
+
+
         attack1.update(deltaTime);
 
         if(attack1.state == 0){
             // stay
         } else if(attack1.state == 1){
-            key.moveEnemy(this);
+            EnemyHandle.moveEnemy(this);
         } else if(attack1.state == 2){
 
         }
 
-        move(key);
-        key.collisionPlayer(this, deltaTime);
+        EnemyHandle.collisionPlayer(this, deltaTime);
         draw(deltaTime);
     }
     protected void critMode(){

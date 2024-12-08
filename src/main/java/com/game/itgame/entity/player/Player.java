@@ -1,7 +1,7 @@
 package com.game.itgame.entity.player;
 
 import com.game.itgame.entity.EntityRender;
-import com.game.itgame.entity.Hitbox;
+import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.KeyHandle;
 import com.game.itgame.skill.Skill;
 import com.game.itgame.skill.Shield;
@@ -41,7 +41,6 @@ public class Player extends EntityRender {
     }
     @Override
     public void update(double deltaTime) {
-        move();
         draw(deltaTime);
         bar.draw(deltaTime);
         hitbox.update(this.x + offsetX, this.y + offsetY);
@@ -77,7 +76,7 @@ public class Player extends EntityRender {
             }
         }
 
-        if (time > 90) {
+        if (time > 100) {
             if (frameIndex >= frameLength) {
                 frameIndex = 0;
             } else {

@@ -28,9 +28,9 @@ public abstract class SwordRender implements Weapon {
 
 //        Draw weapon.
         ctx.save();
-        ctx.translate(player.getX() + 25, player.getY() + 40);
+        ctx.translate(player.hitbox.getCenterX(), player.hitbox.getCenterY() + 13);
         ctx.rotate(angle);
-        ctx.drawImage(swordImage, swordIndex * 720, 0, 720, 720, -15, -35, 50, 50);
+        ctx.drawImage(swordImage, swordIndex * 720, 0, 720, 720, -15, -30, 50, 50);
         ctx.restore();
     }
 }

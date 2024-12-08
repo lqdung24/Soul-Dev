@@ -1,6 +1,6 @@
 package com.game.itgame.weapon.arrow;
 
-import com.game.itgame.entity.Hitbox;
+import com.game.itgame.util.Hitbox;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.sword.Sword;
 import javafx.scene.image.Image;

@@ -1,7 +1,7 @@
 package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.controller.CanvasController;
-import com.game.itgame.entity.Hitbox;
+import com.game.itgame.util.Hitbox;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.weapon.sword.Sword;
 import javafx.scene.image.Image;
@@ -18,9 +18,9 @@ public class Arrow extends FlyThings {
         height = width = 30;
         arrowImage = new Image(Objects.requireNonNull(
                 Sword.class.getResourceAsStream("/images/weapon/arrow22.png")));
-        speed = 15;
-        offsetX = 10;
-        offsetY = 35;
+        speed = 0;
+        offsetX = 0;
+        offsetY = 0;
         hitbox = new Hitbox(arrowX, arrowY, width, height - 20);
     }
     @Override

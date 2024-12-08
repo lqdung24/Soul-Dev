@@ -1,4 +1,4 @@
-package com.game.itgame.entity;
+package com.game.itgame.util;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

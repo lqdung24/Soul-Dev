@@ -20,8 +20,9 @@ module com.game.itgame {
     exports com.game.itgame.gameStart;
     exports com.game.itgame.entity;
     exports com.game.itgame.eventHandle;
-    exports com.game.itgame.test;
     exports com.game.itgame.entity.enemy;
     exports com.game.itgame.skill;
     opens com.game.itgame.skill to javafx.fxml;
+    exports com.game.itgame.util;
+    opens com.game.itgame.util to javafx.fxml;
 }

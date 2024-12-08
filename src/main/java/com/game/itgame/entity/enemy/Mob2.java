@@ -1,6 +1,6 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.entity.Hitbox;
+import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
@@ -27,33 +27,36 @@ public class Mob2 extends EnemyRender {
         hitbox = new Hitbox(x, y, width - 20, height - 20);
     }
     @Override
-    public void update(double deltaTime, EnemyHandle key, MapMove map) {
+    public void update(double deltaTime) {
         //update vi tri tuong doi khi nhan vat di chuyen
-        this.x -= map.getOffsetX();
-        this.y -= map.getOffsetY();
+        this.x -= MapMove.offsetX;
+        this.y -= MapMove.offsetY;
+
+        EnemyHandle.moveEnemy(this);
+        EnemyHandle.collisionPlayer(this, deltaTime);
+        draw(deltaTime);
         attack1.update(deltaTime);
 //        if(attack1.state == 0){ // di chuyển bình thường
 //            // stay
 //        }
         if(attack1.isAvailabel){
-            key.bulletAttack(this, bulletList);
+            EnemyHandle.bulletAttack(this, bulletList);
             attack1.isAvailabel = false;
         }
         else if(attack1.state == 2){
-            key.moveRandom(this);
+            EnemyHandle.moveRandom(this);
         }
 
         for (int i=0; i<bulletList.size(); i++) {
             if(bulletList.get(i).getIsAttacked()){
                 bulletList.remove(i);
             }else {
-                bulletList.get(i).render(ctx, map);
+                bulletList.get(i).render(ctx);
             }
 
         }
-        move(key);
         hitbox.update(x + 10, y + 10);
-        key.collisionPlayer(this, deltaTime);
+        EnemyHandle.collisionPlayer(this, deltaTime);
         hitbox.draw(ctx);
         draw(deltaTime);
     }

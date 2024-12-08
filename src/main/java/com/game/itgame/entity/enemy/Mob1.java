@@ -1,6 +1,6 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.entity.Hitbox;
+import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EnemyHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
@@ -26,31 +26,30 @@ public class Mob1 extends EnemyRender {
     }
 
     @Override
-    public void update(double deltaTime, EnemyHandle key, MapMove map) {
+    public void update(double deltaTime) {
         //update vi tri tuong doi khi nhan vat di chuyen
-        this.x -= map.getOffsetX();
-        this.y -= map.getOffsetY();
+        this.x -= MapMove.offsetX;
+        this.y -= MapMove.offsetY;
         attack1.update(deltaTime);
         if(attack1.state == 1){
             critMode();
-            key.moveEnemy(this);
-            if(key.checkDamage(this) && attack1.makeDamage > 0){
-                key.reduceHp(swordDamage);
+            EnemyHandle.moveEnemy(this);
+            if(EnemyHandle.checkDamage(this) && attack1.makeDamage > 0){
+                EnemyHandle.reduceHp(swordDamage);
                 attack1.makeDamage = 0;
             }
             //System.out.println("Check");
         }
         else if(attack1.state == 0){
             normMode();
-            key.moveEnemy(this);
+            EnemyHandle.moveEnemy(this);
         } else {
             normMode();
-            key.moveRandom(this);
+            EnemyHandle.moveRandom(this);
         }
 
-        move(key);
         hitbox.update(x, y);
-        key.collisionPlayer(this, deltaTime);
+        EnemyHandle.collisionPlayer(this, deltaTime);
 
         draw(deltaTime);
         hitbox.draw(ctx);

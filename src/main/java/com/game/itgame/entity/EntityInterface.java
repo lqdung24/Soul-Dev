@@ -5,5 +5,4 @@ public interface EntityInterface {
 //    public void update(double deltaTime);
     void update(double deltaTime);
     void draw(double deltaTime);
-    void move();
 }

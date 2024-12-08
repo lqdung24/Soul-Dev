@@ -1,6 +1,8 @@
 package com.game.itgame.weapon.sword;
 
+import com.game.itgame.controller.CanvasController;
 import com.game.itgame.entity.enemy.EnemyRender;
+import com.game.itgame.entity.item.Chest;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.Weapon;
 import javafx.scene.canvas.GraphicsContext;
@@ -36,6 +38,15 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                    if(enemy.Hp <= 0){
                        iterator.remove();
                    }
+               }
+           }
+           for(Chest chest : CanvasController.chestList){
+               double angleToEnemy = Math.toDegrees(Math.atan2(player.hitbox.getCenterX() + 15 - chest.hitbox.getCenterX(), chest.hitbox.getCenterY() - 20 - player.hitbox.getCenterY()) + Math.PI / 2);
+               double distance = Math.sqrt(Math.pow(player.hitbox.getCenterX() - chest.hitbox.getCenterX(), 2) + Math.pow(player.hitbox.getCenterY() - chest.hitbox.getCenterY(), 2));
+
+               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 50) || distance <= 20 ) {
+                   chest.Hp = 0;
+                   System.out.println(chest.Hp);
                }
            }
 
