@@ -13,6 +13,8 @@ public abstract class BowRender implements Weapon {
     protected int bowImageLength;
     protected double mouseX;
     protected double mouseY;
+    protected double bowX;
+    protected double bowY;
 
     @Override
     public void draw(GraphicsContext ctx, Player player, List<EnemyRender> enemies, double deltaTime) {
@@ -21,15 +23,18 @@ public abstract class BowRender implements Weapon {
             mouseY = e.getY();
         });
 
-        double angle = Math.toDegrees(Math.atan2(player.getX() + 25  - mouseX, mouseY - 40 - player.getY()) + Math.PI / 2);
+        bowX = player.hitbox.getCenterX() + 10;
+        bowY = player.hitbox.getCenterY() + 5;
+
+        double angle = Math.toDegrees(Math.atan2(bowX  - mouseX, mouseY - bowY) + Math.PI / 2);
 //      Check attack.
         attack(ctx, deltaTime, player, enemies, angle);
 
 //      Draw weapon.
         ctx.save();
-        ctx.translate(player.getX() + 25, player.getY() + 40);
+        ctx.translate(bowX, bowY);
         ctx.rotate(angle);
-        ctx.drawImage(bowImage, bowIndex * 720, 0, 720, 720, -15, -25, 50, 50);
+        ctx.drawImage(bowImage, bowIndex * 720, 0, 720, 720, -25, -35, 70, 70);
         ctx.restore();
     }
 }

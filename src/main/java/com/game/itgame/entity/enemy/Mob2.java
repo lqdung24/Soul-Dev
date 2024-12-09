@@ -26,6 +26,7 @@ public class Mob2 extends EnemyRender {
         attack1 = new SkillTimer(2000, true, 2000);
         hitbox = new Hitbox(x, y, width - 20, height - 20);
     }
+
     @Override
     public void update(double deltaTime) {
         //update vi tri tuong doi khi nhan vat di chuyen
@@ -50,10 +51,11 @@ public class Mob2 extends EnemyRender {
             if(bulletList.get(i).getIsAttacked()){
                 bulletList.remove(i);
             }else {
-                bulletList.get(i).render(ctx);
+                bulletList.get(i).render(ctx, deltaTime);
             }
 
         }
+
         EntityHandle.collisionPlayer(this, deltaTime);
         hitbox.draw(ctx);
         draw(deltaTime);

@@ -11,19 +11,21 @@ import javafx.scene.shape.Shape;
 import java.util.Objects;
 
 public class Arrow extends FlyThings {
+        private double lifeTime = 10000;
+
     public Arrow(double x, double y, double angle) {
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
         offsetAngle = 0;
-        width = 30;
-        height = 30;
+        width = 35;
+        height = 35;
         arrowImage = new Image(Objects.requireNonNull(
                 Sword.class.getResourceAsStream("/images/weapon/arrow22.png")));
         speed = 15;
         offsetX = 10;
         offsetY = 5;
-        hitbox = new Hitbox(arrowX, arrowY, width, height-20);
+        hitbox = new Hitbox(0, 0, 10, 10);
     }
     @Override
     public void attack() {
@@ -45,15 +47,26 @@ public class Arrow extends FlyThings {
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
+    public void render(GraphicsContext ctx, double deltaTime) {
         move();
-        hitbox.update(arrowX + offsetX, arrowY + offsetY);
+
+        double hitboxX = arrowX - 5 + 20 * Math.cos(Math.toRadians(arrowAngle));
+        double hitboxY = arrowY - 5 + 20 * Math.sin(Math.toRadians(arrowAngle));
+        hitbox.update(hitboxX, hitboxY);
         hitbox.draw(ctx);
+
         ctx.save();
-        ctx.translate(hitbox.getCenterX(), hitbox.getCenterY());
+        ctx.translate(arrowX, arrowY);
         ctx.rotate(offsetAngle + arrowAngle);
-        ctx.drawImage(arrowImage, 0, 0, 720, 720, 0, 0, height, width);
+        ctx.drawImage(arrowImage, 0, 0, 720, 720, -10, -5, height, width);
         ctx.restore();
+
         attack();
+
+        lifeTime -= deltaTime;
+    }
+
+    public double getLifeTime() {
+        return lifeTime;
     }
 }

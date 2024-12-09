@@ -19,18 +19,23 @@ public abstract class FlyThings {
     protected boolean isAttacked = false;
     protected Hitbox hitbox;
     protected double offsetX, offsetY;
+
     public void move() {
         arrowX += speed * Math.cos(Math.toRadians(arrowAngle)) - MapMove.offsetX;
         arrowY += speed * Math.sin(Math.toRadians(arrowAngle)) - MapMove.offsetY;
     }
 
-    public void render(GraphicsContext ctx) {
+    public void render(GraphicsContext ctx, double deltaTime) {
         move();
-        hitbox.update(arrowX + offsetX, arrowY + offsetY);
+
+        double hitboxX = arrowX - 1;
+        double hitboxY = arrowY - 0.5;
+
+        hitbox.update(hitboxX, hitboxY);
         hitbox.draw(ctx);
+
         ctx.save();
-        ctx.translate(arrowX + 15, arrowY + 20);
-        ctx.rotate(offsetAngle + arrowAngle);
+        ctx.translate(arrowX, arrowY );
         ctx.drawImage(arrowImage, 0, 0, 720, 720, 0, 0, height, width);
         ctx.restore();
         attack();

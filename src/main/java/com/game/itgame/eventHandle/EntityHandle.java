@@ -128,6 +128,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         bullet.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
                 enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(angle)), angle));
     }
+
     public static void reduceHp(int hp){
         player.Hp -= hp;
         if(player.Hp <= 0){

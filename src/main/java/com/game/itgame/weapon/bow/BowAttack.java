@@ -52,7 +52,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
 
         ctx.getCanvas().setOnMouseClicked(e -> {
             if (onAttack && !isCoolDown) {
-                Arrow arrow = new Arrow(player.hitbox.getCenterX(),player.hitbox.getCenterY(), angle);
+                Arrow arrow = new Arrow(bowX , bowY, angle);
 
                 arrows.add(arrow);
 
@@ -69,17 +69,17 @@ public abstract class BowAttack extends BowRender implements Weapon {
         } else {
             timer += deltaTime;
         }
-        arrows(ctx);
+        arrows(ctx, deltaTime);
     }
-    public void arrows(GraphicsContext ctx){
+    public void arrows(GraphicsContext ctx, double deltaTime) {
         if (!arrows.isEmpty()) {
             for (Arrow arrow : arrows) {
-                if (arrow.getIsAttacked()) {
-                    arrow.render(ctx);
+                arrow.render(ctx, deltaTime);
+
+                if (arrow.getIsAttacked() || arrow.getLifeTime() < 0) {
                     arrows.remove(arrow);
                     return;
                 }
-                arrow.render(ctx);
             }
         }
     }

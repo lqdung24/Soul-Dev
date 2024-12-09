@@ -1,5 +1,6 @@
 package com.game.itgame.controller;
 
+import com.game.itgame.entity.enemy.Boss1;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.enemy.Mob2;
@@ -33,6 +34,7 @@ public class CanvasController {
     public static List<HealthPotion> healthPotionList = new ArrayList<>();
     private Iterator<Chest> iterator;
     private Iterator<HealthPotion> healthPotionIterator;
+    private Boss1 boss1;
 //    Khai báo canvas.
     @FXML
     public Canvas canvas;
@@ -42,6 +44,7 @@ public class CanvasController {
         ctx = canvas.getGraphicsContext2D();
         Skill.setGraphicsContext(ctx);
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
+        boss1 = new Boss1(canvas.getWidth() / 2 + 15, canvas.getHeight() / 2 + 15, ctx);
         map = new MapRender();
         key = new KeyHandle(scene);
         for (int i = 0; i < 1; i++) {
@@ -79,6 +82,7 @@ public class CanvasController {
 //                Vẽ và cập nhật trạng thái của player map và sword.
                     map.mapRender(ctx, player, key);
                     player.update(deltaTime);
+                    boss1.update(deltaTime);
                     if(!enemies.isEmpty()) {
                         enemies.forEach(enemy -> enemy.update(deltaTime));
                     }

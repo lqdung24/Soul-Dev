@@ -37,13 +37,13 @@ public class Player extends EntityRender {
 
         sword = new Sword();
         bow = new Bow();
-        hitbox = new Hitbox(x, y, width - offsetX*2, height - offsetY);
+        hitbox = new Hitbox(x + 5, y + 20, width - offsetX*2 - 10, height - offsetY - 20);
     }
     @Override
     public void update(double deltaTime) {
         draw(deltaTime);
         bar.draw(deltaTime);
-        hitbox.update(this.x + offsetX, this.y + offsetY);
+        hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
 
         //shield.update(deltaTime);
     }
@@ -65,7 +65,7 @@ public class Player extends EntityRender {
                     this.frameStateIndex = 0;
                 }
             }
-            bow.arrows(ctx);
+            bow.arrows(ctx, deltaTime);
         }else{
             bow.draw(ctx, this, enemies, deltaTime);
             if(bow.onAttack){

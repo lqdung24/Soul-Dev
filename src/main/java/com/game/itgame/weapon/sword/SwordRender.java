@@ -22,15 +22,18 @@ public abstract class SwordRender implements Weapon {
             mouseY = e.getY();
         });
 
-        double angle = Math.toDegrees(Math.atan2(player.getX() + 25  - mouseX, mouseY - 40 - player.getY()) + Math.PI / 2);
+        double swordX = player.hitbox.getCenterX() + 8;
+        double swordY = player.hitbox.getCenterY() + 5;
+
+        double angle = Math.toDegrees(Math.atan2(swordX  - mouseX, mouseY - swordY) + Math.PI / 2);
 //        Check attack.
         attack(ctx, deltaTime, player, enemies, angle);
 
 //        Draw weapon.
         ctx.save();
-        ctx.translate(player.hitbox.getCenterX(), player.hitbox.getCenterY() + 13);
+        ctx.translate(swordX, swordY);
         ctx.rotate(angle);
-        ctx.drawImage(swordImage, swordIndex * 720, 0, 720, 720, -15, -30, 50, 50);
+        ctx.drawImage(swordImage, swordIndex * 720, 0, 720, 720, -15, -39, 70, 70);
         ctx.restore();
     }
 }
