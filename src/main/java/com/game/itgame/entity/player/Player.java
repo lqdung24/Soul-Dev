@@ -1,10 +1,9 @@
 package com.game.itgame.entity.player;
 
 import com.game.itgame.entity.EntityRender;
+import com.game.itgame.skill.DashSkill;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.KeyHandle;
-import com.game.itgame.skill.Skill;
-import com.game.itgame.skill.Shield;
 import com.game.itgame.weapon.bow.Bow;
 import com.game.itgame.weapon.sword.Sword;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,11 +14,15 @@ import java.util.Objects;
 import static com.game.itgame.controller.CanvasController.enemies;
 
 public class Player extends EntityRender {
-    protected HealthBar bar;
-    protected Skill shield;
+    protected HealthBar healthBar;
+    protected DashSkill dashSkill;
     private Sword sword;
     private Bow bow;
     private double offsetX = 10, offsetY = 10;
+    private ManaBar manaBar;
+    private int mana;
+    private boolean immune = false;
+
     public Player(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 70;
@@ -32,9 +35,11 @@ public class Player extends EntityRender {
         this.verticalSpeed = 5;
         this.damage = 2;
         this.Hp = 10;
-        this.bar = new HealthBar(ctx, this);
-        shield = new Shield();
+        this.healthBar = new HealthBar(ctx, this);
+        this.manaBar = new ManaBar(ctx, this);
+        this.mana = 3;
 
+        dashSkill = new DashSkill(1000, 150, this);
         sword = new Sword();
         bow = new Bow();
         hitbox = new Hitbox(x + 5, y + 20, width - offsetX*2 - 10, height - offsetY - 20);
@@ -42,10 +47,10 @@ public class Player extends EntityRender {
     @Override
     public void update(double deltaTime) {
         draw(deltaTime);
-        bar.draw(deltaTime);
+        healthBar.draw(deltaTime);
+        manaBar.draw(deltaTime);
         hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
-
-        //shield.update(deltaTime);
+        dashSkill.update(deltaTime);
     }
     @Override
     public void draw(double deltaTime) {
@@ -90,4 +95,26 @@ public class Player extends EntityRender {
         hitbox.draw(ctx);
     }
 
+    public void setImmune(boolean immune) {
+        this.immune = immune;
+    }
+
+    public boolean getImmuneState(){
+        return immune;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+    public boolean increaseMana(int change) {
+        mana += change;
+        if(mana <= 0){
+            mana = 0;
+            return false;
+        }
+        if(mana >= 3){
+            mana = 3;
+        }
+        return true;
+    }
 }

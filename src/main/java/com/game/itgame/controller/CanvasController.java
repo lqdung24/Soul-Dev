@@ -44,7 +44,7 @@ public class CanvasController {
         ctx = canvas.getGraphicsContext2D();
         Skill.setGraphicsContext(ctx);
         player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
-        boss1 = new Boss1(canvas.getWidth() / 2 + 15, canvas.getHeight() / 2 + 15, ctx);
+        boss1 = new Boss1(20, 20, ctx);
         map = new MapRender();
         key = new KeyHandle(scene);
         for (int i = 0; i < 1; i++) {
@@ -55,11 +55,12 @@ public class CanvasController {
             if(i % 2 == 0){
                 enemies.add(new Mob2(randomX, randomY, ctx));
             }else{
-                enemies.add(new Mob1(randomX, randomY, ctx)); // toa d
+                enemies.add(new Mob1(randomX, randomY, ctx)); // toa do
             }
         }
-        enemies.add(new Mob1(16, 16, ctx));
 
+        enemies.add(new Mob1(16, 16, ctx));
+        enemies.add(boss1);
         entityHandle = new EntityHandle(player, map, new Aim(ctx));
         chestList.add(new Chest(18, 18, ctx));
 
@@ -81,11 +82,17 @@ public class CanvasController {
 
 //                Vẽ và cập nhật trạng thái của player map và sword.
                     map.mapRender(ctx, player, key);
-                    player.update(deltaTime);
-                    boss1.update(deltaTime);
-                    if(!enemies.isEmpty()) {
-                        enemies.forEach(enemy -> enemy.update(deltaTime));
+
+                    Iterator<EnemyRender> itE = enemies.iterator();
+                    while(itE.hasNext()){
+                        EnemyRender e = itE.next();
+                        if(e.Hp <= 0){
+                            itE.remove();
+                        }else{
+                            e.update(deltaTime);
+                        }
                     }
+
                     iterator = chestList.iterator();
                     while (iterator.hasNext()) {
                         Chest chest = iterator.next();
@@ -94,6 +101,7 @@ public class CanvasController {
                             iterator.remove();
                         }
                     }
+
                     healthPotionIterator = healthPotionList.iterator();
                     while(healthPotionIterator.hasNext()) {
                         HealthPotion healthPotion = healthPotionIterator.next();
@@ -102,7 +110,7 @@ public class CanvasController {
                             healthPotionIterator.remove();
                         }
                     }
-
+                    player.update(deltaTime);
                     if(player.Hp <= 0){
                         player.update(deltaTime);
                         System.out.println("You Die");

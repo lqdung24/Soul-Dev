@@ -16,7 +16,7 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     public SkillTimer attack1;
     public boolean moveLeft = false, moveRight = false;
 
-    public EnemyRender(double x, double y, GraphicsContext ctx) {
+    public EnemyRender(int x, int y, GraphicsContext ctx) {
         this.x = ctx.getCanvas().getWidth() / 2 - 15 - 2 * MapRender.mapFrameSize + x * MapRender.mapFrameSize;
         this.y = ctx.getCanvas().getHeight() / 2 - 15 - 2 * MapRender.mapFrameSize + y * MapRender.mapFrameSize;
         mapX = x * MapRender.mapFrameSize;

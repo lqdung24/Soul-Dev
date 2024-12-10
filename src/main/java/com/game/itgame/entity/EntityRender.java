@@ -85,6 +85,10 @@ public class EntityRender implements EntityInterface {
         return ctx;
     }
 
+    public void setVerticalSpeed(double verticalSpeed) {
+        this.verticalSpeed = verticalSpeed;
+    }
+
     public void setX(double x) {
         this.x = x;
     }

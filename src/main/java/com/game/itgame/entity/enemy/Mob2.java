@@ -47,6 +47,14 @@ public class Mob2 extends EnemyRender {
             EntityHandle.moveRandom(this);
         }
 
+        bulletDraw(ctx, deltaTime);
+
+        EntityHandle.collisionPlayer(this, deltaTime);
+        hitbox.draw(ctx);
+        draw(deltaTime);
+    }
+
+    public void bulletDraw(GraphicsContext ctx, double deltaTime) {
         for (int i=0; i<bulletList.size(); i++) {
             if(bulletList.get(i).getIsAttacked()){
                 bulletList.remove(i);
@@ -55,9 +63,5 @@ public class Mob2 extends EnemyRender {
             }
 
         }
-
-        EntityHandle.collisionPlayer(this, deltaTime);
-        hitbox.draw(ctx);
-        draw(deltaTime);
     }
 }

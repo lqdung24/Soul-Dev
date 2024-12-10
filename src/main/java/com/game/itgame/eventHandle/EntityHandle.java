@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static Player player;
-    private static final int moveRadius = 32*10;
+    private static final int moveRadius = (int) (MapMove.mapFrameSize*5);
     public static MapMove map;
     private static double dx, dy;
     Aim aim;
@@ -63,7 +63,6 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
                 enemy.collisionTimer = 0;
             }
         }
-
     }
 
     public static boolean collisionMap(EnemyRender enemy, double newX, double newY){
@@ -81,6 +80,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
                 map.getValue(rowBottomRight, colBottomRight) != 0;
     }
+
     public static boolean collisionMap(double newX, double newY, double width, double height){
         int colTopLeft = (int) (newX / map.getMapFrameSize());
         int rowTopLeft = (int) (newY / map.getMapFrameSize());
@@ -91,6 +91,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
             return true;
         }
+
         return map.getValue(rowTopLeft, colTopLeft) != 0 ||
                 map.getValue(rowTopLeft, colBottomRight) != 0 ||
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
@@ -102,8 +103,9 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         dy = player.hitbox.getCenterY() - enemy.hitbox.getCenterY();
 
         double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < 50;
+        return distance < 70;
     }
+
     public static void moveRandom(EnemyRender enemy){
         double angle = enemy.attack1.angle;
         double dx = enemy.getVerticalSpeed() * Math.cos(angle);
@@ -121,6 +123,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         enemy.mapX += dx;
         enemy.mapY += dy;
     }
+
     public static void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
         double angle = Math.toDegrees(Math.atan2(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(),
                 player.hitbox.getCenterX() - enemy.hitbox.getCenterX()));
@@ -130,7 +133,11 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     }
 
     public static void reduceHp(int hp){
+        if(player.getImmuneState()){
+            return;
+        }
         player.Hp -= hp;
+
         if(player.Hp <= 0){
             player.Hp = 0;
             return;
@@ -141,11 +148,11 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     }
 
     public static boolean itemUse(Item item){
-      double dx = item.hitbox.distance(player.hitbox);
-      if(dx < 50 && KeyHandle.rightMouse){
-          reduceHp(-4);
-          return true;
-      }
-      return false;
+        double dx = item.hitbox.distance(player.hitbox);
+        if(dx < 50 && KeyHandle.rightMouse){
+            reduceHp(-4);
+            return true;
+        }
+        return false;
     }
 }

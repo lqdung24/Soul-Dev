@@ -16,7 +16,7 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
     private boolean isCoolDown = false;
     private double timer = 0, coolDownTimer = 0;
     Iterator<EnemyRender> iterator;
-    private final double coolDownTime = 500;
+    private final double coolDownTime = 300;
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
         timer += deltaTime;

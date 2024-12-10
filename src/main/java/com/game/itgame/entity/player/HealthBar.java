@@ -22,19 +22,24 @@ public class HealthBar{
          this.ctx = ctx;
          x = 30;
          y = 10;
-         width = 48*2;
-         height = 48*2;
-         imageWidth = 720;
+         height = 70;
+         width = height*2.5;
+         imageWidth = 1800;
          imageHeight = 720;
-         image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar1.png")));
+         image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/healthbar.png")));
          ctx.drawImage(image, x, y);
          this.entityRender = entityRender;
      }
 
     public void draw(double deltaTime) {
-         ctx.setFill(Color.WHITE);ctx.fillRect(0, 0, 200, 100);
-         ctx.drawImage(image, (10-entityRender.Hp) * imageWidth, 0,
+
+        if (entityRender.Hp >= 5) {
+            ctx.drawImage(image, (10-entityRender.Hp) * imageWidth, 0,
                     imageWidth, imageHeight, x, y, width, height);
+        }else {
+            ctx.drawImage(image, (4-entityRender.Hp)*imageWidth, 720, imageWidth, imageHeight, x, y, width, height);
+        }
+
         //ctx.drawImage(image, x, y);
 
     }
