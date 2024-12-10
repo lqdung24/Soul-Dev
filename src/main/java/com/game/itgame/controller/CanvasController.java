@@ -62,7 +62,8 @@ public class CanvasController {
         enemies.add(new Mob1(16, 16, ctx));
         enemies.add(boss1);
         entityHandle = new EntityHandle(player, map, new Aim(ctx));
-        chestList.add(new Chest(18, 18, ctx));
+        chestList.add(new Chest(17, 17, ctx));
+        chestList.add(new Chest(25, 25, ctx));
 
         // set thuộc tính cho các trường static
         Bullet.player = player;

@@ -14,8 +14,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
     public boolean onAttack = false;
     private boolean isCoolDown = false;
     private double timer = 0;
-    Iterator<EnemyRender> iterator;
-    private final double coolDown = 1000;
+    private final double coolDown = 500;
     private final List<Arrow> arrows = new ArrayList<>();
 
     @Override
