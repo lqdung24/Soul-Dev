@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static Player player;
-    private static final int moveRadius = (int) (MapMove.mapFrameSize*5);
+    private static final int moveRadius = (int) (MapMove.mapFrameSize*10);
     public static MapMove map;
     private static double dx, dy;
     Aim aim;
@@ -39,6 +39,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
                 return;
             }
         }
+
         enemy.setX(enemy.getX() + dx);
         enemy.setY(enemy.getY() + dy);
         enemy.mapX += dx;
@@ -57,9 +58,8 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
 
         if(Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
             enemy.collisionTimer += deltatime;
-
             if(enemy.collisionTimer >= 1000){
-                player.Hp -= enemy.getCollisionDamage();
+                reduceHp(enemy.getCollisionDamage());
                 enemy.collisionTimer = 0;
             }
         }
@@ -133,9 +133,10 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     }
 
     public static void reduceHp(int hp){
-        if(player.getImmuneState()){
+        if(hp > 0 && player.getImmuneState()){
             return;
         }
+
         player.Hp -= hp;
 
         if(player.Hp <= 0){
@@ -149,7 +150,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
 
     public static boolean itemUse(Item item){
         double dx = item.hitbox.distance(player.hitbox);
-        if(dx < 50 && KeyHandle.rightMouse){
+        if(dx < 70 && KeyHandle.rightMouse){
             reduceHp(-4);
             return true;
         }

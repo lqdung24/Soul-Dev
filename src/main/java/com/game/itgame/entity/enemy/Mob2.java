@@ -14,8 +14,8 @@ public class Mob2 extends EnemyRender {
     public List<Bullet> bulletList = new ArrayList<>();
     public Mob2(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 70;
-        this.height = 70;
+        this.width = 80;
+        this.height = 80;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;

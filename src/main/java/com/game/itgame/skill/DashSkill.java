@@ -6,8 +6,6 @@ import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.shape.Shape;
 
-import java.util.Iterator;
-
 public class DashSkill {
     protected SkillTimer dashSkill;
     protected Player player;
@@ -27,7 +25,8 @@ public class DashSkill {
             player.increaseMana(1);
         }
         if(KeyHandle.space && !actived){
-            if(player.increaseMana(-1)){
+            if(player.getMana() != 0){
+                player.increaseMana(-1);
                 actived = true;
             }
         }
@@ -52,12 +51,10 @@ public class DashSkill {
         player.setImmune(true);
     }
     public void inflictDamage(double deltaTime){
-        Iterator<EnemyRender> it = CanvasController.enemies.iterator();
-        while(it.hasNext()){
-            EnemyRender enemy = it.next();
+        for (EnemyRender enemy : CanvasController.enemies) {
             collisionTimer += deltaTime;
-            if(collisionTimer >= interval){
-                if(Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
+            if (collisionTimer >= interval) {
+                if (Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0) {
                     enemy.Hp -= impactDamage;
                     collisionTimer = 0;
                 }

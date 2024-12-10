@@ -15,8 +15,8 @@ public class Chest extends Item{
         super(x, y, ctx);
         this.ix = x;
         this.iy = y;
-        this.width = 50;
-        this.height = 50;
+        this.width = 70;
+        this.height = 70;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/items/CHEST.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
@@ -31,9 +31,6 @@ public class Chest extends Item{
     public void update(double deltaTime) {
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
-        if(Hp == 0) {
-            CanvasController.healthPotionList.add(new HealthPotion(x, y, ctx));
-        }
         draw(deltaTime);
         hitbox.update(x, y);
         hitbox.draw(ctx);
@@ -43,16 +40,18 @@ public class Chest extends Item{
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
 
         if(Hp == 0){
-            if (time > 150) {
+            if (time > 100) {
                 if (frameIndex < frameLength) {
                     frameIndex++;
                     time = 0;
+                }else{
+                    CanvasController.healthPotionList.add(new HealthPotion(x, y, ctx));
+                    remove = true;
                 }
             } else {
                 time += deltaTime;
             }
         }
-//        Chỉnh thơi gian chuyển frame
 
     }
 }

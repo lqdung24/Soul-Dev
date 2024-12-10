@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class EnemyRender extends EntityRender implements EntityInterface {
     protected double time = 0;
-    protected double collisionDamage = 1;
+    protected int collisionDamage = 1;
     public double collisionTimer = 0;
     public double mapX, mapY;
     public SkillTimer attack1;
@@ -54,7 +54,7 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     public double getSpeed() {
         return verticalSpeed;
     }
-    public double getCollisionDamage() {
+    public int getCollisionDamage() {
         return collisionDamage;
     }
 

@@ -1,5 +1,6 @@
 package com.game.itgame.weapon.arrow;
 
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.weapon.sword.Sword;
@@ -28,7 +29,7 @@ public class Bullet extends FlyThings{
     public void attack() {
         // tâm của đạn
         if(Shape.intersect(hitbox, player.hitbox).getBoundsInLocal().getWidth() > 0){
-            player.Hp -= 2;
+            EntityHandle.reduceHp(2);
             isAttacked = true;
         }
     }

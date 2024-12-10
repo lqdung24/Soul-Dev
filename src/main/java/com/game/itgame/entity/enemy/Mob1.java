@@ -12,8 +12,8 @@ public class Mob1 extends EnemyRender {
     public int swordDamage = 2;
     public Mob1(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 50;
-        this.height = 50;
+        this.width = 70;
+        this.height = 70;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1V2.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
@@ -22,7 +22,7 @@ public class Mob1 extends EnemyRender {
         this.verticalSpeed = 2;
         Hp = 8;
         attack1 = new SkillTimer(4000, 1500, 1000);
-        hitbox = new Hitbox(x, y, width, height);
+        hitbox = new Hitbox(x, y, width, height-5);
     }
 
     @Override

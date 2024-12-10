@@ -98,7 +98,7 @@ public class CanvasController {
                     while (iterator.hasNext()) {
                         Chest chest = iterator.next();
                         chest.update(deltaTime);
-                        if (chest.Hp == 0) {
+                        if (chest.remove) {
                             iterator.remove();
                         }
                     }

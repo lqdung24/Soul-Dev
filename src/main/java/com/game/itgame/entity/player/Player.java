@@ -25,8 +25,8 @@ public class Player extends EntityRender {
 
     public Player(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 70;
-        this.height = 70;
+        this.width = 85;
+        this.height = 85;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/maincharacter3.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
@@ -44,14 +44,18 @@ public class Player extends EntityRender {
         bow = new Bow();
         hitbox = new Hitbox(x + 5, y + 20, width - offsetX*2 - 10, height - offsetY - 20);
     }
+
     @Override
     public void update(double deltaTime) {
         draw(deltaTime);
         healthBar.draw(deltaTime);
         manaBar.draw(deltaTime);
         hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
+        System.out.println(immune);
         dashSkill.update(deltaTime);
+        System.out.println(KeyHandle.rightMouse);
     }
+
     @Override
     public void draw(double deltaTime) {
         ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
@@ -60,7 +64,8 @@ public class Player extends EntityRender {
         }else if(KeyHandle.right) {
             this.frameStateIndex = 0;
         }
-        //ctx.fillRect
+
+        //weapon chose
         if(KeyHandle.firstWeapon){
             sword.draw(ctx, this, enemies, deltaTime);
             if(sword.onAttack) {

@@ -16,7 +16,7 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
     private boolean isCoolDown = false;
     private double timer = 0, coolDownTimer = 0;
     Iterator<EnemyRender> iterator;
-    private final double coolDownTime = 300;
+    private final double coolDownTime = 400;
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
         timer += deltaTime;
@@ -32,7 +32,7 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                double angleToEnemy = Math.toDegrees(Math.atan2(player.hitbox.getCenterX() + 15 - enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY() - 20 - player.hitbox.getCenterY()) + Math.PI / 2);
                double distance = Math.sqrt(Math.pow(player.hitbox.getCenterX() - enemy.hitbox.getCenterX(), 2) + Math.pow(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(), 2));
 
-               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 50) || distance <= 20 ) {
+               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 70) || distance <= 20 ) {
                    enemy.Hp -= 1;
                    System.out.println(enemy.Hp);
                    if(enemy.Hp <= 0){
@@ -44,7 +44,7 @@ public abstract class SwordAttack extends SwordRender implements Weapon {
                double angleToEnemy = Math.toDegrees(Math.atan2(player.hitbox.getCenterX() + 15 - chest.hitbox.getCenterX(), chest.hitbox.getCenterY() - 20 - player.hitbox.getCenterY()) + Math.PI / 2);
                double distance = Math.sqrt(Math.pow(player.hitbox.getCenterX() - chest.hitbox.getCenterX(), 2) + Math.pow(player.hitbox.getCenterY() - chest.hitbox.getCenterY(), 2));
 
-               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 50) || distance <= 20 ) {
+               if ((angleToEnemy < angle + 50 && angleToEnemy > angle - 50 && distance < 80) || distance <= 20 ) {
                    chest.Hp = 0;
                    System.out.println(chest.Hp);
                }

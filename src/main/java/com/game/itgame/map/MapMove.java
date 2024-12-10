@@ -11,6 +11,7 @@ public abstract class MapMove extends MapMatrix implements Map{
     protected int startX = 2;
     protected int startY = 2;
     public static double offsetX, offsetY;
+    private double ox = 15, oy = 30;
 
     public void mapMove(Player player, KeyHandle key) {
         double velocityX = 0;
@@ -19,16 +20,16 @@ public abstract class MapMove extends MapMatrix implements Map{
         double newY = y + startY * mapFrameSize;
         offsetY = offsetX = 0;
 
-        if (KeyHandle.up && !CollisionHandle.isCollision(player, this, 1, newX, newY)) {
+        if (KeyHandle.up && !CollisionHandle.isCollision(player, this, 1, newX+ox, newY + oy)) {
             velocityY -= 5;
         }
-        if (KeyHandle.down && !CollisionHandle.isCollision(player, this, 2, newX, newY)) {
+        if (KeyHandle.down && !CollisionHandle.isCollision(player, this, 2, newX+ox, newY + oy)) {
             velocityY += 5;
         }
-        if (KeyHandle.left && !CollisionHandle.isCollision(player, this, 3, newX, newY)) {
+        if (KeyHandle.left && !CollisionHandle.isCollision(player, this, 3, newX+ox, newY + oy)) {
             velocityX -= 5;
         }
-        if (KeyHandle.right && !CollisionHandle.isCollision(player, this, 4, newX, newY)) {
+        if (KeyHandle.right && !CollisionHandle.isCollision(player, this, 4, newX+ox, newY + oy)) {
             velocityX += 5;
         }
 
