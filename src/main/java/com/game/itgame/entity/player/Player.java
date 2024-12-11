@@ -22,12 +22,14 @@ public class Player extends EntityRender {
     private ManaBar manaBar;
     private int mana;
     private boolean immune = false;
+    private Image runImage;
 
     public Player(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 85;
         this.height = 85;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/maincharacter3.png")));
+        this.runImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/player/characterwalk.png")));
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 5;
@@ -56,7 +58,13 @@ public class Player extends EntityRender {
 
     @Override
     public void draw(double deltaTime) {
-        ctx.drawImage(image, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
+        Image drawImg;
+        if(KeyHandle.space || !(KeyHandle.left || KeyHandle.right || KeyHandle.up || KeyHandle.down)){
+            drawImg = image;
+        }else{
+            drawImg = runImage;
+        }
+        ctx.drawImage(drawImg, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
         if(KeyHandle.left) {
             this.frameStateIndex = 1;
         }else if(KeyHandle.right) {
@@ -119,5 +127,12 @@ public class Player extends EntityRender {
             mana = 3;
         }
         return true;
+    }
+    @Override
+    public void restart(){
+        this.startX = x;
+        this.startY = y;
+        Hp = 10;
+        mana = 3;
     }
 }

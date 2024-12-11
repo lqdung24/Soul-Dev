@@ -10,6 +10,7 @@ import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Bullet;
 import javafx.scene.shape.Shape;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntityHandle { // điều khiển enemy tiến lại gần player
@@ -166,8 +167,8 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static boolean bossSkill3CheckDamage(double x, double y){
         double dx = Math.sqrt(Math.pow(x - player.hitbox.getCenterX(), 2)
                             + Math.pow(y - player.hitbox.getCenterY(), 2));
-        if(dx < 100){
-            reduceHp(5);
+        if(dx < 80){
+            reduceHp(4);
             return true;
         }
         return false;

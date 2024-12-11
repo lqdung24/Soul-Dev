@@ -21,18 +21,21 @@ public class EntityRender implements EntityInterface {
     protected int frameStateIndex;
     protected int frameLength;
     protected int frameIndex = 0;
-    public boolean remove = false;
+    public boolean remove = false, stop = false;
+    public int roomNum;
+    protected double startX, startY;
 
     public EntityRender() {}
     public EntityRender(double x, double y, GraphicsContext ctx) {
         this.x = x;
         this.y = y;
+        this.startX = x;
+        this.startY = y;
         this.ctx = ctx;
     }
 
     @Override
     public void update(double deltaTime) {
-        draw(deltaTime);
     }
 
     @Override
@@ -51,6 +54,9 @@ public class EntityRender implements EntityInterface {
             time += deltaTime;
         }
     }
+
+    @Override
+    public void restart(){}
 
     public double getHeight() {
         return height;

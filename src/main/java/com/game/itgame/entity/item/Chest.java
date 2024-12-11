@@ -2,11 +2,9 @@ package com.game.itgame.entity.item;
 
 import com.game.itgame.controller.CanvasController;
 import com.game.itgame.map.MapMove;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.Objects;
 
 public class Chest extends Item{
     public Hitbox hitbox;
@@ -17,7 +15,7 @@ public class Chest extends Item{
         this.iy = y;
         this.width = 70;
         this.height = 70;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/items/CHEST.png")));
+        this.image = GameImage.chestImage;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 3;
@@ -46,7 +44,7 @@ public class Chest extends Item{
                     time = 0;
                 }else{
                     CanvasController.healthPotionList.add(new HealthPotion(x, y, ctx));
-                    remove = true;
+                    stop = true;
                 }
             } else {
                 time += deltaTime;

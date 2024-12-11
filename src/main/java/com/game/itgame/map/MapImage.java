@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 
 public class MapImage {
-    protected Image[] mapImageIndex = {
+    protected static Image[] mapImageIndex = {
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/0.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/1.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/2.png"))),
@@ -18,9 +18,9 @@ public class MapImage {
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/9.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/10.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/11.png"))),
-            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/12.png"))),
-            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/13.png"))),
-            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/14.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/11.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/11.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/11.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/15.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/16.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/17.png"))),
@@ -30,5 +30,20 @@ public class MapImage {
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/21.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/22.png"))),
             new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/23.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/24.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/25.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/26.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/27.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/28.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/29.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/30.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/31.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/32.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/33.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/34.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/35.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/36.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/37.png"))),
+            new Image(Objects.requireNonNull(MapImage.class.getResourceAsStream("/images/map/Map/38.png"))),
     };
 }

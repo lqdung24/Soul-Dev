@@ -1,6 +1,7 @@
 package com.game.itgame.entity.enemy;
 
 import com.game.itgame.skill.BossSkill;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
@@ -17,8 +18,8 @@ public class Boss1 extends EnemyRender {
         super(x, y, ctx);
         this.width = 250;
         this.height = 250;
-        this.skillImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/boss1/bossskill.png")));
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/boss1/boss.png")));
+        this.skillImage = GameImage.bossSkillImage;
+        this.image = GameImage.bossImage;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 3;
@@ -34,10 +35,12 @@ public class Boss1 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
-        bossSkill.update(deltaTime);
+        if(!stop){
+            bossSkill.update(deltaTime);
+            hitbox.update(x + 50, y + 80);
+            EntityHandle.collisionPlayer(this, deltaTime);
+        }
 
-        hitbox.update(x + 50, y + 80);
-        EntityHandle.collisionPlayer(this, deltaTime);
         draw(deltaTime);
         hitbox.draw(ctx);
     }
@@ -65,5 +68,14 @@ public class Boss1 extends EnemyRender {
         }
 
         ctx.drawImage(drawImg, frameIndex * imageWidth, frameStateIndex * imageHeight, imageWidth, imageHeight, x, y, width, height);
+    }
+    @Override
+    public void restart(){
+        this.x = startX;
+        this.y = startY;
+        this.mapX = smX;
+        this.mapY = smY;
+        stop = remove = false;
+        Hp = 50;
     }
 }

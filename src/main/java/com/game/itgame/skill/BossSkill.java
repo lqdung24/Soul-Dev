@@ -23,7 +23,7 @@ public class BossSkill {
     public BossSkill(EnemyRender enemy) {
         boss = (Boss1) enemy;
         frameIndex = 1;
-        attack1 = new SkillTimer(2000, 9600, 2800);
+        attack1 = new SkillTimer(1000, 9600, 3000);
         lightningImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/boss1/bosslightning.png")));
         timer1 = new Timer(1000);
         timer2 = new Timer(2000);
@@ -54,7 +54,10 @@ public class BossSkill {
                 lighhtTimer += deltaTime;
                 if(lighhtTimer < 2000){
                     tracking(deltaTime);
-                }else if(lighhtTimer < 2800){
+                }else if(lighhtTimer < 2200){
+                    drawTracking();
+                }
+                else if(lighhtTimer < 3000 && lighhtTimer >= 2200){
                     lightning(deltaTime);
                 }else{
                     lighhtTimer = 0;
@@ -68,8 +71,13 @@ public class BossSkill {
         this.ly = EntityHandle.player.hitbox.getCenterY();
         timer3.update(deltaTime);
         if(timer3.state == 1){
-            EntityHandle.player.getCtx().drawImage(lightningImage, 0, 0, 720, 720, lx - 105, ly - 100, 200, 200);
+            drawTracking();
         }
+    }
+    public void drawTracking(){
+        lx -= MapMove.offsetX;
+        ly -= MapMove.offsetY;
+        EntityHandle.player.getCtx().drawImage(lightningImage, 0, 0, 720, 720, lx - 105, ly - 100, 200, 200);
     }
 
     public void lightning(double deltaTime){

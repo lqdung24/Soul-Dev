@@ -8,8 +8,8 @@ public abstract class MapMove extends MapMatrix implements Map{
     protected double x = 0;
     protected double y = 0;
     public static double mapFrameSize = 60;
-    protected int startX = 2;
-    protected int startY = 2;
+    protected int startX = 4;
+    protected int startY = 4;
     public static double offsetX, offsetY;
     private double ox = 15, oy = 30;
 
@@ -38,6 +38,7 @@ public abstract class MapMove extends MapMatrix implements Map{
         if (sqrt == 0) {
             return;
         }
+
         offsetX = velocityX * player.getVerticalSpeed() / sqrt;
         offsetY = velocityY * player.getVerticalSpeed() / sqrt;
         x += offsetX;
@@ -46,5 +47,8 @@ public abstract class MapMove extends MapMatrix implements Map{
 
     public double getMapFrameSize() {
         return mapFrameSize;
+    }
+    public void restart(){
+        x = y = 0;
     }
 }

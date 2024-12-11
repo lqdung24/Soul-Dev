@@ -1,14 +1,11 @@
 package com.game.itgame.entity.enemy;
 
-import com.game.itgame.controller.CanvasController;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.*;
 
 
 public class Mob2 extends EnemyRender {
@@ -16,7 +13,7 @@ public class Mob2 extends EnemyRender {
         super(x, y, ctx);
         this.width = 80;
         this.height = 80;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2.png")));
+        this.image = GameImage.mob2Image;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 7;
@@ -32,6 +29,11 @@ public class Mob2 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+
+        if(stop){
+            draw(deltaTime);
+            return;
+        }
 
         EntityHandle.moveEnemy(this);
         hitbox.update(x + 10, y + 10);
@@ -51,5 +53,13 @@ public class Mob2 extends EnemyRender {
         hitbox.draw(ctx);
         draw(deltaTime);
     }
-
+    @Override
+    public void restart(){
+        this.x = startX;
+        this.y = startY;
+        this.mapX = smX;
+        this.mapY = smY;
+        stop = remove = false;
+        Hp = 8;
+    }
 }
