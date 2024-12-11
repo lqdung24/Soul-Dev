@@ -39,7 +39,7 @@ public class Player extends EntityRender {
         this.manaBar = new ManaBar(ctx, this);
         this.mana = 3;
 
-        dashSkill = new DashSkill(1000, 150, this);
+        dashSkill = new DashSkill(1000, 100, this);
         sword = new Sword();
         bow = new Bow();
         hitbox = new Hitbox(x + 5, y + 20, width - offsetX*2 - 10, height - offsetY - 20);
@@ -51,9 +51,7 @@ public class Player extends EntityRender {
         healthBar.draw(deltaTime);
         manaBar.draw(deltaTime);
         hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
-        System.out.println(immune);
         dashSkill.update(deltaTime);
-        System.out.println(KeyHandle.rightMouse);
     }
 
     @Override

@@ -13,7 +13,7 @@ public abstract class MapMove extends MapMatrix implements Map{
     public static double offsetX, offsetY;
     private double ox = 15, oy = 30;
 
-    public void mapMove(Player player, KeyHandle key) {
+    public void mapMove(Player player) {
         double velocityX = 0;
         double velocityY = 0;
         double newX = x + startX * mapFrameSize;

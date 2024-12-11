@@ -12,17 +12,18 @@ import java.util.Objects;
 public class Bullet extends FlyThings{
     public static Player player;
     public Bullet(double x, double y, double angle) {
+        super();
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
         this.offsetAngle = 0;
-        this.height = 20;
-        this.width = 20;
+        this.height = 30;
+        this.width = 30;
         speed = 10;
         arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/mob/mob2/mob2bullet.png")));
         offsetY = 15;
         offsetX = 15;
-        hitbox = new Hitbox(0, 0, 10, 10);
+        hitbox = new Hitbox(x, y, 15, 15);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class Bullet extends FlyThings{
         // tâm của đạn
         if(Shape.intersect(hitbox, player.hitbox).getBoundsInLocal().getWidth() > 0){
             EntityHandle.reduceHp(2);
-            isAttacked = true;
+            remove = true;
         }
     }
 }

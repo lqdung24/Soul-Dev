@@ -1,5 +1,6 @@
 package com.game.itgame.eventHandle;
 
+import com.game.itgame.controller.CanvasController;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.item.Item;
@@ -16,12 +17,10 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     private static final int moveRadius = (int) (MapMove.mapFrameSize*10);
     public static MapMove map;
     private static double dx, dy;
-    Aim aim;
 
     public EntityHandle(Player p, MapMove maps, Aim aim){
         player = p;
         map = maps;
-        this.aim = aim;
     }
     public static void moveEnemy(EnemyRender enemy){
         dx = player.getX() - enemy.getX();
@@ -124,14 +123,21 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         enemy.mapY += dy;
     }
 
-    public static void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
+    public static void bulletMob2Attack(EnemyRender enemy){
         double angle = Math.toDegrees(Math.atan2(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(),
                 player.hitbox.getCenterX() - enemy.hitbox.getCenterX()));
-        bullet.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
-        bullet.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
+        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
+        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
                 enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(angle)), angle));
     }
+    public static void fullBulletAttack(EnemyRender enemy, int num) {
+        for(int i=0; i< num; i++){
+            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), i*360/num));
+//            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(i*360/num)),
+//                    enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(i*360/num)), i*360/num));
+        }
 
+    }
     public static void reduceHp(int hp){
         if(hp > 0 && player.getImmuneState()){
             return;
@@ -152,6 +158,16 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         double dx = item.hitbox.distance(player.hitbox);
         if(dx < 70 && KeyHandle.rightMouse){
             reduceHp(-4);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean bossSkill3CheckDamage(double x, double y){
+        double dx = Math.sqrt(Math.pow(x - player.hitbox.getCenterX(), 2)
+                            + Math.pow(y - player.hitbox.getCenterY(), 2));
+        if(dx < 100){
+            reduceHp(5);
             return true;
         }
         return false;

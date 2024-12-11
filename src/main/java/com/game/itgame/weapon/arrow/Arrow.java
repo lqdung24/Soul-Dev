@@ -11,9 +11,8 @@ import javafx.scene.shape.Shape;
 import java.util.Objects;
 
 public class Arrow extends FlyThings {
-        private double lifeTime = 10000;
-
     public Arrow(double x, double y, double angle) {
+        super();
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
@@ -36,7 +35,7 @@ public class Arrow extends FlyThings {
 
             if(Shape.intersect(hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
                 enemy.Hp -= 2;
-                isAttacked = true;
+                remove = true;
                 System.out.println(enemy.Hp);
 
                 if (enemy.Hp <= 0) {
@@ -63,10 +62,5 @@ public class Arrow extends FlyThings {
 
         attack();
 
-        lifeTime -= deltaTime;
-    }
-
-    public double getLifeTime() {
-        return lifeTime;
     }
 }

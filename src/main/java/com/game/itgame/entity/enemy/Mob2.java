@@ -1,17 +1,17 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.controller.CanvasController;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
-import com.game.itgame.weapon.arrow.Bullet;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.*;
 
+
 public class Mob2 extends EnemyRender {
-    public List<Bullet> bulletList = new ArrayList<>();
     public Mob2(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 80;
@@ -40,28 +40,16 @@ public class Mob2 extends EnemyRender {
 //            // stay
 //        }
         if(attack1.isAvailabel){
-            EntityHandle.bulletAttack(this, bulletList);
+            EntityHandle.bulletMob2Attack(this);
             attack1.isAvailabel = false;
         }
         else if(attack1.state == 2){
             EntityHandle.moveRandom(this);
         }
 
-        bulletDraw(ctx, deltaTime);
-
         EntityHandle.collisionPlayer(this, deltaTime);
         hitbox.draw(ctx);
         draw(deltaTime);
     }
 
-    public void bulletDraw(GraphicsContext ctx, double deltaTime) {
-        for (int i=0; i<bulletList.size(); i++) {
-            if(bulletList.get(i).getIsAttacked()){
-                bulletList.remove(i);
-            }else {
-                bulletList.get(i).render(ctx, deltaTime);
-            }
-
-        }
-    }
 }

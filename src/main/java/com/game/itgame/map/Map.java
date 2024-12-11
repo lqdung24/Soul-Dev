@@ -5,6 +5,6 @@ import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
 
 public interface Map {
-    void mapRender(GraphicsContext ctx, Player player, KeyHandle key);
-    void mapMove(Player player, KeyHandle key);
+    void mapRender(GraphicsContext ctx, Player player);
+    void mapMove(Player player);
 }

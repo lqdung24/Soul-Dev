@@ -22,6 +22,7 @@ public class EntityRender implements EntityInterface {
     protected int frameLength;
     protected int frameIndex = 0;
     public boolean remove = false;
+
     public EntityRender() {}
     public EntityRender(double x, double y, GraphicsContext ctx) {
         this.x = x;

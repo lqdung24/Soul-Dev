@@ -13,11 +13,22 @@ import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Bullet;
 import com.game.itgame.eventHandle.KeyHandle;
 import com.game.itgame.map.MapRender;
+import com.game.itgame.weapon.arrow.FlyThings;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,49 +38,31 @@ public class CanvasController {
     private GraphicsContext ctx;
     private Player player;
     private MapRender map;
-    private KeyHandle key;
+    //private KeyHandle key;
     private EntityHandle entityHandle;
     public static List<EnemyRender> enemies = new ArrayList<>();
     public static List<Chest> chestList = new ArrayList<>();
     public static List<HealthPotion> healthPotionList = new ArrayList<>();
+    public static List<Bullet> enemyBullets = new ArrayList<>();
     private Iterator<Chest> iterator;
     private Iterator<HealthPotion> healthPotionIterator;
     private Boss1 boss1;
+    public static boolean die = false;
+    public Scene scene;
+    AnimationTimer animation;
+    public Stage primaryStage;
 //    Khai báo canvas.
     @FXML
     public Canvas canvas;
 
-
-    public void update(Scene scene) {
+    public void update(Scene scene, Stage primaryStage) {
         ctx = canvas.getGraphicsContext2D();
-        Skill.setGraphicsContext(ctx);
-        player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
-        boss1 = new Boss1(20, 20, ctx);
-        map = new MapRender();
-        key = new KeyHandle(scene);
-        for (int i = 0; i < 1; i++) {
-            int randomX = (int) (Math.random()*30) - 5;
-            int randomY = (int) (Math.random()*30) - 5;
-            //enemies.add(new Ghost( randomX, randomY, ctx));
-
-            if(i % 2 == 0){
-                enemies.add(new Mob2(randomX, randomY, ctx));
-            }else{
-                enemies.add(new Mob1(randomX, randomY, ctx)); // toa do
-            }
-        }
-
-        enemies.add(new Mob1(16, 16, ctx));
-        enemies.add(boss1);
-        entityHandle = new EntityHandle(player, map, new Aim(ctx));
-        chestList.add(new Chest(17, 17, ctx));
-        chestList.add(new Chest(25, 25, ctx));
-
-        // set thuộc tính cho các trường static
-        Bullet.player = player;
+        this.scene = scene;
+        this.primaryStage = primaryStage;
+        start();
 
 //        Tao vòng lặp để vẽ và cập nhật trạng thái của player map và sword.
-        AnimationTimer animation = new AnimationTimer() {
+        animation = new AnimationTimer() {
             private long lastTime = 0;
             @Override
             public void handle(long now) {
@@ -82,7 +75,7 @@ public class CanvasController {
                     ctx.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 //                Vẽ và cập nhật trạng thái của player map và sword.
-                    map.mapRender(ctx, player, key);
+                    map.mapRender(ctx, player);
 
                     Iterator<EnemyRender> itE = enemies.iterator();
                     while(itE.hasNext()){
@@ -93,7 +86,7 @@ public class CanvasController {
                             e.update(deltaTime);
                         }
                     }
-
+                    FlyThings.bulletDraw(ctx, deltaTime);
                     iterator = chestList.iterator();
                     while (iterator.hasNext()) {
                         Chest chest = iterator.next();
@@ -111,19 +104,43 @@ public class CanvasController {
                             healthPotionIterator.remove();
                         }
                     }
+
                     player.update(deltaTime);
                     if(player.Hp <= 0){
                         player.update(deltaTime);
-                        System.out.println("You Die");
+                        die = true;
                         ctx.fillText("You die!!!", 500, 500, 500);
-                        this.stop();
+                        stop();
                     }
                 }
 
             }
         };
-
 //        Bắt đầu vòng lặp.
         animation.start();
+    }
+
+    public void start(){
+        Skill.setGraphicsContext(ctx);
+        player = new Player(canvas.getWidth() / 2 - 15, canvas.getHeight() / 2 - 15, ctx);
+        boss1 = new Boss1(20, 20, ctx);
+        map = new MapRender();
+        new KeyHandle(scene);
+        for (int i = 0; i < 1; i++) {
+            int randomX = (int) (Math.random()*30) - 5;
+            int randomY = (int) (Math.random()*30) - 5;
+            //enemies.add(new Ghost( randomX, randomY, ctx));
+
+            // enemies.add(new Mob2(randomX, randomY, ctx));
+        }
+
+        //enemies.add(new Mob1(16, 16, ctx));
+        enemies.add(boss1);
+        entityHandle = new EntityHandle(player, map, new Aim(ctx));
+        chestList.add(new Chest(17, 17, ctx));
+        chestList.add(new Chest(25, 25, ctx));
+
+        // set thuộc tính cho các trường static
+        Bullet.player = player;
     }
 }

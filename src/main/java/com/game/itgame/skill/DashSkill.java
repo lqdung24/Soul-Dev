@@ -12,7 +12,7 @@ public class DashSkill {
     private double activeTime, timer;
     private boolean actived;
     private int impactDamage = 2;
-    private double collisionTimer, interval = 500;
+    private double collisionTimer, interval = 1000;
 
     public DashSkill(double cooldown, double activeTime, Player player) {
         this.player = player;

@@ -5,8 +5,8 @@ import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.canvas.GraphicsContext;
 
 public class MapRender extends MapMove implements Map {
-    public void mapRender(GraphicsContext ctx, Player player, KeyHandle key) {
-        mapMove(player, key);
+    public void mapRender(GraphicsContext ctx, Player player) {
+        mapMove(player);
         double mapX = ctx.getCanvas().getWidth() / 2 - (startX * mapFrameSize + mapFrameSize / 2) -x ;
         double mapY = ctx.getCanvas().getHeight() / 2 - (startY * mapFrameSize + mapFrameSize / 2) -y ;
 

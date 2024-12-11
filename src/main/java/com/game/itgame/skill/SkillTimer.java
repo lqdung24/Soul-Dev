@@ -54,4 +54,7 @@ public class SkillTimer {
             angle = Math.random() * Math.PI * 2;
         }
     }
+    public void reset(){
+        timer = 0;
+    }
 }

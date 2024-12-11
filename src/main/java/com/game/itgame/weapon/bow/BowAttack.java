@@ -75,7 +75,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
             for (Arrow arrow : arrows) {
                 arrow.render(ctx, deltaTime);
 
-                if (arrow.getIsAttacked() || arrow.getLifeTime() < 0) {
+                if (arrow.getRemove()) {
                     arrows.remove(arrow);
                     return;
                 }
