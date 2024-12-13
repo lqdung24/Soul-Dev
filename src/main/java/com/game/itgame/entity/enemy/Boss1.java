@@ -26,7 +26,7 @@ public class Boss1 extends EnemyRender {
         this.frameLength = 3;
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
-        Hp = 1;
+        Hp = 75;
         hitbox = new Hitbox(x, y, width - 100, height - 100);
         bossSkill = new BossSkill(this);
     }
