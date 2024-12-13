@@ -23,18 +23,18 @@ public class CollisionHandle {
                 newX += entity.getVerticalSpeed();
                 break;
         }
-        int colTopLeft = (int) ((newX + 15)/ map.getMapFrameSize());
-        int rowTopLeft = (int) ((newY + 15)/ map.getMapFrameSize());
+        int colLeft = (int) ((newX + 15)/ map.getMapFrameSize());
+        int rowTop = (int) ((newY + 15)/ map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + entity.hitbox.getWidth() + 15) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY +  entity.hitbox.getHeight() + 15) / map.getMapFrameSize());
+        int colRight = (int) ((newX + entity.hitbox.getWidth() + 15) / map.getMapFrameSize());
+        int rowBottom = (int) ((newY +  entity.hitbox.getHeight() + 15) / map.getMapFrameSize());
 
-        //System.out.println(map.getValue(rowTopLeft, colTopLeft) + " " + rowBottomRight + " " + colTopLeft);
+        //System.out.println(rowTop + " " + colLeft);
 
-        return !checkMoveable(map.getValue(rowTopLeft, colTopLeft)) ||
-                !checkMoveable(map.getValue(rowTopLeft, colBottomRight))||
-                !checkMoveable(map.getValue(rowBottomRight, colTopLeft)) ||
-                !checkMoveable(map.getValue(rowBottomRight, colBottomRight));
+        return !checkMoveable(map.getValue(rowTop, colLeft)) ||
+                !checkMoveable(map.getValue(rowTop, colRight))||
+                !checkMoveable(map.getValue(rowBottom, colLeft)) ||
+                !checkMoveable(map.getValue(rowBottom, colRight));
     }
     public static boolean checkMoveable(int x){
         return (x == 0) || (x == 17) || (x == 18) || (x == 19)

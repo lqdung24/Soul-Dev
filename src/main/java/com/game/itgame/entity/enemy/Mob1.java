@@ -1,5 +1,7 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.controller.CanvasController;
+import com.game.itgame.map.MapRender;
 import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
@@ -31,7 +33,12 @@ public class Mob1 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+        roomNum = MapRender.getRoomNum(mapX, mapY);
+        stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
+
         if(stop){
+            System.out.println(roomNum);
+            frameStateIndex = 0;
             draw(deltaTime);
             return;
         }

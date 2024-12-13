@@ -23,7 +23,7 @@ public class EntityRender implements EntityInterface {
     protected int frameIndex = 0;
     public boolean remove = false, stop = false;
     public int roomNum;
-    protected double startX, startY;
+    public double startX, startY, mapX, mapY;
 
     public EntityRender() {}
     public EntityRender(double x, double y, GraphicsContext ctx) {

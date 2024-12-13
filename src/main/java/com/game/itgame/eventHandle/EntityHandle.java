@@ -1,6 +1,7 @@
 package com.game.itgame.eventHandle;
 
 import com.game.itgame.controller.CanvasController;
+import com.game.itgame.entity.enemy.Boss1;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.item.Item;
@@ -34,7 +35,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         }
         dx = enemy.getSpeed() * (dx / distance);
         dy = enemy.getSpeed() * (dy / distance);
-        if(enemy instanceof Mob1){// nếu là mob1
+        if(enemy instanceof Mob1 || enemy instanceof Boss1){// nếu là mob1
             if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){// nếu va chạm thì thôi
                 enemy.moveRight = false;
                 enemy.moveLeft = false;
@@ -174,5 +175,8 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         if(enemy.Hp <= 0){
             enemy.remove = true;
         }
+    }
+    public static int getIntMap(double x){
+        return (int)(x/MapMove.mapFrameSize);
     }
 }

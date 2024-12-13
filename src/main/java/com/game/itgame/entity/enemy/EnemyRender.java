@@ -12,7 +12,7 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     protected double time = 0;
     protected int collisionDamage = 1;
     public double collisionTimer = 0;
-    public double mapX, mapY, smX, smY;
+    public double smX, smY;
     public SkillTimer attack1;
     public boolean moveLeft = false, moveRight = false;
     protected double startX, startY;

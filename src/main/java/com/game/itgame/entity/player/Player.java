@@ -1,6 +1,7 @@
 package com.game.itgame.entity.player;
 
 import com.game.itgame.entity.EntityRender;
+import com.game.itgame.map.MapRender;
 import com.game.itgame.skill.DashSkill;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.KeyHandle;
@@ -54,6 +55,9 @@ public class Player extends EntityRender {
         manaBar.draw(deltaTime);
         hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
         dashSkill.update(deltaTime);
+        roomNum = MapRender.getRoomNum(mapX, mapY);
+        //System.out.println(roomNum);
+        hitbox.draw(ctx);
     }
 
     @Override
@@ -103,7 +107,6 @@ public class Player extends EntityRender {
         } else {
             time += deltaTime;
         }
-        hitbox.draw(ctx);
     }
 
     public void setImmune(boolean immune) {

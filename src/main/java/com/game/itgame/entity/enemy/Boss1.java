@@ -1,5 +1,6 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.map.MapRender;
 import com.game.itgame.skill.BossSkill;
 import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
@@ -35,6 +36,9 @@ public class Boss1 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+        roomNum = MapRender.getRoomNum(mapX, mapY);
+        stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
+
         if(!stop){
             bossSkill.update(deltaTime);
             hitbox.update(x + 50, y + 80);
