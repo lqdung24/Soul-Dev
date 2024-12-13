@@ -8,8 +8,6 @@ import com.game.itgame.entity.item.Chest;
 import com.game.itgame.entity.item.HealthPotion;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.eventHandle.EntityHandle;
-import com.game.itgame.gameStart.Main;
-import com.game.itgame.gameStart.RunGame;
 import com.game.itgame.skill.Skill;
 import com.game.itgame.util.GameImage;
 import com.game.itgame.weapon.Aim;
@@ -20,13 +18,9 @@ import com.game.itgame.weapon.arrow.FlyThings;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,12 +59,10 @@ public class CanvasController {
                     return;
                 }
                 lastTime = now;
-
                 if(lose){
                     loseHanler();
                     return;
                 }
-
                 if(win){
                     winHandler();
                     return;
@@ -89,9 +81,10 @@ public class CanvasController {
                         e.update(deltaTime);
                     }
                 }
-                FlyThings.bulletDraw(ctx, deltaTime);
-                iterator = chestList.iterator();
 
+                FlyThings.bulletDraw(ctx, deltaTime);
+
+                iterator = chestList.iterator();
                 while (iterator.hasNext()) {
                     Chest chest = iterator.next();
                     if (!chest.remove) {
@@ -133,12 +126,12 @@ public class CanvasController {
             int randomX = (int) (Math.random()*30) - 5;
             int randomY = (int) (Math.random()*30) - 5;
 
-             enemies.add(new Mob2(5, 5, ctx));
+             //enemies.add(new Mob2(5, 5, ctx));
              enemies.add(new Mob1(5, 6, ctx));
         }
 
         //enemies.add(new Mob1(16, 16, ctx));
-        enemies.add(boss1);
+        //enemies.add(boss1);
         entityHandle = new EntityHandle(player, map, new Aim(ctx));
         chestList.add(new Chest(6, 6, ctx));
         chestList.add(new Chest(25, 25, ctx));
@@ -151,7 +144,11 @@ public class CanvasController {
         map.restart();
         player.restart();
         enemies.forEach(e -> e.restart());
+        chestList.forEach(e -> e.restart());
+        healthPotionList.clear();
+        enemyBullets.clear();
     }
+
     public void loseHanler(){
         ctx.save();
         GameImage.alpha += 0.0005;

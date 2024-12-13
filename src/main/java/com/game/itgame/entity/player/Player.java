@@ -132,6 +132,7 @@ public class Player extends EntityRender {
     public void restart(){
         this.startX = x;
         this.startY = y;
+        bow.arrows.clear();
         Hp = 10;
         mana = 3;
     }

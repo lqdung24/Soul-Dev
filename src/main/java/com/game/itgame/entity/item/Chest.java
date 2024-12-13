@@ -44,12 +44,12 @@ public class Chest extends Item{
                     time = 0;
                 }else{
                     CanvasController.healthPotionList.add(new HealthPotion(x, y, ctx));
-                    stop = true;
+                    remove = true;
                 }
             } else {
                 time += deltaTime;
             }
         }
-
     }
+
 }

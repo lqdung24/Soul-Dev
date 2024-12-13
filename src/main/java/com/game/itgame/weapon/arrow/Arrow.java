@@ -1,6 +1,7 @@
 package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.controller.CanvasController;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.weapon.sword.Sword;
@@ -26,23 +27,16 @@ public class Arrow extends FlyThings {
         offsetY = 5;
         hitbox = new Hitbox(0, 0, 10, 10);
     }
+
     @Override
     public void attack() {
-        iterator = CanvasController.enemies.iterator();
-
-        while (iterator.hasNext()) {
-            EnemyRender enemy = iterator.next();
-
+        CanvasController.enemies.forEach(enemy -> {
             if(Shape.intersect(hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
-                enemy.Hp -= 2;
-                remove = true;
+                EntityHandle.reduceEnemyHp(enemy,2);
+                this.remove = true;
                 System.out.println(enemy.Hp);
-
-                if (enemy.Hp <= 0) {
-                    iterator.remove();
-                }
             }
-        }
+        });
     }
 
     @Override
@@ -59,7 +53,6 @@ public class Arrow extends FlyThings {
         ctx.rotate(offsetAngle + arrowAngle);
         ctx.drawImage(arrowImage, 0, 0, 720, 720, -10, -5, height, width);
         ctx.restore();
-
         attack();
 
     }

@@ -36,22 +36,27 @@ public class Mob1 extends EnemyRender {
             return;
         }
 
-        attack1.update(deltaTime);
-        if(attack1.state == 1){
-            critMode();
-            EntityHandle.moveEnemy(this);
-            if(EntityHandle.checkDamage(this) && attack1.makeDamage > 0){
-                EntityHandle.reduceHp(swordDamage);
-                attack1.makeDamage = 0;
-            }
-        }
-        else if(attack1.state == 0){
-            normMode();
-            EntityHandle.moveEnemy(this);
-        } else {
-            normMode();
-            EntityHandle.moveRandom(this);
-        }
+        critMode();
+        EntityHandle.moveEnemy(this);
+
+//        attack1.update(deltaTime);
+//        if(attack1.state == 1){
+//            critMode();
+//            EntityHandle.moveEnemy(this);
+//            if(EntityHandle.checkDamage(this) && attack1.makeDamage > 0){
+//                EntityHandle.reduceHp(swordDamage);
+//                attack1.makeDamage = 0;
+//            }
+//        }
+//        else if(attack1.state == 0){
+//            normMode();
+//            EntityHandle.moveEnemy(this);
+//        } else {
+//            normMode();
+//            EntityHandle.moveRandom(this);
+//        }
+
+
 
         hitbox.update(x, y);
         EntityHandle.collisionPlayer(this, deltaTime);

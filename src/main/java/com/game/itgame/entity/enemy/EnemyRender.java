@@ -18,8 +18,8 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     protected double startX, startY;
 
     public EnemyRender(int x, int y, GraphicsContext ctx) {
-        this.x = ctx.getCanvas().getWidth() / 2 - 15 - 2 * MapRender.mapFrameSize + x * MapRender.mapFrameSize;
-        this.y = ctx.getCanvas().getHeight() / 2 - 15 - 2 * MapRender.mapFrameSize + y * MapRender.mapFrameSize;
+        this.x = ctx.getCanvas().getWidth() / 2 - 15 - MapRender.startX * MapRender.mapFrameSize + x * MapRender.mapFrameSize;
+        this.y = ctx.getCanvas().getHeight() / 2 - 15 - MapRender.startY * MapRender.mapFrameSize + y * MapRender.mapFrameSize;
         mapX = x * MapRender.mapFrameSize;
         mapY = y * MapRender.mapFrameSize;
         startX = this.x;

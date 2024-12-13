@@ -15,7 +15,6 @@ public abstract class FlyThings {
     protected Image arrowImage;
     protected double arrowAngle;
     protected double speed;
-    protected Iterator<EnemyRender> iterator;
     protected double offsetAngle = 0;
     protected double height, width;
     protected Hitbox hitbox;

@@ -15,7 +15,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
     private boolean isCoolDown = false;
     private double timer = 0;
     private final double coolDown = 500;
-    private final List<Arrow> arrows = new ArrayList<>();
+    public final List<Arrow> arrows = new ArrayList<>();
 
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
@@ -71,15 +71,12 @@ public abstract class BowAttack extends BowRender implements Weapon {
         arrows(ctx, deltaTime);
     }
     public void arrows(GraphicsContext ctx, double deltaTime) {
-        if (!arrows.isEmpty()) {
             for (Arrow arrow : arrows) {
                 arrow.render(ctx, deltaTime);
-
                 if (arrow.getRemove()) {
                     arrows.remove(arrow);
                     return;
                 }
-            }
         }
     }
 

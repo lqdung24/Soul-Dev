@@ -44,7 +44,7 @@ public class DashSkill {
     }
     public void normMode(){
         player.setVerticalSpeed(5);
-        player.setImmune(false);
+        player.setImmune(true);
     }
     public void dashMode(){
         player.setVerticalSpeed(20);

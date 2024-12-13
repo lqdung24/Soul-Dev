@@ -13,6 +13,8 @@ import javafx.scene.shape.Shape;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.game.itgame.eventHandle.CollisionHandle.checkMoveable;
+
 public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static Player player;
     private static final int moveRadius = (int) (MapMove.mapFrameSize*10);
@@ -66,19 +68,16 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     }
 
     public static boolean collisionMap(EnemyRender enemy, double newX, double newY){
-        int colTopLeft = (int) (newX / map.getMapFrameSize());
-        int rowTopLeft = (int) (newY / map.getMapFrameSize());
+        int colTop = (int) ((newX + 15)/ map.getMapFrameSize());
+        int rowLeft = (int) ((newY + 15)/ map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + enemy.getWidth()) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY + enemy.getHeight()) / map.getMapFrameSize());
-
-        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
-            return true;
-        }
-        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
-                map.getValue(rowTopLeft, colBottomRight) != 0 ||
-                map.getValue(rowBottomRight, colTopLeft) != 0 ||
-                map.getValue(rowBottomRight, colBottomRight) != 0;
+        int colBottom = (int) ((newX + enemy.getWidth() - 15) / map.getMapFrameSize());
+        int rowRight = (int) ((newY + enemy.getHeight() - 15) / map.getMapFrameSize());
+        //System.out.println(rowRight + " " + colTop);
+        return !checkMoveable(map.getValue(rowLeft, colTop)) ||
+                !checkMoveable(map.getValue(rowLeft, colBottom))||
+                !checkMoveable(map.getValue(rowRight, colTop)) ||
+                !checkMoveable(map.getValue(rowRight, colBottom));
     }
 
     public static boolean collisionMap(double newX, double newY, double width, double height){
@@ -88,9 +87,6 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         int colBottomRight = (int) ((newX + width) / map.getMapFrameSize());
         int rowBottomRight = (int) ((newY + height) / map.getMapFrameSize());
 
-        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
-            return true;
-        }
 
         return map.getValue(rowTopLeft, colTopLeft) != 0 ||
                 map.getValue(rowTopLeft, colBottomRight) != 0 ||
@@ -172,5 +168,11 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
             return true;
         }
         return false;
+    }
+    public static void reduceEnemyHp(EnemyRender enemy, int hp){
+        enemy.Hp -= hp;
+        if(enemy.Hp <= 0){
+            enemy.remove = true;
+        }
     }
 }
