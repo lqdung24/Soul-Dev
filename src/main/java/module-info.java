@@ -1,5 +1,4 @@
 module com.game.itgame {
-    requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -11,6 +10,7 @@ module com.game.itgame {
     requires java.desktop;
     requires annotations;
     requires jdk.incubator.vector;
+    requires javafx.media;
 
     opens com.game.itgame.controller to javafx.fxml;
     opens com.game.itgame.gameStart to javafx.fxml;

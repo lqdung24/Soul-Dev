@@ -2,18 +2,16 @@ package com.game.itgame.entity.item;
 
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.map.MapMove;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
-import java.util.Objects;
 
 public class HealthPotion extends Item {
     public HealthPotion(double x, double y, GraphicsContext ctx) {
         super(x, y, ctx);
         this.width = 50;
         this.height = 50;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/items/healthpoison.png")));
+        this.image = GameImage.potionImage;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 0;

@@ -32,7 +32,7 @@ public abstract class BowRender implements Weapon {
 
 //      Draw weapon.
         ctx.save();
-        ctx.translate(bowX, bowY);
+        ctx.translate(bowX - 10, bowY-2);
         ctx.rotate(angle);
         ctx.drawImage(bowImage, bowIndex * 720, 0, 720, 720, -25, -35, 70, 70);
         ctx.restore();

@@ -1,29 +1,27 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.map.MapRender;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
 import com.game.itgame.map.MapMove;
-import com.game.itgame.weapon.arrow.Bullet;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
-import java.util.*;
 
 public class Mob2 extends EnemyRender {
-    public List<Bullet> bulletList = new ArrayList<>();
     public Mob2(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 70;
-        this.height = 70;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob2/mob2.png")));
+        this.width = 80;
+        this.height = 80;
+        this.image = GameImage.mob2Image;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 7;
         this.frameStateIndex = 0;
         this.verticalSpeed = 1.5;
         Hp = 8;
-        attack1 = new SkillTimer(2000, true, 2000);
+        attack1 = new SkillTimer(500, true, 1500);
         hitbox = new Hitbox(x, y, width - 20, height - 20);
     }
 
@@ -32,6 +30,22 @@ public class Mob2 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+        roomNum = MapRender.getRoomNum(mapX, mapY);
+        stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
+
+        if(stop){
+            if(die){
+                ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
+                return;
+            }
+            frameStateIndex = 0;
+            draw(deltaTime);
+            return;
+        }
+        if(die){
+            ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
+            return;
+        }
 
         EntityHandle.moveEnemy(this);
         hitbox.update(x + 10, y + 10);
@@ -40,24 +54,24 @@ public class Mob2 extends EnemyRender {
 //            // stay
 //        }
         if(attack1.isAvailabel){
-            EntityHandle.bulletAttack(this, bulletList);
+            EntityHandle.bulletMob2Attack(this);
             attack1.isAvailabel = false;
         }
         else if(attack1.state == 2){
             EntityHandle.moveRandom(this);
         }
 
-        for (int i=0; i<bulletList.size(); i++) {
-            if(bulletList.get(i).getIsAttacked()){
-                bulletList.remove(i);
-            }else {
-                bulletList.get(i).render(ctx, deltaTime);
-            }
-
-        }
-
         EntityHandle.collisionPlayer(this, deltaTime);
         hitbox.draw(ctx);
         draw(deltaTime);
+    }
+    @Override
+    public void restart(){
+        this.x = startX;
+        this.y = startY;
+        this.mapX = smX;
+        this.mapY = smY;
+        stop = remove = false;
+        Hp = 8;
     }
 }

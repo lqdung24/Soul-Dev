@@ -2,6 +2,7 @@ package com.game.itgame.weapon.bow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.util.GameSound;
 import com.game.itgame.weapon.Weapon;
 import com.game.itgame.weapon.arrow.Arrow;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,9 +15,8 @@ public abstract class BowAttack extends BowRender implements Weapon {
     public boolean onAttack = false;
     private boolean isCoolDown = false;
     private double timer = 0;
-    Iterator<EnemyRender> iterator;
-    private final double coolDown = 1000;
-    private final List<Arrow> arrows = new ArrayList<>();
+    private final double coolDown = 750;
+    public final List<Arrow> arrows = new ArrayList<>();
 
     @Override
     public void attack(GraphicsContext ctx, double deltaTime, Player player, List<EnemyRender> enemies, double angle) {
@@ -52,6 +52,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
 
         ctx.getCanvas().setOnMouseClicked(e -> {
             if (onAttack && !isCoolDown) {
+                GameSound.playBow();
                 Arrow arrow = new Arrow(bowX , bowY, angle);
 
                 arrows.add(arrow);
@@ -72,16 +73,12 @@ public abstract class BowAttack extends BowRender implements Weapon {
         arrows(ctx, deltaTime);
     }
     public void arrows(GraphicsContext ctx, double deltaTime) {
-        if (!arrows.isEmpty()) {
-            for (Arrow arrow : arrows) {
-                arrow.render(ctx, deltaTime);
-
-                if (arrow.getIsAttacked() || arrow.getLifeTime() < 0) {
-                    arrows.remove(arrow);
-                    return;
-                }
+        for (Arrow arrow : arrows) {
+            arrow.render(ctx, deltaTime);
+            if (arrow.getRemove()) {
+                arrows.remove(arrow);
+                return;
             }
         }
     }
-
 }

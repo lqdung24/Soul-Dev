@@ -10,17 +10,22 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class EnemyRender extends EntityRender implements EntityInterface {
     protected double time = 0;
-    protected double collisionDamage = 1;
+    protected int collisionDamage = 1;
     public double collisionTimer = 0;
-    public double mapX, mapY;
+    public double smX, smY;
     public SkillTimer attack1;
     public boolean moveLeft = false, moveRight = false;
+    protected double startX, startY;
 
-    public EnemyRender(double x, double y, GraphicsContext ctx) {
-        this.x = ctx.getCanvas().getWidth() / 2 - 15 - 2 * MapRender.mapFrameSize + x * MapRender.mapFrameSize;
-        this.y = ctx.getCanvas().getHeight() / 2 - 15 - 2 * MapRender.mapFrameSize + y * MapRender.mapFrameSize;
+    public EnemyRender(int x, int y, GraphicsContext ctx) {
+        this.x = ctx.getCanvas().getWidth() / 2 - 15 - MapRender.startX * MapRender.mapFrameSize + x * MapRender.mapFrameSize;
+        this.y = ctx.getCanvas().getHeight() / 2 - 15 - MapRender.startY * MapRender.mapFrameSize + y * MapRender.mapFrameSize;
         mapX = x * MapRender.mapFrameSize;
         mapY = y * MapRender.mapFrameSize;
+        startX = this.x;
+        startY = this.y;
+        smX = mapX;
+        smY = mapY;
         this.ctx = ctx;
     }
 
@@ -28,9 +33,10 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     public void update(double deltaTime) {
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
-
-        EntityHandle.moveEnemy(this);
-        EntityHandle.collisionPlayer(this, deltaTime);
+        if(!stop){
+            EntityHandle.moveEnemy(this);
+            EntityHandle.collisionPlayer(this, deltaTime);
+        }
         draw(deltaTime);
     }
 
@@ -54,7 +60,7 @@ public class EnemyRender extends EntityRender implements EntityInterface {
     public double getSpeed() {
         return verticalSpeed;
     }
-    public double getCollisionDamage() {
+    public int getCollisionDamage() {
         return collisionDamage;
     }
 

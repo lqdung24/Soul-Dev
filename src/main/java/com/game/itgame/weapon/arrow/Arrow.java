@@ -1,6 +1,7 @@
 package com.game.itgame.weapon.arrow;
 
 import com.game.itgame.controller.CanvasController;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.weapon.sword.Sword;
@@ -11,9 +12,9 @@ import javafx.scene.shape.Shape;
 import java.util.Objects;
 
 public class Arrow extends FlyThings {
-        private double lifeTime = 10000;
-
+    public int damage = 4;
     public Arrow(double x, double y, double angle) {
+        super();
         arrowX = x;
         arrowY = y;
         arrowAngle = angle;
@@ -27,23 +28,16 @@ public class Arrow extends FlyThings {
         offsetY = 5;
         hitbox = new Hitbox(0, 0, 10, 10);
     }
+
     @Override
     public void attack() {
-        iterator = CanvasController.enemies.iterator();
-
-        while (iterator.hasNext()) {
-            EnemyRender enemy = iterator.next();
-
+        CanvasController.enemies.forEach(enemy -> {
             if(Shape.intersect(hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
-                enemy.Hp -= 2;
-                isAttacked = true;
-                System.out.println(enemy.Hp);
-
-                if (enemy.Hp <= 0) {
-                    iterator.remove();
+                if(EntityHandle.reduceEnemyHp(enemy,damage)){
+                    this.remove = true;
                 }
             }
-        }
+        });
     }
 
     @Override
@@ -60,13 +54,7 @@ public class Arrow extends FlyThings {
         ctx.rotate(offsetAngle + arrowAngle);
         ctx.drawImage(arrowImage, 0, 0, 720, 720, -10, -5, height, width);
         ctx.restore();
-
         attack();
 
-        lifeTime -= deltaTime;
-    }
-
-    public double getLifeTime() {
-        return lifeTime;
     }
 }

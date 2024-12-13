@@ -1,27 +1,31 @@
 package com.game.itgame.eventHandle;
 
+import com.game.itgame.controller.CanvasController;
+import com.game.itgame.entity.enemy.Boss1;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.item.Item;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
+import com.game.itgame.util.GameSound;
 import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Bullet;
 import javafx.scene.shape.Shape;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.game.itgame.eventHandle.CollisionHandle.checkMoveable;
 
 public class EntityHandle { // điều khiển enemy tiến lại gần player
     public static Player player;
-    private static final int moveRadius = 32*10;
+    private static final int moveRadius = (int) (MapMove.mapFrameSize*10);
     public static MapMove map;
     private static double dx, dy;
-    Aim aim;
 
     public EntityHandle(Player p, MapMove maps, Aim aim){
         player = p;
         map = maps;
-        this.aim = aim;
     }
     public static void moveEnemy(EnemyRender enemy){
         dx = player.getX() - enemy.getX();
@@ -32,13 +36,14 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         }
         dx = enemy.getSpeed() * (dx / distance);
         dy = enemy.getSpeed() * (dy / distance);
-        if(enemy instanceof Mob1){// nếu là mob1
+        if(enemy instanceof Mob1 || enemy instanceof Boss1){// nếu là mob1
             if(collisionMap(enemy, enemy.mapX + dx, enemy.mapY + dy)){// nếu va chạm thì thôi
                 enemy.moveRight = false;
                 enemy.moveLeft = false;
                 return;
             }
         }
+
         enemy.setX(enemy.getX() + dx);
         enemy.setY(enemy.getY() + dy);
         enemy.mapX += dx;
@@ -57,30 +62,26 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
 
         if(Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
             enemy.collisionTimer += deltatime;
-
             if(enemy.collisionTimer >= 1000){
-                player.Hp -= enemy.getCollisionDamage();
+                reduceHp(enemy.getCollisionDamage());
                 enemy.collisionTimer = 0;
             }
         }
-
     }
 
     public static boolean collisionMap(EnemyRender enemy, double newX, double newY){
-        int colTopLeft = (int) (newX / map.getMapFrameSize());
-        int rowTopLeft = (int) (newY / map.getMapFrameSize());
+        int colTop = (int) ((newX + 15)/ map.getMapFrameSize());
+        int rowLeft = (int) ((newY + 15)/ map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + enemy.getWidth()) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY + enemy.getHeight()) / map.getMapFrameSize());
-
-        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
-            return true;
-        }
-        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
-                map.getValue(rowTopLeft, colBottomRight) != 0 ||
-                map.getValue(rowBottomRight, colTopLeft) != 0 ||
-                map.getValue(rowBottomRight, colBottomRight) != 0;
+        int colBottom = (int) ((newX + enemy.getWidth() - 15) / map.getMapFrameSize());
+        int rowRight = (int) ((newY + enemy.getHeight() - 15) / map.getMapFrameSize());
+        //System.out.println(rowRight + " " + colTop);
+        return !checkMoveable(map.getValue(rowLeft, colTop)) ||
+                !checkMoveable(map.getValue(rowLeft, colBottom))||
+                !checkMoveable(map.getValue(rowRight, colTop)) ||
+                !checkMoveable(map.getValue(rowRight, colBottom));
     }
+
     public static boolean collisionMap(double newX, double newY, double width, double height){
         int colTopLeft = (int) (newX / map.getMapFrameSize());
         int rowTopLeft = (int) (newY / map.getMapFrameSize());
@@ -88,9 +89,7 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         int colBottomRight = (int) ((newX + width) / map.getMapFrameSize());
         int rowBottomRight = (int) ((newY + height) / map.getMapFrameSize());
 
-        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
-            return true;
-        }
+
         return map.getValue(rowTopLeft, colTopLeft) != 0 ||
                 map.getValue(rowTopLeft, colBottomRight) != 0 ||
                 map.getValue(rowBottomRight, colTopLeft) != 0 ||
@@ -102,8 +101,9 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         dy = player.hitbox.getCenterY() - enemy.hitbox.getCenterY();
 
         double distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < 50;
+        return distance < 70;
     }
+
     public static void moveRandom(EnemyRender enemy){
         double angle = enemy.attack1.angle;
         double dx = enemy.getVerticalSpeed() * Math.cos(angle);
@@ -121,16 +121,31 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         enemy.mapX += dx;
         enemy.mapY += dy;
     }
-    public static void bulletAttack(EnemyRender enemy, List<Bullet> bullet){
+
+    public static void bulletMob2Attack(EnemyRender enemy){
         double angle = Math.toDegrees(Math.atan2(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(),
                 player.hitbox.getCenterX() - enemy.hitbox.getCenterX()));
-        bullet.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
-        bullet.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
-                enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(angle)), angle));
+        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
+        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 35*Math.cos(Math.toRadians(angle)),
+                enemy.hitbox.getCenterY() + 35*Math.sin(Math.toRadians(angle)), angle));
     }
+    public static void fullBulletAttack(EnemyRender enemy, int num) {
+        for(int i=0; i< num; i++){
+            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), i*360/num));
+            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 35*Math.cos(Math.toRadians(i*360/num)),
+                    enemy.hitbox.getCenterY() + 35*Math.sin(Math.toRadians(i*360/num)), i*360/num));
+        }
 
+    }
     public static void reduceHp(int hp){
+        if(hp > 0 && player.getImmuneState()){
+            return;
+        }
+
         player.Hp -= hp;
+        if(hp > 0){
+            GameSound.playerHitted();
+        }
         if(player.Hp <= 0){
             player.Hp = 0;
             return;
@@ -141,11 +156,35 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
     }
 
     public static boolean itemUse(Item item){
-      double dx = item.hitbox.distance(player.hitbox);
-      if(dx < 50 && KeyHandle.rightMouse){
-          reduceHp(-4);
-          return true;
-      }
-      return false;
+        double dx = item.hitbox.distance(player.hitbox);
+        if(dx < 70 && KeyHandle.rightMouse){
+            reduceHp(-4);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean bossSkill3CheckDamage(double x, double y){
+        double dx = Math.sqrt(Math.pow(x - player.hitbox.getCenterX(), 2)
+                            + Math.pow(y - player.hitbox.getCenterY(), 2));
+        if(dx < 80){
+            reduceHp(4);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean reduceEnemyHp(EnemyRender enemy, int hp){
+        if(enemy.stop || enemy.die || enemy.remove){
+            return false;
+        }
+        enemy.Hp -= hp;
+        System.out.println(enemy.Hp);
+        GameSound.playerHitted();
+        if(enemy.Hp <= 0){
+            enemy.Hp = 0;
+            enemy.die = true;
+        }
+        return true;
     }
 }

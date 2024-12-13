@@ -1,5 +1,8 @@
 package com.game.itgame.entity.enemy;
 
+import com.game.itgame.controller.CanvasController;
+import com.game.itgame.map.MapRender;
+import com.game.itgame.util.GameImage;
 import com.game.itgame.util.Hitbox;
 import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.skill.SkillTimer;
@@ -12,17 +15,17 @@ public class Mob1 extends EnemyRender {
     public int swordDamage = 2;
     public Mob1(int x, int y, GraphicsContext ctx) {
         super(x, y, ctx);
-        this.width = 50;
-        this.height = 50;
-        this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/mob1/mob1V2.png")));
+        this.width = 70;
+        this.height = 70;
+        this.image = GameImage.mob1Image;
         this.imageWidth = 720;
         this.imageHeight = 720;
         this.frameLength = 5;
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
         Hp = 8;
-        attack1 = new SkillTimer(4000, 1500, 1000);
-        hitbox = new Hitbox(x, y, width, height);
+        attack1 = new SkillTimer(4000, 2000, 1000);
+        hitbox = new Hitbox(x, y, width, height-5);
     }
 
     @Override
@@ -30,6 +33,24 @@ public class Mob1 extends EnemyRender {
         //update vi tri tuong doi khi nhan vat di chuyen
         this.x -= MapMove.offsetX;
         this.y -= MapMove.offsetY;
+        roomNum = MapRender.getRoomNum(mapX, mapY);
+        stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
+
+        if(stop){
+            if(die){
+                ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
+                return;
+            }
+            frameStateIndex = 0;
+            draw(deltaTime);
+            return;
+        }
+        if(die){
+            ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
+            return;
+        }
+
+
         attack1.update(deltaTime);
         if(attack1.state == 1){
             critMode();
@@ -52,6 +73,15 @@ public class Mob1 extends EnemyRender {
 
         draw(deltaTime);
         hitbox.draw(ctx);
+    }
+    @Override
+    public void restart(){
+        this.x = startX;
+        this.y = startY;
+        this.mapX = smX;
+        this.mapY = smY;
+        stop = remove = false;
+        Hp = 8;
     }
     protected void critMode(){
         this.verticalSpeed = 6;

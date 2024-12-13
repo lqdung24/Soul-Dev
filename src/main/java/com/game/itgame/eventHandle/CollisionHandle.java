@@ -3,9 +3,11 @@ package com.game.itgame.eventHandle;
 import com.game.itgame.entity.EntityRender;
 import com.game.itgame.map.MapMove;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CollisionHandle {
     static public final int U = 1, D = 2, L = 3, R = 4;
-
     public static boolean isCollision(EntityRender entity, MapMove map, int direction, double newX, double newY) {
         switch (direction) {
             case U:
@@ -21,19 +23,21 @@ public class CollisionHandle {
                 newX += entity.getVerticalSpeed();
                 break;
         }
-        int colTopLeft = (int) ((newX + 15)/ map.getMapFrameSize());
-        int rowTopLeft = (int) ((newY + 15)/ map.getMapFrameSize());
+        int colLeft = (int) ((newX + 15)/ map.getMapFrameSize());
+        int rowTop = (int) ((newY + 15)/ map.getMapFrameSize());
 
-        int colBottomRight = (int) ((newX + entity.hitbox.getWidth() + 15) / map.getMapFrameSize());
-        int rowBottomRight = (int) ((newY +  entity.hitbox.getHeight() + 15) / map.getMapFrameSize());
+        int colRight = (int) ((newX + entity.hitbox.getWidth() + 15) / map.getMapFrameSize());
+        int rowBottom = (int) ((newY +  entity.hitbox.getHeight() + 15) / map.getMapFrameSize());
 
-        if (rowTopLeft < 0 || rowBottomRight >= 50 || colTopLeft < 0 || colBottomRight >= 50) {
-            return true;
-        }
+        //System.out.println(rowTop + " " + colLeft);
 
-        return map.getValue(rowTopLeft, colTopLeft) != 0 ||
-                map.getValue(rowTopLeft, colBottomRight) != 0 ||
-                map.getValue(rowBottomRight, colTopLeft) != 0 ||
-                map.getValue(rowBottomRight, colBottomRight) != 0;
+        return !checkMoveable(map.getValue(rowTop, colLeft)) ||
+                !checkMoveable(map.getValue(rowTop, colRight))||
+                !checkMoveable(map.getValue(rowBottom, colLeft)) ||
+                !checkMoveable(map.getValue(rowBottom, colRight));
+    }
+    public static boolean checkMoveable(int x){
+        return (x == 0) || (x == 17) || (x == 18) || (x == 19)
+                || (x == 20) || (x == 21) || (x >= 23);
     }
 }

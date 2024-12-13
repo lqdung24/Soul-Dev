@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 
 public class KeyHandle {
-    public static boolean up, down, left, right, space, enter, firstWeapon = true, one, two, three;
+    public static boolean up, down, left, right, space, enter, firstWeapon = true, one, two, three, esc;
     public static double mouseX, mouseY;
     public static double sceneX, sceneY;
     public static boolean rightMouse;
@@ -12,7 +12,7 @@ public class KeyHandle {
     public KeyHandle(Scene scene) {
         sceneX = scene.getX();
         sceneY = scene.getY();
-        scene.setOnMouseClicked(e -> {
+        scene.setOnMousePressed(e -> {
             if (e.getButton() == MouseButton.SECONDARY) { // Kiểm tra chuột phải
                 rightMouse = true;// Gán true khi nhấp chuột phải
             }
@@ -55,6 +55,9 @@ public class KeyHandle {
                     break;
                 case DIGIT3:
                     three = true;
+                    break;
+                case ESCAPE:
+                    esc = true;
                     break;
             }
         });
