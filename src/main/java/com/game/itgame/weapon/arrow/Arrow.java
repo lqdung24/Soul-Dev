@@ -31,6 +31,9 @@ public class Arrow extends FlyThings {
     @Override
     public void attack() {
         CanvasController.enemies.forEach(enemy -> {
+            if(enemy.stop || enemy.remove){
+                return;
+            }
             if(Shape.intersect(hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
                 EntityHandle.reduceEnemyHp(enemy,2);
                 this.remove = true;

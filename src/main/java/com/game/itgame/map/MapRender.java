@@ -38,8 +38,8 @@ public class MapRender extends MapMove implements Map {
         ctx.restore();
     }
     public static int getRoomNum(double mx, double my){
-        int x = (int) ((mx+15)/mapFrameSize);
-        int y = (int) ((my+15)/mapFrameSize);
+        int x = (int) ((mx)/mapFrameSize) + 1;
+        int y = (int) ((my)/mapFrameSize) + 1;
         for(int i=0; i<roomList.size(); i++){
             if(roomList.get(i).checkInRoom(x, y)){
                 return i;

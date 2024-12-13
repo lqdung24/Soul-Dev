@@ -17,13 +17,13 @@ public class Bullet extends FlyThings{
         arrowY = y;
         arrowAngle = angle;
         this.offsetAngle = 0;
-        this.height = 30;
-        this.width = 30;
+        this.height = 40;
+        this.width = 40;
         speed = 10;
         arrowImage = new Image(Objects.requireNonNull(Sword.class.getResourceAsStream("/images/mob/mob2/mob2bullet.png")));
         offsetY = 15;
         offsetX = 15;
-        hitbox = new Hitbox(x, y, 15, 15);
+        hitbox = new Hitbox(x, y, 22, 22);
     }
 
     @Override

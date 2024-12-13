@@ -14,7 +14,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
     public boolean onAttack = false;
     private boolean isCoolDown = false;
     private double timer = 0;
-    private final double coolDown = 500;
+    private final double coolDown = 750;
     public final List<Arrow> arrows = new ArrayList<>();
 
     @Override
@@ -71,12 +71,12 @@ public abstract class BowAttack extends BowRender implements Weapon {
         arrows(ctx, deltaTime);
     }
     public void arrows(GraphicsContext ctx, double deltaTime) {
-            for (Arrow arrow : arrows) {
-                arrow.render(ctx, deltaTime);
-                if (arrow.getRemove()) {
-                    arrows.remove(arrow);
-                    return;
-                }
+        for (Arrow arrow : arrows) {
+            arrow.render(ctx, deltaTime);
+            if (arrow.getRemove()) {
+                arrows.remove(arrow);
+                return;
+            }
         }
     }
 

@@ -21,7 +21,7 @@ public class Mob2 extends EnemyRender {
         this.frameStateIndex = 0;
         this.verticalSpeed = 1.5;
         Hp = 8;
-        attack1 = new SkillTimer(2000, true, 2000);
+        attack1 = new SkillTimer(500, true, 1500);
         hitbox = new Hitbox(x, y, width - 20, height - 20);
     }
 
@@ -34,7 +34,16 @@ public class Mob2 extends EnemyRender {
         stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
 
         if(stop){
+            if(die){
+                ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
+                return;
+            }
+            frameStateIndex = 0;
             draw(deltaTime);
+            return;
+        }
+        if(die){
+            ctx.drawImage(GameImage.deadmob, 0, 0, 480, 480, x, y, 45, 45);
             return;
         }
 

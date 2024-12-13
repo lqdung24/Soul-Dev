@@ -3,6 +3,7 @@ package com.game.itgame.skill;
 import com.game.itgame.controller.CanvasController;
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.eventHandle.EntityHandle;
 import com.game.itgame.eventHandle.KeyHandle;
 import javafx.scene.shape.Shape;
 
@@ -11,8 +12,8 @@ public class DashSkill {
     protected Player player;
     private double activeTime, timer;
     private boolean actived;
-    private int impactDamage = 2;
-    private double collisionTimer, interval = 1000;
+    private int impactDamage = 8;
+    private double collisionTimer, interval = 500;
 
     public DashSkill(double cooldown, double activeTime, Player player) {
         this.player = player;
@@ -43,22 +44,24 @@ public class DashSkill {
         }
     }
     public void normMode(){
-        player.setVerticalSpeed(5);
-        player.setImmune(true);
+        player.setVerticalSpeed(4);
+        player.setImmune(false);
     }
     public void dashMode(){
         player.setVerticalSpeed(20);
         player.setImmune(true);
     }
     public void inflictDamage(double deltaTime){
+        collisionTimer += deltaTime;
         for (EnemyRender enemy : CanvasController.enemies) {
-            collisionTimer += deltaTime;
-            if (collisionTimer >= interval) {
+            if(collisionTimer >= interval){
                 if (Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0) {
-                    enemy.Hp -= impactDamage;
+                    EntityHandle.reduceEnemyHp(enemy,impactDamage);
                     collisionTimer = 0;
                 }
             }
+
+
         }
     }
 }

@@ -125,14 +125,14 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         double angle = Math.toDegrees(Math.atan2(player.hitbox.getCenterY() - enemy.hitbox.getCenterY(),
                 player.hitbox.getCenterX() - enemy.hitbox.getCenterX()));
         CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), angle));
-        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(angle)),
-                enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(angle)), angle));
+        CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 35*Math.cos(Math.toRadians(angle)),
+                enemy.hitbox.getCenterY() + 35*Math.sin(Math.toRadians(angle)), angle));
     }
     public static void fullBulletAttack(EnemyRender enemy, int num) {
         for(int i=0; i< num; i++){
             CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX(), enemy.hitbox.getCenterY(), i*360/num));
-//            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 20*Math.cos(Math.toRadians(i*360/num)),
-//                    enemy.hitbox.getCenterY() + 20*Math.sin(Math.toRadians(i*360/num)), i*360/num));
+            CanvasController.enemyBullets.add(new Bullet(enemy.hitbox.getCenterX() + 35*Math.cos(Math.toRadians(i*360/num)),
+                    enemy.hitbox.getCenterY() + 35*Math.sin(Math.toRadians(i*360/num)), i*360/num));
         }
 
     }
@@ -170,13 +170,12 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         }
         return false;
     }
+
     public static void reduceEnemyHp(EnemyRender enemy, int hp){
-        enemy.Hp -= hp;
+        enemy.Hp -= hp;System.out.println(enemy.Hp);
         if(enemy.Hp <= 0){
-            enemy.remove = true;
+            enemy.Hp = 0;
+            enemy.die = true;
         }
-    }
-    public static int getIntMap(double x){
-        return (int)(x/MapMove.mapFrameSize);
     }
 }

@@ -23,7 +23,7 @@ public class BossSkill {
     public BossSkill(EnemyRender enemy) {
         boss = (Boss1) enemy;
         frameIndex = 1;
-        attack1 = new SkillTimer(1000, 9600, 3000);
+        attack1 = new SkillTimer(2000, 4000, 3000);
         lightningImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/mob/boss1/bosslightning.png")));
         timer1 = new Timer(1000);
         timer2 = new Timer(2000);
@@ -39,14 +39,14 @@ public class BossSkill {
             case 0:
                 EntityHandle.moveEnemy(boss);
                 inflicted = false;
-                break;
-            case 1:
                 if(timer1.available){
                     EntityHandle.bulletMob2Attack(boss);
                     timer1.available = false;
                 }
+                break;
+            case 1:
                 if(timer2.available){
-                    EntityHandle.fullBulletAttack(boss, 24);
+                    EntityHandle.fullBulletAttack(boss, 18);
                     timer2.available = false;
                 }
                 break;
@@ -95,6 +95,5 @@ public class BossSkill {
         if(!inflicted && frameIndex >= 2){
             inflicted = EntityHandle.bossSkill3CheckDamage(lx, ly);
         }
-
     }
 }

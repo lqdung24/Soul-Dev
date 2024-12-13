@@ -17,9 +17,9 @@ public abstract class FlyThings {
     protected double speed;
     protected double offsetAngle = 0;
     protected double height, width;
-    protected Hitbox hitbox;
+    public Hitbox hitbox;
     protected double offsetX, offsetY;
-    protected boolean remove;
+    public boolean remove;
     protected Timer timer;
 
     public FlyThings() {

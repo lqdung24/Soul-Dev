@@ -26,7 +26,7 @@ public class Boss1 extends EnemyRender {
         this.frameLength = 3;
         this.frameStateIndex = 0;
         this.verticalSpeed = 2;
-        Hp = 50;
+        Hp = 1;
         hitbox = new Hitbox(x, y, width - 100, height - 100);
         bossSkill = new BossSkill(this);
     }
@@ -38,10 +38,10 @@ public class Boss1 extends EnemyRender {
         this.y -= MapMove.offsetY;
         roomNum = MapRender.getRoomNum(mapX, mapY);
         stop = roomNum != 0 && roomNum != EntityHandle.player.roomNum;
+        hitbox.update(x + 50, y + 80);
 
         if(!stop){
             bossSkill.update(deltaTime);
-            hitbox.update(x + 50, y + 80);
             EntityHandle.collisionPlayer(this, deltaTime);
         }
 

@@ -21,7 +21,7 @@ public class EntityRender implements EntityInterface {
     protected int frameStateIndex;
     protected int frameLength;
     protected int frameIndex = 0;
-    public boolean remove = false, stop = false;
+    public boolean remove = false, stop = false, die = false;
     public int roomNum;
     public double startX, startY, mapX, mapY;
 

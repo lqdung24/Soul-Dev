@@ -10,8 +10,8 @@ public class Item extends EntityRender{
     protected boolean expired;
     protected double smX, smY;
     public Item(int x, int y, GraphicsContext ctx) {
-        this.x = ctx.getCanvas().getWidth()/2-15-2* MapRender.mapFrameSize + x*MapRender.mapFrameSize;
-        this.y = ctx.getCanvas().getHeight()/2-15-2*MapRender.mapFrameSize + y*MapRender.mapFrameSize;
+        this.x = ctx.getCanvas().getWidth()/2-30- MapRender.startX* MapRender.mapFrameSize + x*MapRender.mapFrameSize;
+        this.y = ctx.getCanvas().getHeight()/2-30-MapRender.startY*MapRender.mapFrameSize + y*MapRender.mapFrameSize;
         mapX = x*MapRender.mapFrameSize;
         mapY = y*MapRender.mapFrameSize;
         startX = this.x;
@@ -20,6 +20,7 @@ public class Item extends EntityRender{
         smY = mapY;
         this.ctx = ctx;
     }
+
     public Item(double x, double y, GraphicsContext ctx) {
         this.x = x;
         this.y = y;

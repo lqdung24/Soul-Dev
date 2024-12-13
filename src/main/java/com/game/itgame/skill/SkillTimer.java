@@ -15,7 +15,7 @@ public class SkillTimer {
         this.cooldownTime = cooldownTime;
         this.activeTime = activeTime;
         this.randomTime = randomTime;
-        timer = 0;
+        timer = Math.random()*cooldownTime;
         this.isOneTime = false;
         isAvailabel = false;
     }

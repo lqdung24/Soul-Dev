@@ -35,7 +35,7 @@ public class Player extends EntityRender {
         this.imageHeight = 720;
         this.frameLength = 5;
         this.frameStateIndex = 0;
-        this.verticalSpeed = 5;
+        this.verticalSpeed = 4;
         this.damage = 2;
         this.Hp = 10;
         this.healthBar = new HealthBar(ctx, this);
@@ -56,7 +56,6 @@ public class Player extends EntityRender {
         hitbox.update(this.x + offsetX + 5, this.y + offsetY + 20);
         dashSkill.update(deltaTime);
         roomNum = MapRender.getRoomNum(mapX, mapY);
-        //System.out.println(roomNum);
         hitbox.draw(ctx);
     }
 
