@@ -54,14 +54,11 @@ public class DashSkill {
     public void inflictDamage(double deltaTime){
         collisionTimer += deltaTime;
         for (EnemyRender enemy : CanvasController.enemies) {
-            if(collisionTimer >= interval){
-                if (Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0) {
-                    EntityHandle.reduceEnemyHp(enemy,impactDamage);
+            if(collisionTimer >= interval && Shape.intersect(player.hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
+                if(EntityHandle.reduceEnemyHp(enemy,impactDamage)){
                     collisionTimer = 0;
                 }
             }
-
-
         }
     }
 }

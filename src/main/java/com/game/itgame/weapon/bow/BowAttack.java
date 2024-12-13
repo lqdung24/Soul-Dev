@@ -2,6 +2,7 @@ package com.game.itgame.weapon.bow;
 
 import com.game.itgame.entity.enemy.EnemyRender;
 import com.game.itgame.entity.player.Player;
+import com.game.itgame.util.GameSound;
 import com.game.itgame.weapon.Weapon;
 import com.game.itgame.weapon.arrow.Arrow;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,6 +52,7 @@ public abstract class BowAttack extends BowRender implements Weapon {
 
         ctx.getCanvas().setOnMouseClicked(e -> {
             if (onAttack && !isCoolDown) {
+                GameSound.playBow();
                 Arrow arrow = new Arrow(bowX , bowY, angle);
 
                 arrows.add(arrow);
@@ -79,5 +81,4 @@ public abstract class BowAttack extends BowRender implements Weapon {
             }
         }
     }
-
 }

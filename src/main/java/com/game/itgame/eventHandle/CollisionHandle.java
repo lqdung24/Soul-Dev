@@ -38,7 +38,6 @@ public class CollisionHandle {
     }
     public static boolean checkMoveable(int x){
         return (x == 0) || (x == 17) || (x == 18) || (x == 19)
-                || (x == 20) || (x == 21) || (x == 23)
-                || (x == 37) || (x == 38);
+                || (x == 20) || (x == 21) || (x >= 23);
     }
 }

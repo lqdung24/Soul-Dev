@@ -31,7 +31,7 @@ public abstract class SwordRender implements Weapon {
 
 //        Draw weapon.
         ctx.save();
-        ctx.translate(swordX, swordY);
+        ctx.translate(swordX-7, swordY+4);
         ctx.rotate(angle);
         ctx.drawImage(swordImage, swordIndex * 720, 0, 720, 720, -15, -39, 70, 70);
         ctx.restore();

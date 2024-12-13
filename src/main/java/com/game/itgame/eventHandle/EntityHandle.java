@@ -7,6 +7,7 @@ import com.game.itgame.entity.enemy.Mob1;
 import com.game.itgame.entity.item.Item;
 import com.game.itgame.entity.player.Player;
 import com.game.itgame.map.MapMove;
+import com.game.itgame.util.GameSound;
 import com.game.itgame.weapon.Aim;
 import com.game.itgame.weapon.arrow.Bullet;
 import javafx.scene.shape.Shape;
@@ -142,7 +143,9 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         }
 
         player.Hp -= hp;
-
+        if(hp > 0){
+            GameSound.playerHitted();
+        }
         if(player.Hp <= 0){
             player.Hp = 0;
             return;
@@ -171,11 +174,17 @@ public class EntityHandle { // điều khiển enemy tiến lại gần player
         return false;
     }
 
-    public static void reduceEnemyHp(EnemyRender enemy, int hp){
-        enemy.Hp -= hp;System.out.println(enemy.Hp);
+    public static boolean reduceEnemyHp(EnemyRender enemy, int hp){
+        if(enemy.stop || enemy.die || enemy.remove){
+            return false;
+        }
+        enemy.Hp -= hp;
+        System.out.println(enemy.Hp);
+        GameSound.playerHitted();
         if(enemy.Hp <= 0){
             enemy.Hp = 0;
             enemy.die = true;
         }
+        return true;
     }
 }

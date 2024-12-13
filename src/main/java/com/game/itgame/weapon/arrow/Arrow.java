@@ -12,6 +12,7 @@ import javafx.scene.shape.Shape;
 import java.util.Objects;
 
 public class Arrow extends FlyThings {
+    public int damage = 4;
     public Arrow(double x, double y, double angle) {
         super();
         arrowX = x;
@@ -31,13 +32,10 @@ public class Arrow extends FlyThings {
     @Override
     public void attack() {
         CanvasController.enemies.forEach(enemy -> {
-            if(enemy.stop || enemy.remove){
-                return;
-            }
             if(Shape.intersect(hitbox, enemy.hitbox).getBoundsInLocal().getWidth() > 0){
-                EntityHandle.reduceEnemyHp(enemy,2);
-                this.remove = true;
-                System.out.println(enemy.Hp);
+                if(EntityHandle.reduceEnemyHp(enemy,damage)){
+                    this.remove = true;
+                }
             }
         });
     }

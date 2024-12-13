@@ -81,17 +81,18 @@ public class CanvasController {
                 while (itE.hasNext()) {
                     EnemyRender e = itE.next();
                     e.update(deltaTime);
-                    if (e.remove) {
-                        itE.remove();
-                    }
                 }
 
                 FlyThings.bulletDraw(ctx, deltaTime);
+
                 iterator = chestList.iterator();
+
                 while (iterator.hasNext()) {
                     Chest chest = iterator.next();
-                    if (!chest.remove) {
-                        chest.update(deltaTime);
+                    chest.update(deltaTime);
+                    if(chest.remove) {
+                        iterator.remove();
+                        System.out.println("ok");
                     }
                 }
 
@@ -101,6 +102,7 @@ public class CanvasController {
                     healthPotion.update(deltaTime);
                     if (healthPotion.expired()) {
                         healthPotionIterator.remove();
+                        System.out.println("ok");
                     }
                 }
 
@@ -171,19 +173,26 @@ public class CanvasController {
             ctx.drawImage(GameImage.winScreen, 0, 0);
             ctx.restore();
 
-            if (KeyHandle.enter) {
+            if (KeyHandle.space) {
                 startCredit = true;
             }
         }else{
             ctx.clearRect(0, 0, 1200, 650);
             ctx.fillRect(0, 0, 1200, 650);
-            creditY -= 1.5;
+            creditY -= 1;
             if(creditY < 0){ creditY = 0; }
-            ctx.drawImage(GameImage.script, 0, 0, 411, 400, 600 - 400/2, creditY, 400, 600);
+            ctx.drawImage(GameImage.script, 0, 0, 1200, 650, 0, creditY, 1200, 650);
+            if(creditY > 5){
+                return;
+            }
             if(KeyHandle.esc){
                 Platform.exit();
             }else if(KeyHandle.enter){
-
+                ctx.clearRect(0, 0, 1200, 650);
+                win = false;
+                startCredit = false;
+                creditY = 650;
+                restart();
             }
         }
     }
