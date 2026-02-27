@@ -1,4 +1,4 @@
-# 🎮 ITGame
+# 🎮 Soul Dev
 
 > A 2D top-down action game built with **Java 17**, **JavaFX**, and **FXGL**.
 
@@ -6,7 +6,7 @@
 
 ## 📖 Giới thiệu
 
-**ITGame** là một game hành động nhìn từ trên xuống (top-down) được phát triển bằng Java thuần với thư viện JavaFX và game engine FXGL. Người chơi điều khiển nhân vật di chuyển trên bản đồ tile-based, chiến đấu với các loại kẻ thù khác nhau bằng nhiều loại vũ khí.
+**Soul Dev** là một game hành động nhìn từ trên xuống (top-down) được phát triển bằng Java thuần với thư viện JavaFX và game engine FXGL. Người chơi điều khiển nhân vật di chuyển trên bản đồ tile-based, chiến đấu với các loại kẻ thù khác nhau bằng nhiều loại vũ khí.
 
 ---
 
@@ -45,8 +45,8 @@
 ## 📁 Cấu trúc dự án
 
 ```
-ITGame/
-├── src/main/java/com/game/itgame/
+Soul Dev/
+├── src/main/java/com/game/Soul Dev/
 │   ├── controller/
 │   │   ├── CanvasController.java     # Controller chính của canvas game
 │   │   └── ClientController.java     # Controller client
@@ -100,7 +100,7 @@ ITGame/
     │   │   ├── Map/                  # Tile images (0.png → 23.png)
     │   │   └── Tilesets/             # Tileset đầy đủ
     │   └── cursorImage/              # Ảnh con trỏ tùy chỉnh
-    └── com/game/itgame/
+    └── com/game/Soul Dev/
         ├── canvas.fxml               # Layout canvas game
         └── client.fxml               # Layout client
 ```
